@@ -36,3 +36,9 @@ recursive-include docs *.txt
 recursive-include docs Makefile
 recursive-include invenio_config_tugraz *.html
 recursive-include tests *.py
+
+# added by check_manifest.py
+recursive-include invenio_config_tugraz *.crt
+recursive-include invenio_config_tugraz *.json
+recursive-include invenio_config_tugraz *.key
+recursive-include invenio_config_tugraz *.xml
