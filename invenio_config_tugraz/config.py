@@ -11,7 +11,7 @@
 # TODO: This is an example file. Remove it if your package does not use any
 # extra configuration variables.
 
-from invenio_saml.handlers import acs_handler_factory
+# from invenio_saml.handlers import acs_handler_factory
 
 """invenio-saml import"""
 
@@ -102,7 +102,7 @@ SSO_SAML_IDPS = {
             'org_name': 'urn:oid:CO-ORGUNITNAME',  # orgunitname
             'identifier': 'urn:oid:CO-IDENTNR-C-oid'  # oid:CO-IDENTNR-C-oid
         },
-        'acs_handler': acs_handler_factory('idp'),
+        # 'acs_handler': acs_handler_factory('idp'),
     }
 }
 

@@ -29,15 +29,6 @@ extras_require = {
     'docs': [
         'Sphinx>=1.5.1',
     ],
-    'mysql': [
-        'invenio-db[mysql]>=1.0.0',
-    ],
-    'postgresql': [
-        'invenio-db[postgresql]>=1.0.0',
-    ],
-    'sqlite': [
-        'invenio-db>=1.0.0',
-    ],
     'tests': tests_require,
 }
 
@@ -52,8 +43,8 @@ setup_requires = [
 
 install_requires = [
     'Flask-BabelEx>=0.9.4',
-    'flask-sso-saml>=0.1.0',
-    'invenio-accounts>=1.1.1',
+    # todo
+    # change to the release
     # 'invenio-saml @ git+https://github.com/mb-wali/invenio-saml@custom',
 ]
 
