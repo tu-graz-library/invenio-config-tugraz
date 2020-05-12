@@ -12,6 +12,7 @@
 # extra configuration variables.
 
 from invenio_saml.handlers import acs_handler_factory
+
 """invenio-saml import"""
 
 INVENIO_CONFIG_TUGRAZ_DEFAULT_VALUE = 'foobar'
