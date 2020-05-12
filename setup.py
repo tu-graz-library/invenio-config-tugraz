@@ -78,6 +78,9 @@ setup(
         'invenio_i18n.translations': [
             'messages = invenio_config_tugraz',
         ],
+        'invenio_config.module': [
+            'invenio_config_tugraz = invenio_config_tugraz.config',
+        ],
         # TODO: Edit these entry points to fit your needs.
         # 'invenio_access.actions': [],
         # 'invenio_admin.actions': [],
