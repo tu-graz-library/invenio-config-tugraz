@@ -11,6 +11,9 @@
 # TODO: This is an example file. Remove it if your package does not use any
 # extra configuration variables.
 
+from invenio_saml.handlers import acs_handler_factory
+"""invenio-saml import"""
+
 INVENIO_CONFIG_TUGRAZ_DEFAULT_VALUE = 'foobar'
 """Default value for the application."""
 
@@ -60,10 +63,6 @@ SECURITY_EMAIL_SUBJECT_REGISTER = 'Welcome to RDM!'
 MAIL_SUPPRESS_SEND = False
 
 # --------------- Shibboleth config
-from invenio_saml.handlers import acs_handler_factory
-
-"""invenio-saml import"""
-
 # set True if SAML is configured.
 SHIBBOLETH_ISACTIVE = 'False'
 
@@ -83,8 +82,10 @@ SSO_SAML_IDPS = {
         # sp settings
         'settings': {
             'sp': {
-                'NameIDFormat': 'urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified',
-                'entityId': 'https://invenio-dev01/shibboleth',
+                'NameIDFormat':
+                'urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified',
+                'entityId':
+                'https://invenio-dev01/shibboleth',
             },
         },
         # mapping
