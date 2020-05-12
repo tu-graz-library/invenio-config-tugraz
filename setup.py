@@ -29,6 +29,15 @@ extras_require = {
     'docs': [
         'Sphinx>=1.5.1',
     ],
+    'mysql': [
+        'invenio-db[mysql]>=1.0.0',
+    ],
+    'postgresql': [
+        'invenio-db[postgresql]>=1.0.0',
+    ],
+    'sqlite': [
+        'invenio-db>=1.0.0',
+    ],
     'tests': tests_require,
 }
 
