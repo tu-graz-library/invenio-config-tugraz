@@ -43,6 +43,7 @@ setup_requires = [
 
 install_requires = [
     'Flask-BabelEx>=0.9.4',
+    #'invenio-saml @ git+https://github.com/mb-wali/invenio-saml@custom',
 ]
 
 packages = find_packages()

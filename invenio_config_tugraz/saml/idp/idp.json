@@ -1,0 +1,22 @@
+
+    {
+
+        "strict": true,
+        "debug": true,
+                "idp": {
+                    "entityId": "https://sso.tugraz.at/idp/shibboleth",
+                    "singleLogoutService": {
+                        "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect",
+                        "url": "https://sso.tugraz.at/slo/Logout"
+                    },
+    
+                    "singleSignOnService": {
+                        "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect",
+                        "url": "https://sso.tugraz.at/idp/profile/SAML2/Redirect/SSO"
+                    },
+    
+                    "x509cert": "MIIDHzCCAgegAwIBAgIUG6ra0BvXswfyErcCDmzw3AV+uI0wDQYJKoZIhvcNAQEFBQAwGDEWMBQGA1UEAxMNc3NvLnR1Z3Jhei5hdDAeFw0xMDAzMjkxNzEzMTZaFw0zMDAzMjkxODEzMTZaMBgxFjAUBgNVBAMTDXNzby50dWdyYXouYXQwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCEyQxHIM1zxbBnXn60Ksg7B7HcPLPcN7bXLrLPOFXtkZxm0YkHY5Rxignm7wHD7C81U09DFS2eT8qRCcVtVz+kuwdgS54fC/alg9oLxXk4CgKjhtZZ2ECLdTHfUXOA5uOLlpoN1LY6VpIjSYe3UEX3HxfhXx/fPeE8VInGCKnml8Too22G30htB/EU44A2yqrR3LUngJIaq //N0QbeMYitNh02o6xB5+bp6k6noM7DH6S9phe0kCEibaiLaCf7k9LpNnAz9bPtQVth0gdJqoUry/iK1QBTFTEXvvJynFEp0+5Wz/XFmEcFhsaK8OcHd0R9FfpX5Z2fewA2Q0SLKz+bAgMBAAGjYTBfMD4GA1UdEQQ3MDWCDXNzby50dWdyYXouYXSGJGh0dHBzOi8vc3NvLnR1Z3Jhei5hdC9pZHAvc2hpYmJvbGV0aDAdBgNVHQ4EFgQUXd76PcSiXR6wFna5qQi+S0W/9Y0wDQYJKoZIhvcNAQEFBQADggEBACgkQqxBtYY1OcuoAUP/P+ukJW7XyofK89qs2dkGClx7s0hR/1zImWgljgfguLJOSfC/CWE1wfNK9bTi4Fu9809PmOoaCxkNmniFRAyaOiBoUz5XIpJniW7wBo+YBpBlXZXi5PmU2DOsfZxo7fs4se32dHO1WqgJodqkK2Wa4HDiigh42trZ9i3uS73uHSSCeIJYQNj84BMJ+ifgj3Zi/TgLS+IX7Ayy2bkDzIzIRnj7ULQ/MgfacGXQXJPHyp+w+YvydQalPAWc43+5DkNacN34K8cE3XjHq1kx/BgYOtQ7M2Xa1oApLzPoHO4D2kaf6FCgGR8Mx7GVAz0aQVxfB8I="
+    
+                }
+                
+    }

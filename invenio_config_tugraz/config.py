@@ -53,12 +53,73 @@ APP_DEFAULT_SECURE_HEADERS = {
     'strict_transport_security_preload': False,
 }
 
-# Mail server
+# --------------- Mail server
 MAIL_SERVER = '129.27.11.182'
 SECURITY_EMAIL_SENDER = 'info@invenio-rdm.tugraz.at'
 SECURITY_EMAIL_SUBJECT_REGISTER = 'Welcome to RDM!'
 MAIL_SUPPRESS_SEND = False
 
-# Shibboleth config
+# --------------- Shibboleth config
+from invenio_saml.handlers import acs_handler_factory
+
+"""invenio-saml import"""
+
 # set True if SAML is configured.
 SHIBBOLETH_ISACTIVE = 'False'
+
+SSO_SAML_IDPS = {
+
+    'idp': {
+        # settings.json or settings.xml
+        # Idp
+        "settings_file_path": "./saml/idp/idp.json",
+
+        # service provider
+        "sp_cert_file": "./saml/idp/cert/sp.crt",
+
+        # service provider private key
+        "sp_key_file": "./saml/idp/cert/sp.key",
+
+        # sp settings
+        'settings': {
+            'sp': {
+                'NameIDFormat': 'urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified',
+                'entityId': 'https://invenio-dev01/shibboleth',
+            },
+        },
+        # mapping
+        'mappings': {
+            # invenio # origin
+            'email': 'urn:oid:0.9.2342.19200300.100.1.3',
+            'username': 'urn:oid:2.5.4.42',  # Name
+            'full_name': 'urn:oid:2.5.4.4',  # Surname
+            'external_id': 'urn:oid:1.3.6.1.4.1.5923.1.1.1.6',
+
+            # Custom
+            'org_id': 'urn:oid:CO-ORGUNITID',  # orgunitid
+            'org_name': 'urn:oid:CO-ORGUNITNAME',  # orgunitname
+            'identifier': 'urn:oid:CO-IDENTNR-C-oid'  # oid:CO-IDENTNR-C-oid
+        },
+        'acs_handler': acs_handler_factory('idp'),
+    }
+}
+
+# Blueprint and routes default configuration
+SSO_SAML_DEFAULT_BLUEPRINT_PREFIX = '/shibboleth'
+"""Base URL for the extensions endpoint."""
+
+SSO_SAML_DEFAULT_METADATA_ROUTE = '/metadata/<idp>'
+"""URL route for the metadata request."""
+"""This is also SP entityID https://domain/shibboleth/metadata/<idp>"""
+
+SSO_SAML_DEFAULT_SSO_ROUTE = '/login/<idp>'
+"""URL route for the SP login."""
+
+SSO_SAML_DEFAULT_ACS_ROUTE = '/authorized/<idp>'
+"""URL route to handle the IdP login request."""
+
+SSO_SAML_DEFAULT_SLO_ROUTE = '/slo/<idp>'
+"""URL route for the SP logout."""
+
+SSO_SAML_DEFAULT_SLS_ROUTE = '/sls/<idp>'
+"""URL route to handle the IdP logout request."""
