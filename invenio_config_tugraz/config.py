@@ -65,7 +65,7 @@ MAIL_SUPPRESS_SEND = False
 
 # --------------- Shibboleth config
 # set True if SAML is configured.
-SHIBBOLETH_ISACTIVE = 'False'
+INVENIO_CONFIG_TUGRAZ_SHIBBOLETH = 'True'
 
 SSO_SAML_IDPS = {
 
@@ -103,7 +103,34 @@ SSO_SAML_IDPS = {
             'identifier': 'urn:oid:CO-IDENTNR-C-oid'  # oid:CO-IDENTNR-C-oid
         },
         # 'acs_handler': acs_handler_factory('idp'),
-    }
+    },
+
+    'onelogin': {
+        # settings.json or settings.xml
+        # Idp
+        "settings_file_path": "./saml/onelogin/onelogin.json",
+
+        # service provider
+        "sp_cert_file": "./saml/onelogin/cert/sp.crt",
+
+        # service provider private key
+        "sp_key_file": "./saml/onelogin/cert/sp.key",
+
+        # mappings
+        "mappings": {
+
+            # invenio  #origin
+            "email": "email",
+            "username": "username",
+            "full_name": "full_name",
+            "external_id": "external_id"
+        },
+
+        # remove this line
+        #'acs_handler': acs_handler_factory('onelogin'),
+
+    },
+
 }
 
 # Blueprint and routes default configuration

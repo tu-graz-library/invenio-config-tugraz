@@ -1,0 +1,20 @@
+{
+
+    "strict": true,
+    "debug": true,
+			"idp": {
+				"entityId": "https://app.onelogin.com/saml/metadata/01661574-91ed-4735-a3b9-f4ddebb2cbb8",
+				"singleLogoutService": {
+					"binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect",
+					"url": "https://tugraz-dev.onelogin.com/trust/saml2/http-redirect/slo/1070112"
+				},
+
+				"singleSignOnService": {
+					"binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect",
+					"url": "https://tugraz-dev.onelogin.com/trust/saml2/http-post/sso/01661574-91ed-4735-a3b9-f4ddebb2cbb8"
+				},
+
+				"x509cert": "MIID2DCCAsCgAwIBAgIUWRGl84DFd+GbLYt0BmwyI+FCKVIwDQYJKoZIhvcNAQEFBQAwRDEPMA0GA1UECgwGVFVHUkFaMRUwEwYDVQQLDAxPbmVMb2dpbiBJZFAxGjAYBgNVBAMMEU9uZUxvZ2luIEFjY291bnQgMB4XDTIwMDEyODEwNDI1M1oXDTI1MDEyODEwNDI1M1owRDEPMA0GA1UECgwGVFVHUkFaMRUwEwYDVQQLDAxPbmVMb2dpbiBJZFAxGjAYBgNVBAMMEU9uZUxvZ2luIEFjY291bnQgMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAve5a++I/VHC22fMk5v8GwCvdIyiziOwGjq0XXyjTg9TyhHJZbfDXa7S0NjK7dK4+d3iaB3MvCpnr+7H2J2Cohracgy2BQz9Z4BqsjDat016zkAPoID9R6osliqocw1jESnyL59OJWftAiA4rFmQs6v/b56vgre8EP6qKbykq6mWvepGyBbfjRsYbFoIDmnW8kJoZtLMDQfTBvEF2veHDt9EbsWP+hyedMYTWCfsbTHhFKNrhRKr3m3k+w6Zsca2zp3A8xiFv0fcl6PglEwEZz2Iwb0ySifaf4ZLDVjSekpCLf29doBJYUeE5TUP8oHfATOcWW+m5D3MXVcMUax+AFwIDAQABo4HBMIG+MAwGA1UdEwEB/wQCMAAwHQYDVR0OBBYEFK4GHoSfnMQKb8RjP2HrGzJ4ICiDMH8GA1UdIwR4MHaAFK4GHoSfnMQKb8RjP2HrGzJ4ICiDoUikRjBEMQ8wDQYDVQQKDAZUVUdSQVoxFTATBgNVBAsMDE9uZUxvZ2luIElkUDEaMBgGA1UEAwwRT25lTG9naW4gQWNjb3VudCCCFFkRpfOAxXfhmy2LdAZsMiPhQilSMA4GA1UdDwEB/wQEAwIHgDANBgkqhkiG9w0BAQUFAAOCAQEAUg7UHFju0QA7ubcSLBuvEMUQL9jxtzDi0ndSi8qqtLJSjBalcfll0X/gI+sAMGMd0MW7P3abOVVfGBSlZN01KCPC2WHKRwzyO3sOCatkPrn2SYthQWHD/W7psyFgoDt5lQNijLyZdpvZbRIotxcWpoaTcBzaArd/0MNe1VaGlLK5GeqtbwL+dQD+O3mtSUfF918qeiOHEwI7nfPo7vjUyRT8Ov1loqP5+A0/R1CyL0Dh/tVdIkOHx6EjrIXsb/K6xXPknYZqPApPkZq514ZCEPhAILFU+5R/cQMZMZEacCdKuQ9XMkR8bqnh8xu620SCYiSVPXtVW4bpXKs0nJazBQ=="
+
+			}
+}
