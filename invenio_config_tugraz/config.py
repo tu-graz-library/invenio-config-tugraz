@@ -127,7 +127,7 @@ SSO_SAML_IDPS = {
         },
 
         # remove this line
-        #'acs_handler': acs_handler_factory('onelogin'),
+        # 'acs_handler': acs_handler_factory('onelogin'),
 
     },
 
