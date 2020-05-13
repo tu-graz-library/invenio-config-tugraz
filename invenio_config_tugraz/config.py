@@ -134,7 +134,7 @@ SSO_SAML_IDPS = {
 
         },
 
-        # 'acs_handler': acs_handler_factory('idp'),
+         'acs_handler': acs_handler_factory('idp'),
 
     },
     # onelogin
