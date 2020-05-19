@@ -59,7 +59,8 @@ APP_DEFAULT_SECURE_HEADERS = {
 
 # --------------- Mail server
 MAIL_SERVER = '129.27.11.182'
-SECURITY_EMAIL_SENDER = 'info@invenio-rdm.tugraz.at'
+# SECURITY_EMAIL_SENDER = 'info@invenio-rdm.tugraz.at' # does not work
+SECURITY_EMAIL_SENDER = "info@invenio-test.tugraz.at"
 SECURITY_EMAIL_SUBJECT_REGISTER = 'Welcome to RDM!'
 MAIL_SUPPRESS_SEND = False
 
