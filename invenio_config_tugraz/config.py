@@ -8,9 +8,6 @@
 
 """invenio module that adds tugraz configs."""
 
-# TODO: This is an example file. Remove it if your package does not use any
-# extra configuration variables.
-
 from invenio_saml.handlers import acs_handler_factory
 
 """invenio-saml import"""
@@ -21,15 +18,18 @@ INVENIO_CONFIG_TUGRAZ_DEFAULT_VALUE = 'foobar'
 INVENIO_CONFIG_TUGRAZ_BASE_TEMPLATE = 'invenio_config_tugraz/base.html'
 """Default base template for the demo page."""
 
-# Allowed Hosts
 APP_ALLOWED_HOSTS = ['0.0.0.0',
                      'localhost',
                      '127.0.0.1',
                      'invenio-dev01.tugraz.at',
                      'invenio-test.tugraz.at'
                      ]
+"""Allowed Hosts"""
 
-# Allow the statics to build
+# Invenio-App
+# ===========
+# See https://invenio-app.readthedocs.io/en/latest/configuration.html
+
 APP_DEFAULT_SECURE_HEADERS = {
     'content_security_policy': {
         'default-src': [
@@ -57,16 +57,46 @@ APP_DEFAULT_SECURE_HEADERS = {
     'strict_transport_security_preload': False,
 }
 
-# --------------- Mail server
-MAIL_SERVER = '129.27.11.182'
-# SECURITY_EMAIL_SENDER = 'info@invenio-rdm.tugraz.at' # does not work
-SECURITY_EMAIL_SENDER = "info@invenio-test.tugraz.at"
-SECURITY_EMAIL_SUBJECT_REGISTER = 'Welcome to RDM!'
-MAIL_SUPPRESS_SEND = False
+# Invenio-Mail
+# ===========
+# See https://invenio-mail.readthedocs.io/en/latest/configuration.html
 
-# --------------- Shibboleth config
-# set True if SAML is configured.
+MAIL_SERVER = '129.27.11.182'
+"""Domain ip where mail server is running."""
+
+SECURITY_EMAIL_SENDER = "info@invenio-test.tugraz.at"
+"""Email address used as sender of account registration emails."""
+"""Domain name should match the domain used in web server."""
+
+SECURITY_EMAIL_SUBJECT_REGISTER = _("Welcome to RDM!")
+"""Email subject for account registration emails."""
+
+MAIL_SUPPRESS_SEND = False
+"""Enable email sending by default."""
+
+# CORS - Cross-origin resource sharing
+# ===========
+# Uncomment to enable the CORS
+
+#CORS_RESOURCES = '*'
+#CORS_SEND_WILDCARD = True
+#CORS_EXPOSE_HEADERS = [
+#    'ETag',
+#    'Link',
+#    'X-RateLimit-Limit',
+#    'X-RateLimit-Remaining',
+#    'X-RateLimit-Reset',
+#    'Content-Type',
+#]
+#REST_ENABLE_CORS = True
+
+
+# Invenio-saml
+# ===========
+# 
+
 INVENIO_CONFIG_TUGRAZ_SHIBBOLETH = 'True'
+"""Set True if SAML is configured"""
 
 SSO_SAML_IDPS = {
 
@@ -196,7 +226,12 @@ SSO_SAML_IDPS = {
             "email": "email",
             "username": "username",
             "full_name": "full_name",
-            "external_id": "external_id"
+            "external_id": "external_id",
+
+            # Custom
+            'org_id': 'urn:oid:CO-ORGUNITID',  # orgunitid
+            'org_name': 'urn:oid:CO-ORGUNITNAME',  # orgunitname
+            'identifier': 'urn:oid:CO-IDENTNR-C-oid'  # oid:CO-IDENTNR-C-oid
         },
 
         # remove this line
