@@ -230,9 +230,9 @@ SSO_SAML_IDPS = {
             "external_id": "external_id",
 
             # Custom
-            'org_id': 'urn:oid:CO-ORGUNITID',  # orgunitid
-            'org_name': 'urn:oid:CO-ORGUNITNAME',  # orgunitname
-            'identifier': 'urn:oid:CO-IDENTNR-C-oid'  # oid:CO-IDENTNR-C-oid
+            # 'org_id': 'urn:oid:CO-ORGUNITID',  # orgunitid
+            # 'org_name': 'urn:oid:CO-ORGUNITNAME',  # orgunitname
+            # 'identifier': 'urn:oid:CO-IDENTNR-C-oid'  # oid:CO-IDENTNR-C-oid
         },
 
         # remove this line
