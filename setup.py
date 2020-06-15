@@ -45,7 +45,7 @@ install_requires = [
     'Flask-BabelEx>=0.9.4',
     # todo
     # change to the release
-    # 'invenio-saml @ git+https://github.com/mb-wali/invenio-saml@custom',
+    'invenio-saml @ git+https://github.com/mb-wali/invenio-saml@custom',
 ]
 
 packages = find_packages()
