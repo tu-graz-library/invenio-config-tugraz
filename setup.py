@@ -45,8 +45,8 @@ install_requires = [
     'Flask-BabelEx>=0.9.4',
     # todo
     # change to the release
-    # this branch will install flask-sso-saml@slo
-    'invenio-saml @ git+https://github.com/mb-wali/invenio-saml@tugraz',
+    # this branch will install flask-sso-saml@custom
+    'invenio-saml @ git+https://github.com/mb-wali/invenio-saml@custom',
 
 ]
 
