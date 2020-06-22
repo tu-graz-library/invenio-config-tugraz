@@ -156,8 +156,8 @@ SSO_SAML_IDPS = {
         'mappings': {
             # invenio # origin
             'email': 'urn:oid:0.9.2342.19200300.100.1.3',
-            'username': 'urn:oid:2.5.4.42',  # Name
-            'full_name': 'urn:oid:2.5.4.4',  # Surname
+            'surname': 'urn:oid:2.5.4.42',
+            'name': 'urn:oid:2.5.4.4',
             'external_id': 'urn:oid:1.3.6.1.4.1.5923.1.1.1.6',
 
             # Custom
@@ -226,8 +226,8 @@ SSO_SAML_IDPS = {
 
             # invenio  #origin
             "email": "email",
-            "username": "username",
-            "full_name": "full_name",
+            "surname": "username",
+            "name": "full_name",
             "external_id": "external_id",
 
             # Custom
