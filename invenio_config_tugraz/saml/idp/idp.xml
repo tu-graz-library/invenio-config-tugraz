@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" entityID="https://sso.tugraz.at/idp/shibboleth">
+  <md:IDPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+    <md:KeyDescriptor use="signing">
+      <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+        <ds:X509Data>
+          <ds:X509Certificate>MIIDHzCCAgegAwIBAgIUG6ra0BvXswfyErcCDmzw3AV+uI0wDQYJKoZIhvcNAQEFBQAwGDEWMBQGA1UEAxMNc3NvLnR1Z3Jhei5hdDAeFw0xMDAzMjkxNzEzMTZaFw0zMDAzMjkxODEzMTZaMBgxFjAUBgNVBAMTDXNzby50dWdyYXouYXQwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCEyQxHIM1zxbBnXn60Ksg7B7HcPLPcN7bXLrLPOFXtkZxm0YkHY5Rxignm7wHD7C81U09DFS2eT8qRCcVtVz+kuwdgS54fC/alg9oLxXk4CgKjhtZZ2ECLdTHfUXOA5uOLlpoN1LY6VpIjSYe3UEX3HxfhXx/fPeE8VInGCKnml8Too22G30htB/EU44A2yqrR3LUngJIaq//N0QbeMYitNh02o6xB5+bp6k6noM7DH6S9phe0kCEibaiLaCf7k9LpNnAz9bPtQVth0gdJqoUry/iK1QBTFTEXvvJynFEp0+5Wz/XFmEcFhsaK8OcHd0R9FfpX5Z2fewA2Q0SLKz+bAgMBAAGjYTBfMD4GA1UdEQQ3MDWCDXNzby50dWdyYXouYXSGJGh0dHBzOi8vc3NvLnR1Z3Jhei5hdC9pZHAvc2hpYmJvbGV0aDAdBgNVHQ4EFgQUXd76PcSiXR6wFna5qQi+S0W/9Y0wDQYJKoZIhvcNAQEFBQADggEBACgkQqxBtYY1OcuoAUP/P+ukJW7XyofK89qs2dkGClx7s0hR/1zImWgljgfguLJOSfC/CWE1wfNK9bTi4Fu9809PmOoaCxkNmniFRAyaOiBoUz5XIpJniW7wBo+YBpBlXZXi5PmU2DOsfZxo7fs4se32dHO1WqgJodqkK2Wa4HDiigh42trZ9i3uS73uHSSCeIJYQNj84BMJ+ifgj3Zi/TgLS+IX7Ayy2bkDzIzIRnj7ULQ/MgfacGXQXJPHyp+w+YvydQalPAWc43+5DkNacN34K8cE3XjHq1kx/BgYOtQ7M2Xa1oApLzPoHO4D2kaf6FCgGR8Mx7GVAz0aQVxfB8I=</ds:X509Certificate>
+        </ds:X509Data>
+      </ds:KeyInfo>
+    </md:KeyDescriptor>
+    <md:KeyDescriptor use="encryption">
+      <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+        <ds:X509Data>
+          <ds:X509Certificate>MIICxjBABgkqhkiG9w0BBQ0wMzAbBgkqhkiG9w0BBQwwDgQIHxNp8P2PsV8CAggAMBQGCCqGSIb3DQMHBAjOyik6fsEC3gSCAoC4tFsYAl4GexyXESiRKpOQzHQNFtQtwDEevT1IKgsafSNjOMJZLKrnoejNoxEQUPPPXgGEd83Fmp2cSHm+YVksH06zcsA+RKf5ab6t0bsgcyljGzkHEDQtMRPcaXNlVMbU9VEDOX26MgmlU/pd+GGfE99IbEFc6qN1e7qOnmKSw93Q3o05ubO3wEI76JhOioGGXB3pEn8f4XLDwck0thzYD6H2vdF+kyIdM8w1BgyLdeP0aDkfG1V3rLGhE8246rwVUzRSZv6BCNBZFk7YO1d7j0+BDxnbHFS631zdCgMcd/XS8u6acc3IYr/bQLH4a1y0X3Z+8ks8arEgUtXqYx9wMlp5lajlsr9JDIU5OnuZ2XY+4sqDQsTZPjBpxK8oMjvJNNatnTf+18htkTdovpInlP7xpEjp1L7H74iKY25UsAZ9e+gqHZwILnk418mQ1E4JYU6JRUZspJSFfqwn9FL6DnvhzPIhtzwhr3eL4f4RXWxxe2xCzvWg+GaWuMfZdj77SV4pMOi7vb3HlYY6luShVlYKdSaw+jf6XVy4ZMTWT5wcE1mc3tAJqF18Mi8amOetpZhz16ISOKnO0rKrfmxteNPQn2AB8QquGGn050PTW4m8zFXDBiyg2xvcRLAW/8ych3k+pkEZi4tVCkLcHM56J/XUEKMCxiSok+vbzxfVf1D2vYFFS7Lw1nP5RnLKFdn8XdHQ+lu2diod18wYBQP4eoU+XjjP2zjlpULiWHt7PpCERqGg7H2Z2amIL5rTeqQuyXczw1/xG/VBNn9qe3DXFodvoV6OZb3efNT/eJgOyaPLi2FmB7Kpdp4JIdJgLnaBCwNBXkpGSwb732O/cug8</ds:X509Certificate>
+        </ds:X509Data>
+      </ds:KeyInfo>
+    </md:KeyDescriptor>
+    <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://sso.tugraz.at/slo/Logout"/>
+    <md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</md:NameIDFormat>
+    <md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://sso.tugraz.at/idp/profile/SAML2/Redirect/SSO"/>
+  </md:IDPSSODescriptor>
+  <md:ContactPerson contactType="technical">
+    <md:GivenName>Administrator</md:GivenName>
+    <md:EmailAddress>admin@example.org</md:EmailAddress>
+  </md:ContactPerson>
+</md:EntityDescriptor>

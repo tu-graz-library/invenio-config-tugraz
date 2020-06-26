@@ -43,6 +43,11 @@ setup_requires = [
 
 install_requires = [
     'Flask-BabelEx>=0.9.4',
+    # todo
+    # change to the release
+    # this branch will install flask-sso-saml@behind-loadbalancer
+    'invenio-saml @ git+https://github.com/mb-wali/invenio-saml@tugraz',
+
 ]
 
 packages = find_packages()
