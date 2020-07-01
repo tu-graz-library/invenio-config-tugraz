@@ -29,6 +29,15 @@ extras_require = {
     'docs': [
         'Sphinx>=1.5.1',
     ],
+    'mysql': [
+        'invenio-db[mysql]>=1.0.0',
+    ],
+    'postgresql': [
+        'invenio-db[postgresql]>=1.0.0',
+    ],
+     'sqlite': [
+        'invenio-db>=1.0.0',
+    ],
     'tests': tests_require,
 }
 
@@ -43,6 +52,7 @@ setup_requires = [
 
 install_requires = [
     'Flask-BabelEx>=0.9.4',
+    'invenio_oauthclient>=1.2.1',
     # todo
     # change to the release
     # this branch will install flask-sso-saml@behind-loadbalancer
