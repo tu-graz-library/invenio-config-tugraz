@@ -9,20 +9,22 @@
  invenio-config-tugraz
 =======================
 
-.. image:: https://img.shields.io/travis/https://github.com/https://github.com/mb-.svg
-        :target: https://travis-ci.org/https://github.com/https://github.com/mb-
-
-.. image:: https://img.shields.io/coveralls/https://github.com/https://github.com/mb-.svg
-        :target: https://coveralls.io/r/https://github.com/https://github.com/mb-
-
-.. image:: https://img.shields.io/github/tag/https://github.com/https://github.com/mb-.svg
-        :target: https://github.com/https://github.com/https://github.com/mb-/releases
+.. image:: https://img.shields.io/travis/inveniosoftware/invenio-config-tugraz.svg
+        :target: https://travis-ci.com/github/mb-wali/invenio-config-tugraz
 
 .. image:: https://img.shields.io/pypi/dm/invenio-config-tugraz.svg
         :target: https://pypi.python.org/pypi/invenio-config-tugraz
 
-.. image:: https://img.shields.io/github/license/https://github.com/https://github.com/mb-.svg
-        :target: https://github.com/https://github.com/https://github.com/mb-/blob/master/LICENSE
+.. image:: https://img.shields.io/github/tag/mb-wali/invenio-config-tugraz.svg
+        :target: https://github.com/mb-wali/invenio-config-tugraz/releases
+
+.. image:: https://img.shields.io/github/license/mb-wali/invenio-config-tugraz.svg
+        :target: https://github.com/mb-wali/invenio-config-tugraz/blob/master/LICENSE
+
+.. image:: https://readthedocs.org/projects/invenio-config-tugraz/badge/?version=latest
+        :target: https://invenio-theme-tugraz.readthedocs.io/en/latest/?badge=latest
+.. image:: https://coveralls.io/repos/github/mb-wali/invenio-config-tugraz/badge.svg?branch=master
+        :target: https://coveralls.io/github/mb-wali/invenio-config-tugraz?branch=master
 
 invenio module that adds tugraz configs.
 
