@@ -18,7 +18,7 @@ history = open('CHANGES.rst').read()
 tests_require = [
     'check-manifest>=0.25',
     'coverage>=4.0',
-    'isort>=4.3.3',
+    'isort>=4.3.3, <5.0.0',
     'pydocstyle>=2.0.0',
     'pytest-cov>=2.5.1',
     'pytest-pep8>=1.0.6',
@@ -56,7 +56,7 @@ install_requires = [
     # todo
     # change to the release
     # this branch will install flask-sso-saml@behind-loadbalancer
-    'invenio-saml @ git+https://github.com/mb-wali/invenio-saml@tugraz',
+    'invenio-shibboleth>=0.0.1',
 
 ]
 
