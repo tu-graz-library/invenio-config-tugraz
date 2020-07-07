@@ -53,9 +53,6 @@ setup_requires = [
 install_requires = [
     'Flask-BabelEx>=0.9.4',
     'invenio_oauthclient>=1.2.1',
-    # todo
-    # change to the release
-    # this branch will install flask-sso-saml@behind-loadbalancer
     'invenio-shibboleth>=0.0.1',
 
 ]
@@ -74,7 +71,7 @@ setup(
     version=version,
     description=__doc__,
     long_description=readme + '\n\n' + history,
-    keywords='invenio TODO',
+    keywords='invenio, config, Tu Graz',
     license='MIT',
     author='Mojib Wali',
     author_email='mojib.wali@tugraz.at',
