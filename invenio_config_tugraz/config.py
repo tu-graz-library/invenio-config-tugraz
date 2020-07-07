@@ -9,7 +9,7 @@
 """invenio module that adds tugraz configs."""
 
 from flask_babelex import gettext as _
-from invenio_saml.handlers import acs_handler_factory
+from invenio_shibboleth.handlers import acs_handler_factory
 
 """invenio-saml import"""
 

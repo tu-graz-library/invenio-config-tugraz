@@ -10,7 +10,7 @@ Types of Contributions
 Report Bugs
 ~~~~~~~~~~~
 
-Report bugs at https://github.com/https://github.com/https://github.com/mb-/issues.
+Report bugs at https://github.com/mb-wali/invenio-config-tugraz/issues.
 
 If you are reporting a bug, please include:
 
@@ -41,7 +41,7 @@ Submit Feedback
 ~~~~~~~~~~~~~~~
 
 The best way to send feedback is to file an issue at
-https://github.com/https://github.com/https://github.com/mb-/issues.
+https://github.com/mb-wali/invenio-config-tugraz/issues.
 
 If you are proposing a feature:
 
