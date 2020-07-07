@@ -22,7 +22,8 @@
         :target: https://github.com/mb-wali/invenio-config-tugraz/blob/master/LICENSE
 
 .. image:: https://readthedocs.org/projects/invenio-config-tugraz/badge/?version=latest
-        :target: https://invenio-theme-tugraz.readthedocs.io/en/latest/?badge=latest
+        :target: https://invenio-config-tugraz.readthedocs.io/en/latest/?badge=latest
+        
 .. image:: https://coveralls.io/repos/github/mb-wali/invenio-config-tugraz/badge.svg?branch=master
         :target: https://coveralls.io/github/mb-wali/invenio-config-tugraz?branch=master
 
