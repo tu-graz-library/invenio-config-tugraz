@@ -53,7 +53,6 @@ setup_requires = [
 install_requires = [
     'Flask-BabelEx>=0.9.4',
     'invenio_oauthclient>=1.2.1',
-    'invenio-shibboleth>=0.0.1',
 
 ]
 
