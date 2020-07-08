@@ -16,6 +16,11 @@ INVENIO_CONFIG_TUGRAZ_DEFAULT_VALUE = 'foobar'
 INVENIO_CONFIG_TUGRAZ_BASE_TEMPLATE = 'invenio_config_tugraz/base.html'
 """Default base template for the demo page."""
 
+
+# Invenio-App
+# ===========
+# See https://invenio-app.readthedocs.io/en/latest/configuration.html
+
 APP_ALLOWED_HOSTS = ['0.0.0.0',
                      'localhost',
                      '127.0.0.1',
@@ -23,10 +28,6 @@ APP_ALLOWED_HOSTS = ['0.0.0.0',
                      'invenio-test.tugraz.at'
                      ]
 """Allowed Hosts"""
-
-# Invenio-App
-# ===========
-# See https://invenio-app.readthedocs.io/en/latest/configuration.html
 
 APP_DEFAULT_SECURE_HEADERS = {
     'content_security_policy': {
@@ -89,11 +90,11 @@ MAIL_SUPPRESS_SEND = False
 # REST_ENABLE_CORS = True
 
 
-# Invenio-saml
+# Invenio-shibboleth
 # ===========
-#
+# See https://invenio-shibboleth.readthedocs.io/en/latest/configuration.html
 
-INVENIO_CONFIG_TUGRAZ_SHIBBOLETH = 'True'
+INVENIO_CONFIG_TUGRAZ_SHIBBOLETH = True
 """Set True if SAML is configured"""
 
 USERPROFILES_EXTEND_SECURITY_FORMS = True
@@ -120,3 +121,23 @@ SSO_SAML_DEFAULT_SLO_ROUTE = '/slo/<idp>'
 
 SSO_SAML_DEFAULT_SLS_ROUTE = '/sls/<idp>'
 """URL route to handle the IdP logout request."""
+
+# Invenio-accounts
+# ===========
+# See https://invenio-accounts.readthedocs.io/en/latest/configuration.html
+
+SECURITY_CHANGEABLE = False
+"""Allow password change by users."""
+
+SECURITY_RECOVERABLE = False
+"""Allow password recovery by users."""
+
+SECURITY_REGISTERABLE = True
+""""Allow users to register.
+
+With this variable set to "False" users will not be
+able to register, or to navigate to /sigup page.
+"""
+
+SECURITY_CONFIRMABLE = False
+"""Allow user to confirm their email address."""
