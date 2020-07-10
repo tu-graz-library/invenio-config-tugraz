@@ -29,7 +29,12 @@
 
 invenio module that adds tugraz configs.
 
-TODO: Please provide feature overview of module
+Override configs from diffrent invenio modules to meet TU Graz requirement:
+
+* Invenio-App
+* Invenio-Mail
+* Invenio-shibboleth
+* Invenio-accounts
 
 Further documentation is available on
 https://invenio-config-tugraz.readthedocs.io/
