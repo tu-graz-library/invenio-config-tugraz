@@ -98,7 +98,11 @@ INVENIO_CONFIG_TUGRAZ_SHIBBOLETH = True
 """Set True if SAML is configured"""
 
 USERPROFILES_EXTEND_SECURITY_FORMS = True
-"""Set True in order to register user_profile"""
+"""Set True in order to register user_profile.
+
+This also forces user to add username and fullname
+when register.
+"""
 
 SSO_SAML_IDPS = {}
 """Configuration of IDPS. Actually values can be find in to invenio.cfg file"""
