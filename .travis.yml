@@ -33,7 +33,6 @@ python:
 
 before_install:
   - "nvm install 6; nvm use 6"
-  - "sudo apt-get install -y libxml2-dev libxmlsec1-dev"
   - "travis_retry pip install --upgrade pip setuptools py"
   - "travis_retry pip install twine wheel coveralls requirements-builder"
   - "requirements-builder -e all --level=min setup.py > .travis-lowest-requirements.txt"
@@ -51,13 +50,15 @@ after_success:
   - coveralls
 
 deploy:
+  skip_cleanup: true
+  skip_existing: true
   provider: pypi
-  user: inveniosoftware
+  username: __token__
   password:
-    secure: TODO:PYPISECUREHASH
-  distributions: "compile_catalog sdist bdist_wheel"
+    secure: Token here
+  distributions: sdist bdist_wheel
   on:
     tags: true
     python: "3.6"
-    repo: https://github.com/mb-wali/invenio-config-tugraz
+    repo: mb-wali/invenio-config-tugraz
     condition: $DEPLOY = true

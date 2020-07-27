@@ -20,7 +20,6 @@ from flask import Flask
 from flask_babelex import Babel
 
 from invenio_config_tugraz import invenioconfigtugraz
-from invenio_config_tugraz.views import blueprint
 
 
 @pytest.fixture(scope='module')
@@ -40,6 +39,5 @@ def create_app(instance_path):
         app.config.update(**config)
         Babel(app)
         invenioconfigtugraz(app)
-        app.register_blueprint(blueprint)
         return app
     return factory

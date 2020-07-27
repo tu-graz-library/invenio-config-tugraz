@@ -10,12 +10,8 @@
 
 from flask_babelex import gettext as _
 
-INVENIO_CONFIG_TUGRAZ_DEFAULT_VALUE = 'foobar'
-"""Default value for the application."""
-
-INVENIO_CONFIG_TUGRAZ_BASE_TEMPLATE = 'invenio_config_tugraz/base.html'
-"""Default base template for the demo page."""
-
+INVENIO_CONFIG_TUGRAZ_SHIBBOLETH = True
+"""Set True if SAML is configured"""
 
 # Invenio-App
 # ===========
@@ -93,9 +89,6 @@ MAIL_SUPPRESS_SEND = False
 # Invenio-shibboleth
 # ===========
 # See https://invenio-shibboleth.readthedocs.io/en/latest/configuration.html
-
-INVENIO_CONFIG_TUGRAZ_SHIBBOLETH = True
-"""Set True if SAML is configured"""
 
 USERPROFILES_EXTEND_SECURITY_FORMS = True
 """Set True in order to register user_profile.

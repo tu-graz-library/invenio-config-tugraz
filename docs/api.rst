@@ -11,9 +11,3 @@ API Docs
 
 .. automodule:: invenio_config_tugraz.ext
    :members:
-
-Views
------
-
-.. automodule:: invenio_config_tugraz.views
-   :members:

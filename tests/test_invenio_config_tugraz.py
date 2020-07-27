@@ -30,10 +30,3 @@ def test_init():
     assert 'invenio-config-tugraz' not in app.extensions
     ext.init_app(app)
     assert 'invenio-config-tugraz' in app.extensions
-
-
-def test_view(base_client):
-    """Test view."""
-    res = base_client.get("/")
-    assert res.status_code == 200
-    assert 'Welcome to invenio-config-tugraz' in str(res.data)
