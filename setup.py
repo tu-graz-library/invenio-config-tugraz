@@ -16,27 +16,12 @@ readme = open('README.rst').read()
 history = open('CHANGES.rst').read()
 
 tests_require = [
-    'check-manifest>=0.25',
-    'coverage>=4.0',
-    'isort>=4.3.3, <5.0.0',
-    'pydocstyle>=2.0.0',
-    'pytest-cov>=2.5.1',
-    'pytest-pep8>=1.0.6',
-    'pytest-invenio>=1.2.1',
+    'pytest-invenio>=1.3.2',
 ]
 
 extras_require = {
     'docs': [
         'Sphinx>=1.5.1',
-    ],
-    'mysql': [
-        'invenio-db[mysql]>=1.0.0',
-    ],
-    'postgresql': [
-        'invenio-db[postgresql]>=1.0.0',
-    ],
-     'sqlite': [
-        'invenio-db>=1.0.0',
     ],
     'tests': tests_require,
 }
@@ -52,7 +37,6 @@ setup_requires = [
 
 install_requires = [
     'Flask-BabelEx>=0.9.4',
-    'invenio_oauthclient>=1.2.1',
 
 ]
 
@@ -83,26 +67,12 @@ setup(
         'invenio_base.apps': [
             'invenio_config_tugraz = invenio_config_tugraz:invenioconfigtugraz',
         ],
-        'invenio_base.blueprints': [
-            'invenio_config_tugraz = invenio_config_tugraz.views:blueprint',
-        ],
         'invenio_i18n.translations': [
             'messages = invenio_config_tugraz',
         ],
         'invenio_config.module': [
             'invenio_config_tugraz = invenio_config_tugraz.config',
         ],
-        # TODO: Edit these entry points to fit your needs.
-        # 'invenio_access.actions': [],
-        # 'invenio_admin.actions': [],
-        # 'invenio_assets.bundles': [],
-        # 'invenio_base.api_apps': [],
-        # 'invenio_base.api_blueprints': [],
-        # 'invenio_base.blueprints': [],
-        # 'invenio_celery.tasks': [],
-        # 'invenio_db.models': [],
-        # 'invenio_pidstore.minters': [],
-        # 'invenio_records.jsonresolver': [],
     },
     extras_require=extras_require,
     install_requires=install_requires,
@@ -120,6 +90,6 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
-        'Development Status :: 1 - Planning',
+        'Development Status :: 3 - Alpha',
     ],
 )
