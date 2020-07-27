@@ -9,7 +9,7 @@
  invenio-config-tugraz
 =======================
 
-.. image:: https://img.shields.io/travis/inveniosoftware/invenio-config-tugraz.svg
+.. image:: https://travis-ci.com/mb-wali/invenio-config-tugraz.svg
         :target: https://travis-ci.com/github/mb-wali/invenio-config-tugraz
 
 .. image:: https://img.shields.io/pypi/dm/invenio-config-tugraz.svg
@@ -24,8 +24,8 @@
 .. image:: https://readthedocs.org/projects/invenio-config-tugraz/badge/?version=latest
         :target: https://invenio-config-tugraz.readthedocs.io/en/latest/?badge=latest
         
-.. image:: https://coveralls.io/repos/github/mb-wali/invenio-config-tugraz/badge.svg?branch=master
-        :target: https://coveralls.io/github/mb-wali/invenio-config-tugraz?branch=master
+.. image:: https://img.shields.io/coveralls/mb-wali/invenio-config-tugraz.svg
+        :target: https://coveralls.io/r/mb-wali/invenio-config-tugraz
 
 invenio module that adds tugraz configs.
 
