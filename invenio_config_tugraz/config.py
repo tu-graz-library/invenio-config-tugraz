@@ -56,7 +56,7 @@ APP_DEFAULT_SECURE_HEADERS = {
 # ===========
 # See https://invenio-mail.readthedocs.io/en/latest/configuration.html
 
-MAIL_SERVER = '129.27.11.182'
+MAIL_SERVER = 'localhost'
 """Domain ip where mail server is running."""
 
 SECURITY_EMAIL_SENDER = "info@invenio-test.tugraz.at"
@@ -98,7 +98,7 @@ when register.
 """
 
 SSO_SAML_IDPS = {}
-"""Configuration of IDPS. Actually values can be find in to invenio.cfg file"""
+"""Configuration of IDPS. Actual values can be find in to invenio.cfg file"""
 
 SSO_SAML_DEFAULT_BLUEPRINT_PREFIX = '/shibboleth'
 """Base URL for the extensions endpoint."""
@@ -138,3 +138,11 @@ able to register, or to navigate to /sigup page.
 
 SECURITY_CONFIRMABLE = False
 """Allow user to confirm their email address."""
+
+# Accounts
+# ========
+# Actual values can be find in to invenio.cfg file
+#: Recaptcha public key (change to enable).
+RECAPTCHA_PUBLIC_KEY = None
+#: Recaptcha private key (change to enable).
+RECAPTCHA_PRIVATE_KEY = None
