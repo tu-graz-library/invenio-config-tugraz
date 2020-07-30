@@ -8,7 +8,7 @@
 # details.
 
 pydocstyle invenio_config_tugraz tests docs && \
-isort --check-only --diff && \
+isort invenio_config_tugraz tests --check-only --diff && \
 check-manifest --ignore ".travis-*" && \
 sphinx-build -qnNW docs docs/_build/html && \
-python setup.py test
+pytest
