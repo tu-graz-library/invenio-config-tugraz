@@ -137,7 +137,24 @@ able to register, or to navigate to /sigup page.
 """
 
 SECURITY_CONFIRMABLE = False
-"""Allow user to confirm their email address."""
+"""Allow user to confirm their email address.
+
+Instead user will get a welcome email.
+"""
+
+
+ACCOUNTS = True
+"""Tells if the templates should use the accounts module.
+
+If False, you won't be able to login via the web UI.
+
+Instead if you have a overriden template somewhere in your config.py:
+like this:
+SECURITY_LOGIN_USER_TEMPLATE = 'invenio_theme_tugraz/accounts/login.html'
+then you can remove this condition from header_login.htm:
+{%- if config.ACCOUNTS %}
+to render your overriden login.html
+"""
 
 # Accounts
 # ========
