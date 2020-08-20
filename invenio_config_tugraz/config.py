@@ -13,6 +13,20 @@ from flask_babelex import gettext as _
 INVENIO_CONFIG_TUGRAZ_SHIBBOLETH = True
 """Set True if SAML is configured"""
 
+INVENIO_CONFIG_TUGRAZ_SINGLE_IP = []
+"""Allows access to users whose IP address is listed.
+
+INVENIO_CONFIG_TUGRAZ_SINGLE_IP =
+    ["127.0.0.1", "127.0.0.2"]
+"""
+
+INVENIO_CONFIG_TUGRAZ_IP_RANGES = []
+"""Allows access to users whose range of IP address is listed.
+
+INVENIO_CONFIG_TUGRAZ_IP_RANGES =
+[["127.0.0.2", "127.0.0.99"], ["127.0.1.3", "127.0.1.5"]]
+"""
+
 # Invenio-App
 # ===========
 # See https://invenio-app.readthedocs.io/en/latest/configuration.html
@@ -163,3 +177,29 @@ to render your overriden login.html
 RECAPTCHA_PUBLIC_KEY = None
 #: Recaptcha private key (change to enable).
 RECAPTCHA_PRIVATE_KEY = None
+
+# invenio-records-permissions
+# =======
+# See:
+# https://invenio-records-permissions.readthedocs.io/en/latest/configuration.html
+#
+""""
+Default policies for records:
+
+.. code-block:: python
+
+    # Read access given to everyone.
+    can_search = [AnyUser()]
+    # Create action given to no one (Not even superusers) bc Deposits should
+    # be used.
+    can_create = [Disable()]
+    # Read access given to everyone if public record/files and owners always.
+    can_read = [AnyUserIfPublic(), RecordOwners()]
+    # Update access given to record owners.
+    can_update = [RecordOwners()]
+    # Delete access given to admins only.
+    can_delete = [Admin()]
+    # Associated files permissions (which are really bucket permissions)
+    can_read_files = [AnyUserIfPublic(), RecordOwners()]
+    can_update_files = [RecordOwners()]
+"""

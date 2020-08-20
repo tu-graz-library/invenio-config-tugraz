@@ -9,6 +9,7 @@
 """invenio module that adds tugraz configs."""
 
 from .ext import invenioconfigtugraz
+from .permissions import RecordIp
 from .version import __version__
 
-__all__ = ('__version__', 'invenioconfigtugraz')
+__all__ = ('__version__', 'invenioconfigtugraz', 'RecordIp')
