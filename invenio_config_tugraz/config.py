@@ -203,3 +203,21 @@ Default policies for records:
     can_read_files = [AnyUserIfPublic(), RecordOwners()]
     can_update_files = [RecordOwners()]
 """
+
+""""
+How to override default policies for records.
+
+Using Custom Generator for a policy:
+
+.. code-block:: python
+
+    from invenio_rdm_records.permissions import RDMRecordPermissionPolicy
+    from invenio_config_tugraz import RecordIp
+
+    class TUGRAZPermissionPolicy(RDMRecordPermissionPolicy):
+
+    # Delete access given to RecordIp only.
+    can_delete = [RecordIp()]
+
+    RECORDS_PERMISSIONS_RECORD_POLICY = TUGRAZPermissionPolicy
+"""
