@@ -226,13 +226,45 @@ class RecordIp(Generator):
 
     # TODO: Implement
     def needs(self, **kwargs):
-        """Enabling Needs."""
+        """Enabling Needs, Set of Needs granting permission.
+
+        If ANY of the Needs are matched, permission is granted.
+
+        .. note::
+
+            ``_load_permissions()`` method from `Permission
+            <https://invenio-access.readthedocs.io/en/latest/api.html
+            #invenio_access.permissions.Permission>`_ adds by default the
+            ``superuser_access`` Need (if tied to a User or Role) for us.
+            It also expands ActionNeeds into the Users/Roles that
+            provide them.
+        """
         return []
 
     def excludes(self, **kwargs):
-        """Preventing Needs."""
+        """Preventing Needs, Set of Needs denying permission.
+
+        If ANY of the Needs are matched, permission is revoked.
+
+        .. note::
+
+            ``_load_permissions()`` method from `Permission
+            <https://invenio-access.readthedocs.io/en/latest/api.html
+            #invenio_access.permissions.Permission>`_ adds by default the
+            ``superuser_access`` Need (if tied to a User or Role) for us.
+
+            It also expands ActionNeeds into the Users/Roles that
+            provide them.
+
+        If the same Need is returned by `needs` and `excludes`, then that
+        Need provider is disallowed.
+        """
         return []
 
     def query_filter(self, **kwargs):
-        """Elasticsearch filters."""
+        """Elasticsearch filters, List of ElasticSearch query filters.
+
+        These filters consist of additive queries mapping to what the current
+        user should be able to retrieve via search.
+        """
         return Q('match_all')
