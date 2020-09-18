@@ -80,8 +80,11 @@ SECURITY_EMAIL_SENDER = "info@invenio-test.tugraz.at"
 SECURITY_EMAIL_SUBJECT_REGISTER = _("Welcome to RDM!")
 """Email subject for account registration emails."""
 
-MAIL_SUPPRESS_SEND = False
-"""Enable email sending by default."""
+MAIL_SUPPRESS_SEND = True
+"""Enable email sending by default.
+
+Set this to False when sending actual emails.
+"""
 
 # CORS - Cross-origin resource sharing
 # ===========
