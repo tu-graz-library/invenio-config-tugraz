@@ -6,18 +6,13 @@
 # modify it under the terms of the MIT License; see LICENSE file for more
 # details.
 
-r"""Permission generators, policies and factories for Invenio records.
+r"""Permission generators and policies for Invenio records.
 
 Invenio-records-permissions provides a means to fully customize access control
 for Invenio records. It does so by defining and providing three layers of
 permission constructs that build on each other:
-Generators, Policies and Factories. You can extend or override them for maximum
+Generators and Policies. You can extend or override them for maximum
 control. Thankfully we provide default ones that cover most cases.
-
-Factories make invenio-records-permissions immediately compatible
-with any Invenio module requiring permission factories (e.g.,
-`invenio-records-rest <https://invenio-records-rest.readthedocs.io>`_ and
-`invenio-files-rest <https://invenio-files-rest.readthedocs.io>`_ ).
 
 Invenio-records-permissions conveniently structures (and relies on)
 functionalities from
@@ -154,69 +149,8 @@ The succinct encoding of the permissions for your instance gives you
     - one central location where your permissions are defined
     - exact control
     - great flexibility by defining your own actions, generators and policies
-
-In turn, to fully understand how Policies fit in an Invenio project, we have to
-show where *they* are used. And *that* is in the Factories.
-
-
-Factories
----------
-
-Most authorization is enforced through permission factories in Invenio:
-simple functions that return a `Permission
-<https://invenio-access.readthedocs.io/en/latest/api.html
-#invenio_access.permissions.Permission>`_ object. Thankfully, Policies are
-just that kind of object.
-
-Invenio-records-permissions provides you with pre-made configurable record
-permission factories here:
-:py:mod:`invenio_records_permissions.factories.records` . You can follow the
-pattern there to create other factories you may need.
-
-Pre-made factories
-~~~~~~~~~~~~~~~~~~
-
-By setting the following configuration in your instance:
-
-.. code-block:: python
-
-    RECORDS_PERMISSIONS_RECORD_POLICY = (
-        'module.to.ExampleRecordPermissionPolicy'
-    )
-    RECORDS_REST_ENDPOINTS = {
-        "recid": {
-            # ...
-            # We only display key-value pairs relevant to this explanation
-            'read_permission_factory_imp': 'invenio_records_permissions.factories.record_read_permission_factory',  # noqa
-            'list_permission_factory_imp': 'invenio_records_permissions.factories.record_search_permission_factory',  # noqa
-            'create_permission_factory_imp': 'invenio_records_permissions.factories.record_create_permission_factory',  # noqa
-            'update_permission_factory_imp': 'invenio_records_permissions.factories.record_update_permission_factory',  # noqa
-            'delete_permission_factory_imp': 'invenio_records_permissions.factories.record_delete_permission_factory'  # noqa
-        }
-    }
-
-you will be using the pre-made factories that know to look for their associated
-action in ``module.to.ExampleRecordPermissionPolicy``.
-
-Custom factories
-~~~~~~~~~~~~~~~~
-
-To implement your own factories, create a factory with the required signature
-and return an instance of your custom PermissionPolicy object with the
-appropriate action. For example:
-
-.. code-block:: python
-
-    def license_delete_permission_factory(license=None):
-        '''Delete permission factory for license records.'''
-        return LicensePermissionPolicy(action='delete', license=license)
-
-
-With that, we covered all you need to know to fully specify access control in
-your instance: combine and use permission Generators, Policies and Factories.
-
-Custom Generators.
 """
+
 from elasticsearch_dsl.query import Q
 from invenio_records_permissions.generators import Generator
 
