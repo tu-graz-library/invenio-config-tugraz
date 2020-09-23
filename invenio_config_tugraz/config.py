@@ -9,11 +9,6 @@
 """invenio module that adds tugraz configs."""
 
 from flask_babelex import gettext as _
-from invenio_records_permissions.generators import Admin, AnyUser, \
-    AnyUserIfPublic, Disable, RecordOwners
-from invenio_records_permissions.policies.base import BasePermissionPolicy
-
-from .permissions import RecordIp
 
 INVENIO_CONFIG_TUGRAZ_SHIBBOLETH = True
 """Set True if SAML is configured"""
@@ -191,68 +186,8 @@ RECAPTCHA_PRIVATE_KEY = None
 # See:
 # https://invenio-records-permissions.readthedocs.io/en/latest/configuration.html
 #
-""""
-Default policies for records:
 
-.. code-block:: python
-
-    # Read access given to everyone.
-    can_search = [AnyUser()]
-    # Create action given to no one (Not even superusers) bc Deposits should
-    # be used.
-    can_create = [Disable()]
-    # Read access given to everyone if public record/files and owners always.
-    can_read = [AnyUserIfPublic(), RecordOwners()]
-    # Update access given to record owners.
-    can_update = [RecordOwners()]
-    # Delete access given to admins only.
-    can_delete = [Admin()]
-    # Associated files permissions (which are really bucket permissions)
-    can_read_files = [AnyUserIfPublic(), RecordOwners()]
-    can_update_files = [RecordOwners()]
-"""
-
-""""
-How to override default policies for records.
-
-Using Custom Generator for a policy:
-
-.. code-block:: python
-
-    from invenio_rdm_records.permissions import RDMRecordPermissionPolicy
-    from invenio_config_tugraz.permissions import RecordIp
-
-    class TUGRAZPermissionPolicy(RDMRecordPermissionPolicy):
-
-    # Delete access given to RecordIp only.
-    can_delete = [RecordIp()]
-
-    RECORDS_PERMISSIONS_RECORD_POLICY = TUGRAZPermissionPolicy
-"""
-
-
-class TUGRAZPermissionPolicy(BasePermissionPolicy):
-    """Access control configuration for records."""
-
-    # Read access to API given to everyone.
-    can_search = [AnyUser()]
-
-    # Read access given to everyone if public record/files and owners always.
-    can_read = [AnyUserIfPublic(), RecordOwners()]
-
-    # Create action given to no one (Not even superusers) bc Deposits should
-    # be used.
-    can_create = [Disable()]
-
-    # Update access given to record owners.
-    can_update = [RecordOwners()]
-
-    # Delete access given to admins only.
-    can_delete = [Admin()]
-
-    # Associated files permissions (which are really bucket permissions)
-    can_read_files = [AnyUserIfPublic(), RecordOwners()]
-    can_update_files = [RecordOwners()]
-
-RECORDS_PERMISSIONS_RECORD_POLICY = TUGRAZPermissionPolicy
+RECORDS_PERMISSIONS_RECORD_POLICY = (
+    'invenio_config_tugraz.permissionsPolicy.TUGRAZPermissionPolicy'
+)
 """Access control configuration for records."""
