@@ -6,7 +6,7 @@
 # modify it under the terms of the MIT License; see LICENSE file for more
 # details.
 
-from invenio_config_tugraz.permissions import RecordIp
+from invenio_config_tugraz.generators import RecordIp
 
 
 def test_recordip():

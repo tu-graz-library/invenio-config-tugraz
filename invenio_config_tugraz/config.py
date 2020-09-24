@@ -188,6 +188,6 @@ RECAPTCHA_PRIVATE_KEY = None
 #
 
 RECORDS_PERMISSIONS_RECORD_POLICY = (
-    'invenio_config_tugraz.permissionsPolicy.TUGRAZPermissionPolicy'
+    'invenio_config_tugraz.permissions.TUGRAZPermissionPolicy'
 )
 """Access control configuration for records."""
