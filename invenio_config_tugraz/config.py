@@ -13,6 +13,20 @@ from flask_babelex import gettext as _
 INVENIO_CONFIG_TUGRAZ_SHIBBOLETH = True
 """Set True if SAML is configured"""
 
+INVENIO_CONFIG_TUGRAZ_SINGLE_IP = []
+"""Allows access to users whose IP address is listed.
+
+INVENIO_CONFIG_TUGRAZ_SINGLE_IP =
+    ["127.0.0.1", "127.0.0.2"]
+"""
+
+INVENIO_CONFIG_TUGRAZ_IP_RANGES = []
+"""Allows access to users whose range of IP address is listed.
+
+INVENIO_CONFIG_TUGRAZ_IP_RANGES =
+[["127.0.0.2", "127.0.0.99"], ["127.0.1.3", "127.0.1.5"]]
+"""
+
 # Invenio-App
 # ===========
 # See https://invenio-app.readthedocs.io/en/latest/configuration.html
@@ -66,8 +80,11 @@ SECURITY_EMAIL_SENDER = "info@invenio-test.tugraz.at"
 SECURITY_EMAIL_SUBJECT_REGISTER = _("Welcome to RDM!")
 """Email subject for account registration emails."""
 
-MAIL_SUPPRESS_SEND = False
-"""Enable email sending by default."""
+MAIL_SUPPRESS_SEND = True
+"""Enable email sending by default.
+
+Set this to False when sending actual emails.
+"""
 
 # CORS - Cross-origin resource sharing
 # ===========
@@ -163,3 +180,14 @@ to render your overriden login.html
 RECAPTCHA_PUBLIC_KEY = None
 #: Recaptcha private key (change to enable).
 RECAPTCHA_PRIVATE_KEY = None
+
+# invenio-records-permissions
+# =======
+# See:
+# https://invenio-records-permissions.readthedocs.io/en/latest/configuration.html
+#
+
+RECORDS_PERMISSIONS_RECORD_POLICY = (
+    'invenio_config_tugraz.permissions.TUGRAZPermissionPolicy'
+)
+"""Access control configuration for records."""
