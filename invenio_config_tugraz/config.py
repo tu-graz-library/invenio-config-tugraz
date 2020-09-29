@@ -186,8 +186,8 @@ RECAPTCHA_PRIVATE_KEY = None
 # See:
 # https://invenio-records-permissions.readthedocs.io/en/latest/configuration.html
 #
-
-RECORDS_PERMISSIONS_RECORD_POLICY = (
-    'invenio_config_tugraz.permissions.TUGRAZPermissionPolicy'
-)
+# Uncomment these to enable overriden
+# RECORDS_PERMISSIONS_RECORD_POLICY = (
+#    'invenio_config_tugraz.permissions.TUGRAZPermissionPolicy'
+# )
 """Access control configuration for records."""
