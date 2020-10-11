@@ -42,3 +42,4 @@ recursive-include invenio_config_tugraz *.crt
 recursive-include invenio_config_tugraz *.json
 recursive-include invenio_config_tugraz *.key
 recursive-include invenio_config_tugraz *.xml
+recursive-include invenio_config_tugraz *.gitkeep
