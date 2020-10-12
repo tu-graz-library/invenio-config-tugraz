@@ -8,7 +8,7 @@
 
 """invenio module that adds tugraz configs."""
 
-from flask_babelex import gettext as _
+# from flask_babelex import gettext as _
 
 from . import config
 
@@ -24,10 +24,10 @@ class InvenioConfigTugraz(object):
     def init_app(self, app):
         """Flask application initialization."""
         self.init_config(app)
-        app.extensions['invenio-config-tugraz'] = self
+        app.extensions["invenio-config-tugraz"] = self
 
     def init_config(self, app):
         """Initialize configuration."""
         for k in dir(config):
-            if k.startswith('INVENIO_CONFIG_TUGRAZ_'):
+            if k.startswith("INVENIO_CONFIG_TUGRAZ_"):
                 app.config.setdefault(k, getattr(config, k))

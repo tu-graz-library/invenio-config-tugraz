@@ -49,8 +49,12 @@ Using Custom Generator for a policy:
 Permissions for Invenio (RDM) Records.
 """
 
-from invenio_records_permissions.generators import Admin, AnyUser, \
-    AnyUserIfPublic, Disable, RecordOwners
+from invenio_records_permissions.generators import (
+    Admin,
+    AnyUser,
+    AnyUserIfPublic,
+    RecordOwners,
+)
 from invenio_records_permissions.policies.base import BasePermissionPolicy
 
 from .generators import RecordIp
