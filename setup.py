@@ -68,7 +68,7 @@ setup(
     platforms='any',
     entry_points={
         'invenio_base.apps': [
-            'invenio_config_tugraz = invenio_config_tugraz:invenioconfigtugraz',
+            'invenio_config_tugraz = invenio_config_tugraz:InvenioConfigTugraz',
         ],
         'invenio_i18n.translations': [
             'messages = invenio_config_tugraz',

@@ -13,7 +13,7 @@ from flask_babelex import gettext as _
 from . import config
 
 
-class invenioconfigtugraz(object):
+class InvenioConfigTugraz(object):
     """invenio-config-tugraz extension."""
 
     def __init__(self, app=None):
