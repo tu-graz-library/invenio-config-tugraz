@@ -8,8 +8,6 @@
 
 """invenio module that adds tugraz configs."""
 
-# from flask_babelex import gettext as _
-
 from . import config
 
 
