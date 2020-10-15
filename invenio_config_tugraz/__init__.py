@@ -12,4 +12,4 @@ from .ext import InvenioConfigTugraz
 from .generators import RecordIp
 from .version import __version__
 
-__all__ = ('__version__', 'InvenioConfigTugraz', 'RecordIp')
+__all__ = ("__version__", "InvenioConfigTugraz", "RecordIp")

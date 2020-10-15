@@ -24,7 +24,7 @@ from invenio_db import InvenioDB, db
 from invenio_config_tugraz import InvenioConfigTugraz
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def celery_config():
     """Override pytest-invenio fixture.
 
@@ -42,7 +42,9 @@ def create_app(request):
     app.config.update(
         INVENIO_CONFIG_TUGRAZ_SINGLE_IP=["127.0.0.1", "127.0.0.2"],
         INVENIO_CONFIG_TUGRAZ_IP_RANGES=[
-            ["127.0.0.2", "127.0.0.99"], ["127.0.1.3", "127.0.1.5"]],
+            ["127.0.0.2", "127.0.0.99"],
+            ["127.0.1.3", "127.0.1.5"],
+        ],
         SQLALCHEMY_DATABASE_URI=DB,
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
     )

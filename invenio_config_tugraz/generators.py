@@ -202,13 +202,13 @@ class RecordIp(Generator):
         These filters consist of additive queries mapping to what the current
         user should be able to retrieve via search.
         """
-        return Q('match_all')
+        return Q("match_all")
 
     def check_permission(self):
         """Check for User IP address in config variable."""
         # Get user IP
         user_ip = request.remote_addr  # pragma: no cover
         # Checks if the user IP is among single IPs
-        if user_ip in current_app.config['INVENIO_CONFIG_TUGRAZ_SINGLE_IP']:
-            return True   # pragma: no cover
-        return False   # pragma: no cover
+        if user_ip in current_app.config["INVENIO_CONFIG_TUGRAZ_SINGLE_IP"]:  # pragma: no cover
+            return True  # pragma: no cover
+        return False  # pragma: no cover
