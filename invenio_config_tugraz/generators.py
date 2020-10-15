@@ -209,8 +209,6 @@ class RecordIp(Generator):
         # Get user IP
         user_ip = request.remote_addr  # pragma: no cover
         # Checks if the user IP is among single IPs
-        if (
-            user_ip in current_app.config["INVENIO_CONFIG_TUGRAZ_SINGLE_IP"]
-        ):  # pragma: no cover
+        if user_ip in current_app.config["INVENIO_CONFIG_TUGRAZ_SINGLE_IP"]:  # pragma: no cover
             return True  # pragma: no cover
         return False  # pragma: no cover
