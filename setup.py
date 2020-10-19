@@ -17,6 +17,9 @@ history = open("CHANGES.rst").read()
 
 tests_require = [
     "pytest-invenio>=1.4.0",
+    "SQLAlchemy-Utils>=0.33.1,<0.36",
+    "invenio-rdm-records~=0.20.8",
+    "invenio-search[elasticsearch7]>=1.4.0",
 ]
 
 extras_require = {
@@ -38,8 +41,7 @@ setup_requires = [
 install_requires = [
     "Flask-BabelEx>=0.9.4",
     "elasticsearch_dsl>=7.2.1",
-    "invenio-rdm-records~=0.20.8",
-    "invenio_search>=1.3.1",
+    "sqlalchemy-continuum>=1.3.11",
 ]
 
 packages = find_packages()
