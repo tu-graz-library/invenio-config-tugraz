@@ -38,7 +38,7 @@ setup_requires = [
 install_requires = [
     "Flask-BabelEx>=0.9.4",
     "elasticsearch_dsl>=7.2.1",
-    "invenio-rdm-records~=0.18.3",
+    "invenio-rdm-records~=0.20.8",
     "invenio_search>=1.3.1",
 ]
 
