@@ -120,13 +120,13 @@ html_theme = "alabaster"
 
 html_theme_options = {
     "description": "invenio module that adds tugraz configs.",
-    "github_user": "inveniosoftware",
+    "github_user": "TU Graz",
     "github_repo": "invenio-config-tugraz",
     "github_button": False,
     "github_banner": True,
     "show_powered_by": False,
     "extra_nav_links": {
-        "invenio-config-tugraz@GitHub": "https://github.com/mb-wali/invenio-config-tugraz",
+        "invenio-config-tugraz@GitHub": "https://github.com/tu-graz-library/invenio-config-tugraz",
         "invenio-config-tugraz@PyPI": "https://pypi.python.org/pypi/invenio-config-tugraz/",
     },
 }

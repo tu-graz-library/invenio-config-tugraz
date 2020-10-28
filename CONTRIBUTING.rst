@@ -10,7 +10,7 @@ Types of Contributions
 Report Bugs
 ~~~~~~~~~~~
 
-Report bugs at https://github.com/mb-wali/invenio-config-tugraz/issues.
+Report bugs at https://github.com/tu-graz-library/invenio-config-tugraz/issues.
 
 If you are reporting a bug, please include:
 
@@ -41,7 +41,7 @@ Submit Feedback
 ~~~~~~~~~~~~~~~
 
 The best way to send feedback is to file an issue at
-https://github.com/mb-wali/invenio-config-tugraz/issues.
+https://github.com/tu-graz-library/invenio-config-tugraz/issues.
 
 If you are proposing a feature:
 
@@ -113,6 +113,6 @@ Before you submit a pull request, check that it meets these guidelines:
 1. The pull request should include tests and must not decrease test coverage.
 2. If the pull request adds functionality, the docs should be updated. Put
    your new functionality into a function with a docstring.
-3. The pull request should work for Python 2.7, 3.5 and 3.6. Check
-   https://travis-ci.org/https://github.com/https://github.com/mb-/pull_requests
+3. The pull request should work for Python 3.6 and 3.7. Check
+   https://travis-ci.com/github/tu-graz-library/invenio-config-tugraz/pull_requests
    and make sure that the tests pass for all supported Python versions.
