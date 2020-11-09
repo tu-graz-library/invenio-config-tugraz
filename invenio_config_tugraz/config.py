@@ -103,17 +103,23 @@ Set this to False when sending actual emails.
 # ]
 # REST_ENABLE_CORS = True
 
-
-# Invenio-shibboleth
+# Invenio-userprofiles
 # ===========
-# See https://invenio-shibboleth.readthedocs.io/en/latest/configuration.html
+# See https://invenio-userprofiles.readthedocs.io/en/latest/configuration.html
 
-USERPROFILES_EXTEND_SECURITY_FORMS = True
+USERPROFILES_EXTEND_SECURITY_FORMS = False
 """Set True in order to register user_profile.
 
 This also forces user to add username and fullname
 when register.
 """
+
+USERPROFILES_EMAIL_ENABLED = False
+"""Exclude the user email in the profile form."""
+
+# Invenio-shibboleth
+# ===========
+# See https://invenio-shibboleth.readthedocs.io/en/latest/configuration.html
 
 SSO_SAML_IDPS = {}
 """Configuration of IDPS. Actual values can be find in to invenio.cfg file"""
