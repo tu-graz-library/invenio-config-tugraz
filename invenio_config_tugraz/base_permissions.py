@@ -46,7 +46,7 @@ Using Custom Generator for a policy:
     RECORDS_PERMISSIONS_RECORD_POLICY = TUGRAZPermissionPolicy
 
 
-Permissions for Invenio (RDM) Records.
+Permissions for Invenio records.
 """
 
 from invenio_records_permissions.generators import (

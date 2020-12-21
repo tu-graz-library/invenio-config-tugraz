@@ -193,8 +193,13 @@ RECAPTCHA_PRIVATE_KEY = None
 # See:
 # https://invenio-records-permissions.readthedocs.io/en/latest/configuration.html
 #
-# Uncomment these to enable overriden
+# Uncomment these to enable overriding Base permissions - (NOT RECOMMANDED)
 # RECORDS_PERMISSIONS_RECORD_POLICY = (
-#    'invenio_config_tugraz.permissions.TUGRAZPermissionPolicy'
+#    'invenio_config_tugraz.base_permissions.TUGRAZPermissionPolicy'
 # )
+#
+# Uncomment these to enable overriding RDM permissions
+RDM_RECORDS_BIBLIOGRAPHIC_SERVICE_CONFIG = (
+    'invenio_config_tugraz.rdm_permissions.TUGRAZBibliographicRecordServiceConfig'
+)
 """Access control configuration for records."""
