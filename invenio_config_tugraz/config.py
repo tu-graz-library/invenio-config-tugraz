@@ -9,6 +9,7 @@
 """invenio module that adds tugraz configs."""
 
 from flask_babelex import gettext as _
+from os.path import abspath, dirname, join
 
 INVENIO_CONFIG_TUGRAZ_SHIBBOLETH = True
 """Set True if SAML is configured"""
@@ -203,3 +204,18 @@ RECAPTCHA_PRIVATE_KEY = None
 #     'invenio_config_tugraz.rdm_permissions.TUGRAZBibliographicRecordServiceConfig'
 # )
 """Access control configuration for records."""
+
+# invenio-rdm-records
+# =======
+# See:
+# https://invenio-rdm-records.readthedocs.io/en/latest/configuration.html
+# 
+# Custom Access Right
+RDM_RECORDS_CUSTOM_VOCABULARIES = {
+    'access_right': {
+        'path': join(
+            dirname(abspath(__file__)),
+            'restrictions', 'access_right', 'access_right.csv'
+        )
+    }
+}
