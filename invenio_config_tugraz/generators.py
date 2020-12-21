@@ -207,8 +207,8 @@ class RecordIp(Generator):
     def check_permission(self):
         """Check for User IP address in config variable."""
         # Get user IP
-        user_ip = request.remote_addr  # pragma: no cover
+        user_ip = request.remote_addr
         # Checks if the user IP is among single IPs
-        if user_ip in current_app.config["INVENIO_CONFIG_TUGRAZ_SINGLE_IP"]:  # pragma: no cover
-            return True  # pragma: no cover
-        return False  # pragma: no cover
+        if user_ip in current_app.config["INVENIO_CONFIG_TUGRAZ_SINGLE_IP"]:
+            return True
+        return False
