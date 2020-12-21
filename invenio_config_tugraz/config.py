@@ -8,8 +8,9 @@
 
 """invenio module that adds tugraz configs."""
 
-from flask_babelex import gettext as _
 from os.path import abspath, dirname, join
+
+from flask_babelex import gettext as _
 
 INVENIO_CONFIG_TUGRAZ_SHIBBOLETH = True
 """Set True if SAML is configured"""
@@ -209,7 +210,7 @@ RECAPTCHA_PRIVATE_KEY = None
 # =======
 # See:
 # https://invenio-rdm-records.readthedocs.io/en/latest/configuration.html
-# 
+#
 # Custom Access Right
 RDM_RECORDS_CUSTOM_VOCABULARIES = {
     'access_right': {
