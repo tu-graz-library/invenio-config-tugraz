@@ -199,7 +199,7 @@ RECAPTCHA_PRIVATE_KEY = None
 # )
 #
 # Uncomment these to enable overriding RDM permissions
-RDM_RECORDS_BIBLIOGRAPHIC_SERVICE_CONFIG = (
-    'invenio_config_tugraz.rdm_permissions.TUGRAZBibliographicRecordServiceConfig'
-)
+# RDM_RECORDS_BIBLIOGRAPHIC_SERVICE_CONFIG = (
+#     'invenio_config_tugraz.rdm_permissions.TUGRAZBibliographicRecordServiceConfig'
+# )
 """Access control configuration for records."""
