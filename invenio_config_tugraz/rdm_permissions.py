@@ -75,9 +75,8 @@ class TUGRAZPermissionPolicy(RDMRecordPermissionPolicy):
 
     """
 
-    # Create action given to no one (Not even superusers) bc Deposits should
-    # be used.
-    can_create = [SuperUser()]
+    # Read action given to AnyUserIfPublic, and RecordIp
+    can_read = [AnyUserIfPublic(), RecordIp()]
 
 
 class TUGRAZBibliographicRecordServiceConfig(BibliographicRecordServiceConfig):

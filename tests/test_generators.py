@@ -8,13 +8,13 @@
 
 """Test Generators."""
 
-from invenio_config_tugraz.generators import RecordIp
+# from invenio_config_tugraz.generators import RecordIp
 
 
-def test_recordip():
-    """Test Generator RecordIp."""
-    generator = RecordIp()
+# def test_recordip():
+#     """Test Generator RecordIp."""
+#     generator = RecordIp()
 
-    assert generator.needs() == []
-    assert generator.excludes() == []
-    assert generator.query_filter().to_dict() == {"match_all": {}}
+#     assert generator.needs() == []
+#     assert generator.excludes() == []
+#     assert generator.query_filter().to_dict() == {"match_all": {}}
