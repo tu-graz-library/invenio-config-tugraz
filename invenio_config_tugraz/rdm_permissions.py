@@ -75,8 +75,32 @@ class TUGRAZPermissionPolicy(RDMRecordPermissionPolicy):
 
     """
 
-    # Read action given to AnyUserIfPublic, and RecordIp
-    can_read = [AnyUserIfPublic(), RecordIp()]
+    # Read access given to:
+    # AnyUserIfPublic : grant access if record is public
+    # RecordIp: grant access for single_ip
+    # RecordOwners: owner of records, enable once the deposit is allowed only for loged-in users.
+    can_read = [AnyUserIfPublic(), RecordIp()]  # RecordOwners()
+
+    # Search access given to:
+    # AnyUser : grant access anyUser
+    # RecordIp: grant access for single_ip
+    can_search = [AnyUser(), RecordIp()]
+
+    # Update access given to record owners.
+    can_update = [RecordOwners()]
+
+    # Delete access given to admins only.
+    can_delete = [Admin()]
+
+    # TODO: create (AuthenticatedUser) generator
+    # Create action given to AuthenticatedUser
+    # UI - if user is loged in
+    # API - if user has be Access token (Bearer API-TOKEN)
+    # can_create = [AuthenticatedUser()]
+
+    # Associated files permissions (which are really bucket permissions)
+    # can_read_files = [AnyUserIfPublic(), RecordOwners()]
+    # can_update_files = [RecordOwners()]
 
 
 class TUGRAZBibliographicRecordServiceConfig(BibliographicRecordServiceConfig):

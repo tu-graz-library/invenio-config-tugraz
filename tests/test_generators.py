@@ -19,6 +19,7 @@ def test_recordip(create_app, open_record, singleip_record):
     open_record = open_record
     singleiprec = singleip_record
 
+    assert generator.needs(record=None) == []
     assert generator.needs(record=open_record) == [any_user]
     assert generator.needs(record=singleiprec) == []
 
