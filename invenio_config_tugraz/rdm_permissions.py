@@ -60,7 +60,6 @@ from invenio_rdm_records.services import (
 from invenio_records_permissions.generators import (
     Admin,
     AnyUser,
-    AnyUserIfPublic,
     RecordOwners,
     SuperUser,
 )
@@ -69,17 +68,22 @@ from .generators import RecordIp
 
 
 class TUGRAZPermissionPolicy(RDMRecordPermissionPolicy):
-    """Access control configuration for records.
+    """Access control configuration for rdm records.
 
-    This overrides the /api/records endpoint.
+    This overrides the origin:
+    https://github.com/inveniosoftware/invenio-rdm-records/blob/master/invenio_rdm_records/services/permissions.py.
 
     """
 
     # Read access given to:
+    # TODO:
     # AnyUserIfPublic : grant access if record is public
     # RecordIp: grant access for single_ip
     # RecordOwners: owner of records, enable once the deposit is allowed only for loged-in users.
-    can_read = [AnyUserIfPublic(), RecordIp()]  # RecordOwners()
+    # CURRENT:
+    # AnyUser
+    # RecordIp: grant access for single_ip
+    can_read = [AnyUser(), RecordIp()]  # RecordOwners()
 
     # Search access given to:
     # AnyUser : grant access anyUser
