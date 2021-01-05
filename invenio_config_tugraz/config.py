@@ -8,6 +8,8 @@
 
 """invenio module that adds tugraz configs."""
 
+from os.path import abspath, dirname, join
+
 from flask_babelex import gettext as _
 
 INVENIO_CONFIG_TUGRAZ_SHIBBOLETH = True
@@ -199,7 +201,22 @@ RECAPTCHA_PRIVATE_KEY = None
 # )
 #
 # Uncomment these to enable overriding RDM permissions
-# RDM_RECORDS_BIBLIOGRAPHIC_SERVICE_CONFIG = (
-#     'invenio_config_tugraz.rdm_permissions.TUGRAZBibliographicRecordServiceConfig'
-# )
+RDM_RECORDS_BIBLIOGRAPHIC_SERVICE_CONFIG = (
+    'invenio_config_tugraz.rdm_permissions.TUGRAZBibliographicRecordServiceConfig'
+)
 """Access control configuration for records."""
+
+# invenio-rdm-records
+# =======
+# See:
+# https://invenio-rdm-records.readthedocs.io/en/latest/configuration.html
+#
+# Custom Access Right
+RDM_RECORDS_CUSTOM_VOCABULARIES = {
+    'access_right': {
+        'path': join(
+            dirname(abspath(__file__)),
+            'restrictions', 'access_right', 'access_right.csv'
+        )
+    }
+}

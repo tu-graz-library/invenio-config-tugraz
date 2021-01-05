@@ -60,7 +60,6 @@ from invenio_rdm_records.services import (
 from invenio_records_permissions.generators import (
     Admin,
     AnyUser,
-    AnyUserIfPublic,
     RecordOwners,
     SuperUser,
 )
@@ -69,15 +68,43 @@ from .generators import RecordIp
 
 
 class TUGRAZPermissionPolicy(RDMRecordPermissionPolicy):
-    """Access control configuration for records.
+    """Access control configuration for rdm records.
 
-    This overrides the /api/records endpoint.
+    This overrides the origin:
+    https://github.com/inveniosoftware/invenio-rdm-records/blob/master/invenio_rdm_records/services/permissions.py.
 
     """
 
-    # Create action given to no one (Not even superusers) bc Deposits should
-    # be used.
-    can_create = [SuperUser()]
+    # Read access given to:
+    # TODO:
+    # AnyUserIfPublic : grant access if record is public
+    # RecordIp: grant access for single_ip
+    # RecordOwners: owner of records, enable once the deposit is allowed only for loged-in users.
+    # CURRENT:
+    # AnyUser
+    # RecordIp: grant access for single_ip
+    can_read = [AnyUser(), RecordIp()]  # RecordOwners()
+
+    # Search access given to:
+    # AnyUser : grant access anyUser
+    # RecordIp: grant access for single_ip
+    can_search = [AnyUser(), RecordIp()]
+
+    # Update access given to record owners.
+    can_update = [RecordOwners()]
+
+    # Delete access given to admins only.
+    can_delete = [Admin()]
+
+    # TODO: create (AuthenticatedUser) generator
+    # Create action given to AuthenticatedUser
+    # UI - if user is loged in
+    # API - if user has be Access token (Bearer API-TOKEN)
+    # can_create = [AuthenticatedUser()]
+
+    # Associated files permissions (which are really bucket permissions)
+    # can_read_files = [AnyUserIfPublic(), RecordOwners()]
+    # can_update_files = [RecordOwners()]
 
 
 class TUGRAZBibliographicRecordServiceConfig(BibliographicRecordServiceConfig):

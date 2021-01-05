@@ -20,6 +20,7 @@ tests_require = [
     "SQLAlchemy-Utils>=0.33.1,<0.36",
     "invenio-rdm-records~=0.20.8",
     "invenio-search[elasticsearch7]>=1.4.0",
+    "psycopg2-binary>=2.8.6",
 ]
 
 extras_require = {

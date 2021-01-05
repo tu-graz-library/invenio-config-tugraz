@@ -153,28 +153,33 @@ The succinct encoding of the permissions for your instance gives you
 
 from elasticsearch_dsl.query import Q
 from flask import current_app, request
+from invenio_access.permissions import any_user, superuser_access
 from invenio_records_permissions.generators import Generator
 
 
 class RecordIp(Generator):
     """Allowed any user with accessing with the IP."""
 
-    # TODO: Implement
-    def needs(self, **kwargs):
-        """Enabling Needs, Set of Needs granting permission.
+    def needs(self, record=None, **kwargs):
+        """Enabling Needs, Set of Needs granting permission."""
+        if record is None:
+            return []
 
-        If ANY of the Needs are matched, permission is granted.
+        # check if singleip is in the records restriction
+        is_single_ip = record.get("access", {}).get("access_right") == "singleip"
 
-        .. note::
+        # check if the user ip is on list
+        visible = self.check_permission()
 
-            ``_load_permissions()`` method from `Permission
-            <https://invenio-access.readthedocs.io/en/latest/api.html
-            #invenio_access.permissions.Permission>`_ adds by default the
-            ``superuser_access`` Need (if tied to a User or Role) for us.
-            It also expands ActionNeeds into the Users/Roles that
-            provide them.
-        """
-        return []
+        if not is_single_ip:
+            # if record does not have singleip - return any_user
+            return [any_user]
+            # if record has singleip, then check the ip of user - if ip user is on list - return any_user
+        elif visible:
+            return [any_user]
+        else:
+            # non of the above - return empty
+            return []
 
     def excludes(self, **kwargs):
         """Preventing Needs, Set of Needs denying permission.
@@ -196,19 +201,23 @@ class RecordIp(Generator):
         """
         return []
 
-    def query_filter(self, **kwargs):
-        """Elasticsearch filters, List of ElasticSearch query filters.
+    def query_filter(self, *args, **kwargs):
+        """Filters for singleip records."""
+        # check if the user ip is on list
+        visible = self.check_permission()
 
-        These filters consist of additive queries mapping to what the current
-        user should be able to retrieve via search.
-        """
+        if not visible:
+            # If user ip is not on the list, and If the record contains 'singleip' will not be seen
+            return ~Q("match", **{"access.access_right": "singleip"})
+
+        # Lists all records
         return Q("match_all")
 
     def check_permission(self):
         """Check for User IP address in config variable."""
         # Get user IP
-        user_ip = request.remote_addr  # pragma: no cover
+        user_ip = request.remote_addr
         # Checks if the user IP is among single IPs
-        if user_ip in current_app.config["INVENIO_CONFIG_TUGRAZ_SINGLE_IP"]:  # pragma: no cover
-            return True  # pragma: no cover
-        return False  # pragma: no cover
+        if user_ip in current_app.config["INVENIO_CONFIG_TUGRAZ_SINGLE_IP"]:
+            return True
+        return False

@@ -20,6 +20,7 @@ import pytest
 from flask import Flask
 from flask_babelex import Babel
 from invenio_db import InvenioDB, db
+from sqlalchemy_utils.functions import create_database, database_exists, drop_database
 
 from invenio_config_tugraz import InvenioConfigTugraz
 
@@ -70,3 +71,93 @@ def create_app(request):
     app.test_request_context().push()
 
     return app
+
+
+@pytest.fixture(scope='function')
+def open_record():
+    """Open record data as dict coming from the external world."""
+    return {
+        "access": {
+            "metadata": False,
+            "files": False,
+            "owned_by": [1],
+            "access_right": "open"
+        },
+        "metadata": {
+            "publication_date": "2020-06-01",
+            "resource_type": {
+                "type": "image",
+                "subtype": "image-photo"
+            },
+            # Technically not required
+            "creators": [{
+                "name": "Troy Brown",
+                "type": "personal"
+            }, {
+                "name": "Phillip Lester",
+                "type": "personal",
+                "identifiers": {"orcid": "0000-0002-1825-0097"},
+                "affiliations": [{
+                    "name": "Carter-Morris",
+                    "identifiers": {"ror": "03yrm5c26"}
+                }]
+            }, {
+                "name": "Steven Williamson",
+                "type": "personal",
+                "identifiers": {"orcid": "0000-0002-1825-0097"},
+                "affiliations": [{
+                    "name": "Ritter and Sons",
+                    "identifiers": {"ror": "03yrm5c26"}
+                }, {
+                    "name": "Montgomery, Bush and Madden",
+                    "identifiers": {"ror": "03yrm5c26"}
+                }]
+            }],
+            "title": "A Romans story"
+        }
+    }
+
+
+@pytest.fixture(scope='function')
+def singleip_record():
+    """Single Ip record data as dict coming from the external world."""
+    return {
+        "access": {
+            "metadata": False,
+            "files": False,
+            "owned_by": [1],
+            "access_right": "singleip"
+        },
+        "metadata": {
+            "publication_date": "2020-06-01",
+            "resource_type": {
+                "type": "image",
+                "subtype": "image-photo"
+            },
+            # Technically not required
+            "creators": [{
+                "name": "Troy Brown",
+                "type": "personal"
+            }, {
+                "name": "Phillip Lester",
+                "type": "personal",
+                "identifiers": {"orcid": "0000-0002-1825-0097"},
+                "affiliations": [{
+                    "name": "Carter-Morris",
+                    "identifiers": {"ror": "03yrm5c26"}
+                }]
+            }, {
+                "name": "Steven Williamson",
+                "type": "personal",
+                "identifiers": {"orcid": "0000-0002-1825-0097"},
+                "affiliations": [{
+                    "name": "Ritter and Sons",
+                    "identifiers": {"ror": "03yrm5c26"}
+                }, {
+                    "name": "Montgomery, Bush and Madden",
+                    "identifiers": {"ror": "03yrm5c26"}
+                }]
+            }],
+            "title": "A Romans story"
+        }
+    }
