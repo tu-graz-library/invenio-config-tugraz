@@ -64,7 +64,7 @@ from invenio_records_permissions.generators import (
     SuperUser,
 )
 
-from .generators import RecordIp
+from .generators import AuthenticatedUser, RecordIp
 
 
 class TUGRAZPermissionPolicy(RDMRecordPermissionPolicy):
@@ -81,9 +81,8 @@ class TUGRAZPermissionPolicy(RDMRecordPermissionPolicy):
     # RecordIp: grant access for single_ip
     # RecordOwners: owner of records, enable once the deposit is allowed only for loged-in users.
     # CURRENT:
-    # AnyUser
     # RecordIp: grant access for single_ip
-    can_read = [AnyUser(), RecordIp()]  # RecordOwners()
+    can_read = [RecordIp()]  # RecordOwners()
 
     # Search access given to:
     # AnyUser : grant access anyUser
@@ -96,11 +95,10 @@ class TUGRAZPermissionPolicy(RDMRecordPermissionPolicy):
     # Delete access given to admins only.
     can_delete = [Admin()]
 
-    # TODO: create (AuthenticatedUser) generator
     # Create action given to AuthenticatedUser
     # UI - if user is loged in
-    # API - if user has be Access token (Bearer API-TOKEN)
-    # can_create = [AuthenticatedUser()]
+    # API - if user has Access token (Bearer API-TOKEN)
+    can_create = [AuthenticatedUser()]
 
     # Associated files permissions (which are really bucket permissions)
     # can_read_files = [AnyUserIfPublic(), RecordOwners()]
