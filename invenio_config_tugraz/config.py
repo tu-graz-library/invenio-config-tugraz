@@ -213,11 +213,11 @@ RECAPTCHA_PRIVATE_KEY = None
 # https://invenio-rdm-records.readthedocs.io/en/latest/configuration.html
 #
 # Custom Access Right
-RDM_RECORDS_CUSTOM_VOCABULARIES = {
-    'access_right': {
-        'path': join(
-            dirname(abspath(__file__)),
-            'restrictions', 'access_right', 'access_right_limit.csv'
-        )
-    }
-}
+# RDM_RECORDS_CUSTOM_VOCABULARIES = {
+#     'access_right': {
+#         'path': join(
+#             dirname(abspath(__file__)),
+#             'restrictions', 'access_right', 'access_right_limit.csv'
+#         )
+#     }
+# }
