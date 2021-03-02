@@ -156,7 +156,7 @@ SECURITY_CHANGEABLE = False
 SECURITY_RECOVERABLE = False
 """Allow password recovery by users."""
 
-SECURITY_REGISTERABLE = True
+SECURITY_REGISTERABLE = False
 """"Allow users to register.
 
 With this variable set to "False" users will not be
@@ -213,11 +213,11 @@ RECAPTCHA_PRIVATE_KEY = None
 # https://invenio-rdm-records.readthedocs.io/en/latest/configuration.html
 #
 # Custom Access Right
-RDM_RECORDS_CUSTOM_VOCABULARIES = {
-    'access_right': {
-        'path': join(
-            dirname(abspath(__file__)),
-            'restrictions', 'access_right', 'access_right_limit.csv'
-        )
-    }
-}
+# RDM_RECORDS_CUSTOM_VOCABULARIES = {
+#     'access_right': {
+#         'path': join(
+#             dirname(abspath(__file__)),
+#             'restrictions', 'access_right', 'access_right_limit.csv'
+#         )
+#     }
+# }
