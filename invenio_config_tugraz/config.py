@@ -156,7 +156,7 @@ SECURITY_CHANGEABLE = False
 SECURITY_RECOVERABLE = False
 """Allow password recovery by users."""
 
-SECURITY_REGISTERABLE = True
+SECURITY_REGISTERABLE = False
 """"Allow users to register.
 
 With this variable set to "False" users will not be
