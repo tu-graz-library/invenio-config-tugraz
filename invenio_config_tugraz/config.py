@@ -39,7 +39,7 @@ APP_ALLOWED_HOSTS = [
     "127.0.0.1",
     "invenio-dev01.tugraz.at",
     "invenio-test.tugraz.at",
-    "repository.tugraz.at"
+    "repository.tugraz.at",
 ]
 """Allowed Hosts"""
 
@@ -53,6 +53,9 @@ APP_DEFAULT_SECURE_HEADERS = {
             "'unsafe-inline'",
             "'unsafe-eval'",
             "blob:",
+            "ub-support.tugraz.at",  # zammad contact form
+            "api.datacite.org/dois",  # datacite
+            "api.test.datacite.org/dois",  # datacite test
         ],
     },
     "content_security_policy_report_only": False,
