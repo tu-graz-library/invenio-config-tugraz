@@ -224,3 +224,14 @@ RECAPTCHA_PRIVATE_KEY = None
 #         )
 #     }
 # }
+
+# Invenio-app-rdm
+# =========================
+# See https://github.com/inveniosoftware/invenio-app-rdm/blob/master/invenio_app_rdm/config.py
+APP_RDM_DEPOSIT_FORM_DEFAULTS = {}
+"""Default values for new records in the deposit UI.
+The keys denote the dot-separated path, where in the record's metadata
+the values should be set (see invenio-records.dictutils).
+If the value is callable, its return value will be used for the field
+(e.g. lambda/function for dynamic calculation of values).
+"""
