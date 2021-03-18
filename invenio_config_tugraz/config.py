@@ -306,6 +306,7 @@ reopened regularly.
         # number of seconds to wait before giving up on getting a connection
         # from the pool
         pool_timeout=30,
+
     )
 
 See https://docs.sqlalchemy.org/en/latest/core/engines.html.
