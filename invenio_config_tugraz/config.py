@@ -215,6 +215,19 @@ RECAPTCHA_PRIVATE_KEY = None
 # See:
 # https://invenio-rdm-records.readthedocs.io/en/latest/configuration.html
 #
+RDM_RECORDS_USER_FIXTURE_PASSWORDS = {
+    "info@tugraz.at": None
+}
+"""Overrides for the user fixtures' passwords.
+The password set for a user fixture in this dictionary overrides the
+password set in the ``users.yaml`` file. This can be used to set custom
+passwords for the fixture users (of course, this has to be configured
+before the fixtures are installed, e.g. by setting up the services).
+If ``None`` or an empty string is configured in this dictionary, then the
+password from ``users.yaml`` will be used. If that is also absent, a password
+will be generated randomly.
+"""
+
 # Custom Access Right
 # RDM_RECORDS_CUSTOM_VOCABULARIES = {
 #     'access_right': {
@@ -230,8 +243,70 @@ RECAPTCHA_PRIVATE_KEY = None
 # See https://github.com/inveniosoftware/invenio-app-rdm/blob/master/invenio_app_rdm/config.py
 APP_RDM_DEPOSIT_FORM_DEFAULTS = {}
 """Default values for new records in the deposit UI.
+
 The keys denote the dot-separated path, where in the record's metadata
 the values should be set (see invenio-records.dictutils).
 If the value is callable, its return value will be used for the field
 (e.g. lambda/function for dynamic calculation of values).
+"""
+
+SQLALCHEMY_ECHO = False
+"""Enable to see all SQL queries."""
+
+SQLALCHEMY_ENGINE_OPTIONS = {
+    "pool_pre_ping": False,
+    "pool_recycle": 3600,
+    # set a more agressive timeout to ensure http requests don't wait for long
+    "pool_timeout": 10,
+}
+"""SQLAlchemy engine options.
+
+This is used to configure for instance the database connection pool.
+Specifically for connection pooling the following options below are relevant.
+Note, that the connection pool settings have to be aligned with:
+
+1. your database server's max allowed connections settings, and
+2. your application deployment (number of processes/threads)
+
+**Disconnect handling**
+
+Note, it's possible that a connection you get from the connection pool is no
+longer open. This happens if e.g. the database server was restarted or the
+server has a timeout that closes the connection. In these case you'll see an
+error similar to::
+
+    psycopg2.OperationalError: server closed the connection unexpectedly
+        This probably means the server terminated abnormally
+        before or while processing the request.
+
+The errors can be avoided by using the ``pool_pre_ping`` option, which will
+ensure the connection is open first by issuing a ``SELECT 1``. The pre-ping
+feature however, comes with a performance penalty, and thus it may be better
+to first try adjusting the ``pool_recyle`` to ensure connections are closed and
+reopened regularly.
+
+... code-block:: python
+
+    SQLALCHEMY_ENGINE_OPTIONS = dict(
+        # enable the connection pool “pre-ping” feature that tests connections
+        # for liveness upon each checkout.
+        pool_pre_ping=True,
+
+        # the number of connections to allow in connection pool “overflow”,
+        # that is connections that can be opened above and beyond the
+        # pool_size setting
+        max_overflow=10,
+
+        # the number of connections to keep open inside the connection
+        pool_size=5,
+
+        # recycle connections after the given number of seconds has passed.
+        pool_recycle=3600,
+
+        # number of seconds to wait before giving up on getting a connection
+        # from the pool
+        pool_timeout=30,
+    )
+
+See https://docs.sqlalchemy.org/en/latest/core/engines.html.
 """
