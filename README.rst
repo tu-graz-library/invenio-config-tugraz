@@ -1,5 +1,5 @@
 ..
-    Copyright (C) 2020 Mojib Wali.
+    Copyright (C) 2020-2021 Graz University of Technology.
 
     invenio-config-tugraz is free software; you can redistribute it and/or
     modify it under the terms of the MIT License; see LICENSE file for more
@@ -15,10 +15,10 @@
 .. image:: https://img.shields.io/pypi/dm/invenio-config-tugraz.svg
         :target: https://pypi.python.org/pypi/invenio-config-tugraz
 
-.. image:: https://img.shields.io/github/tag/mb-wali/invenio-config-tugraz.svg
+.. image:: https://img.shields.io/github/tag/tu-graz-library/invenio-config-tugraz.svg
         :target: https://github.com/mb-wali/invenio-config-tugraz/releases
 
-.. image:: https://img.shields.io/github/license/mb-wali/invenio-config-tugraz.svg
+.. image:: https://img.shields.io/github/license/tu-graz-library/invenio-config-tugraz.svg
         :target: https://github.com/mb-wali/invenio-config-tugraz/blob/master/LICENSE
 
 .. image:: https://readthedocs.org/projects/invenio-config-tugraz/badge/?version=latest
