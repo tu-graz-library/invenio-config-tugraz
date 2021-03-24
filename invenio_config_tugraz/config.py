@@ -84,7 +84,7 @@ SECURITY_EMAIL_SENDER = "info@invenio-test.tugraz.at"
 """Email address used as sender of account registration emails."""
 """Domain name should match the domain used in web server."""
 
-SECURITY_EMAIL_SUBJECT_REGISTER = _("Welcome to RDM!")
+SECURITY_EMAIL_SUBJECT_REGISTER = _("Welcome to TU Graz Repository!")
 """Email subject for account registration emails."""
 
 MAIL_SUPPRESS_SEND = True
