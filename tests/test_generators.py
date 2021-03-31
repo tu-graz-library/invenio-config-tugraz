@@ -8,9 +8,9 @@
 
 """Test Generators."""
 
-from invenio_access.permissions import any_user, authenticated_user
+from invenio_access.permissions import any_user
 
-from invenio_config_tugraz.generators import AuthenticatedUser, RecordIp
+from invenio_config_tugraz.generators import RecordIp
 
 
 def test_recordip(create_app, open_record, singleip_record):
@@ -27,12 +27,3 @@ def test_recordip(create_app, open_record, singleip_record):
     assert generator.excludes(record=open_record) == []
 
     assert generator.query_filter().to_dict() == {'bool': {'must_not': [{'match': {'access.access_right': 'singleip'}}]}}
-
-
-def test_authenticateduser():
-    """Test Generator AuthenticatedUser."""
-    generator = AuthenticatedUser()
-
-    assert generator.needs() == [authenticated_user]
-    assert generator.excludes() == []
-    assert generator.query_filter() == []
