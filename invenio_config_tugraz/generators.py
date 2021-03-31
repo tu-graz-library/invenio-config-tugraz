@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2020 Mojib Wali.
+# Copyright (C) 2020-2021 Graz University of Technology.
 #
 # invenio-config-tugraz is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
@@ -153,7 +153,7 @@ The succinct encoding of the permissions for your instance gives you
 
 from elasticsearch_dsl.query import Q
 from flask import current_app, request
-from invenio_access.permissions import any_user, authenticated_user, superuser_access
+from invenio_access.permissions import any_user, superuser_access
 from invenio_records_permissions.generators import Generator
 
 
@@ -221,20 +221,3 @@ class RecordIp(Generator):
         if user_ip in current_app.config["INVENIO_CONFIG_TUGRAZ_SINGLE_IP"]:
             return True
         return False
-
-
-class AuthenticatedUser(Generator):
-    """Allows authenticated users."""
-
-    def __init__(self):
-        """Constructor."""
-        super(AuthenticatedUser, self).__init__()
-
-    def needs(self, **kwargs):
-        """Enabling Needs."""
-        return [authenticated_user]
-
-    def query_filter(self, **kwargs):
-        """Filters for current identity as super user."""
-        # TODO: Implement with new permissions metadata
-        return []

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2020 Graz University of Technology.
+# Copyright (C) 2020-2021 Graz University of Technology.
 #
 # invenio-config-tugraz is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
@@ -53,18 +53,17 @@ Using Custom Generator for a policy:
 Permissions for Invenio (RDM) Records.
 """
 
-from invenio_rdm_records.services import (
-    BibliographicRecordServiceConfig,
-    RDMRecordPermissionPolicy,
-)
+from invenio_rdm_records.services import RDMRecordPermissionPolicy
+from invenio_rdm_records.services.config import RDMRecordServiceConfig
+from invenio_rdm_records.services.generators import IfDraft, IfRestricted, RecordOwners
 from invenio_records_permissions.generators import (
     Admin,
     AnyUser,
-    RecordOwners,
+    AuthenticatedUser,
+    Disable,
     SuperUser,
+    SystemProcess,
 )
-
-from .generators import AuthenticatedUser, RecordIp
 
 
 class TUGRAZPermissionPolicy(RDMRecordPermissionPolicy):
@@ -72,40 +71,16 @@ class TUGRAZPermissionPolicy(RDMRecordPermissionPolicy):
 
     This overrides the origin:
     https://github.com/inveniosoftware/invenio-rdm-records/blob/master/invenio_rdm_records/services/permissions.py.
-
+    Access control configuration for records.
+    Note that even if the array is empty, the invenio_access Permission class
+    always adds the ``superuser-access``, so admins will always be allowed.
+    - Create action given to everyone for now.
+    - Read access given to everyone if public record and given to owners
+      always. (inherited)
+    - Update access given to record owners. (inherited)
+    - Delete access given to admins only. (inherited)
     """
 
-    # Read access given to:
-    # TODO:
-    # AnyUserIfPublic : grant access if record is public
-    # RecordIp: grant access for single_ip
-    # RecordOwners: owner of records, enable once the deposit is allowed only for loged-in users.
-    # CURRENT:
-    # RecordIp: grant access for single_ip
-    can_read = [RecordIp()]  # RecordOwners()
 
-    # Search access given to:
-    # AnyUser : grant access anyUser
-    # RecordIp: grant access for single_ip
-    can_search = [AnyUser(), RecordIp()]
-
-    # Update access given to record owners.
-    can_update = [RecordOwners()]
-
-    # Delete access given to admins only.
-    can_delete = [Admin()]
-
-    # Create action given to AuthenticatedUser
-    # UI - if user is loged in
-    # API - if user has Access token (Bearer API-TOKEN)
-    can_create = [AuthenticatedUser()]
-
-    # Associated files permissions (which are really bucket permissions)
-    # can_read_files = [AnyUserIfPublic(), RecordOwners()]
-    # can_update_files = [RecordOwners()]
-
-
-class TUGRAZBibliographicRecordServiceConfig(BibliographicRecordServiceConfig):
+class TUGRAZRDMRecordServiceConfig(RDMRecordServiceConfig):
     """Overriding BibliographicRecordServiceConfig."""
-
-    permission_policy_cls = TUGRAZPermissionPolicy
