@@ -1,0 +1,20 @@
+{% trans email=user.email %}
+Dear {{ email }}!
+{% endtrans %}
+
+  {{ _('Welcome to TU Graz Repository!') }} <br>
+  {{ _('To help you get started, here are some useful links:') }}
+
+
+  {{ _('https://repository.tugraz.at/') }}
+  {{ _('https://repository.tugraz.at/static/documents/TUGraz_Repository_Guide_01_de.pdf') }}
+  {{ _('https://repository.tugraz.at/static/documents/TUGraz_Repository_Terms_And_Conditions_de.pdf') }}
+
+{% if security.confirmable %}
+{{ _('You can confirm your email through the link below:') }}
+
+{{ confirmation_link }}">
+{% endif %}
+
+{{ _('Best regards') }}
+TU Graz Repository Team
