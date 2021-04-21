@@ -1,6 +1,6 @@
 <p> 
-  {% trans email=user.email %}
-  Dear {{ email }}!
+  {% trans salut=current_userprofile.full_name or user.email %}
+  Dear {{ salut }}!
   {% endtrans %}
 </p>
 
@@ -10,9 +10,9 @@
 </p>
 
 <p>
-  <a href="{{ _('https://repository.tugraz.at/') }}"> {{ _('TU Graz Repository') }} </a> <br>
-  <a href="{{ _('https://repository.tugraz.at/static/documents/TUGraz_Repository_Guide_01_de.pdf') }}">{{ _('Reference Guide') }}</a><br>
-  <a href="{{ _('https://repository.tugraz.at/static/documents/TUGraz_Repository_Terms_And_Conditions_de.pdf') }}"> {{ _('Terms and Conditions') }} </a> <br>
+  <a href="{{ config.SITE_HOSTNAME }}{{ url_for('invenio_theme_tugraz.index') }}"> {{ _('TU Graz Repository') }} </a> <br>
+  <a href="{{ config.SITE_HOSTNAME }}{{ url_for('invenio_theme_tugraz.guide')">{{ _('Reference Guide') }}</a><br>
+  <a href="{{ config.SITE_HOSTNAME }}{{ url_for('invenio_theme_tugraz.terms')"> {{ _('Terms and Conditions') }} </a> <br>
 </p>
 
 {% if security.confirmable %}
@@ -23,5 +23,5 @@
 
 <p>
   {{ _('Best regards') }} <br>
-  TU Graz Repository Team
+  {{ _('TU Graz Repository Team') }}
 </p>
