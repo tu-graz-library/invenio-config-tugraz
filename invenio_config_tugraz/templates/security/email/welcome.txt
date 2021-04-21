@@ -1,7 +1,6 @@
 {% trans salut=current_userprofile.full_name or user.email %}
 Dear {{ salut }}!
 {% endtrans %}
-{{ _('Welcome to TU Graz Repository!') }}
 {{ _('To help you get started, here are some useful links:') }}
 
   {{ config.SITE_HOSTNAME }}{{ url_for('invenio_theme_tugraz.index') }}

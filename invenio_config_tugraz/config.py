@@ -172,6 +172,9 @@ SECURITY_CONFIRMABLE = False
 Instead user will get a welcome email.
 """
 
+# Flask-Security
+# =============
+# See https://pythonhosted.org/Flask-Security/configuration.html
 SECURITY_EMAIL_PLAINTEXT = True
 """Render email content as plaintext."""
 

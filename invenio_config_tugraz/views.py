@@ -2,7 +2,7 @@
 #
 # Copyright (C) 2020-2021 Graz University of Technology.
 #
-# invenio-theme-tugraz is free software; you can redistribute it and/or
+# invenio-config-tugraz is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
 # details.
 
@@ -41,18 +41,5 @@ def ui_blueprint(app):
             temp = blueprints[security_index]
             blueprints[security_index] = blueprints[our_index]
             blueprints[our_index] = temp
-
-    @blueprint.app_template_filter("make_dict_like")
-    def make_dict_like(value: str, key: str) -> Dict[str, str]:
-        """Convert the value to a dict like structure.
-
-        in the form of a key -> value pair.
-        """
-        return {key: value}
-
-    @blueprint.app_template_filter("cast_to_dict")
-    def cast_to_dict(attr_dict):
-        """Return the dict structure of AttrDict variable."""
-        return AttrDict.to_dict(attr_dict)
 
     return blueprint
