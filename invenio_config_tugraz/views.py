@@ -31,7 +31,6 @@ def ui_blueprint(app):
         security_index = None
 
         for index, bp in enumerate(blueprints):
-            print(bp.name)
             if bp.name == "security":
                 security_index = index
             if bp.name == "invenio_config_tugraz":
