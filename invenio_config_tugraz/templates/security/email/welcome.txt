@@ -1,6 +1,4 @@
-{% trans salut=current_userprofile.full_name or user.email %}
-Dear {{ salut }}!
-{% endtrans %}
+{{ _('Dear %(email)s!', email=user.email) }}
 {{ _('To help you get started, here are some useful links:') }}
 
   {{ _('Repository')}}:           https://{{ config.SITE_HOSTNAME }}{{ url_for('invenio_theme_tugraz.index') }}
