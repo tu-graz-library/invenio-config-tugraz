@@ -84,6 +84,9 @@ setup(
         "invenio_base.apps": [
             "invenio_config_tugraz = invenio_config_tugraz:InvenioConfigTugraz",
         ],
+        "invenio_base.blueprints": [
+            "invenio_config_tugraz = invenio_config_tugraz.views:ui_blueprint",
+        ],
         "invenio_i18n.translations": [
             "messages = invenio_config_tugraz",
         ],

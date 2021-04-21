@@ -1,0 +1,26 @@
+<p> 
+  {% trans salut=current_userprofile.full_name or user.email %}
+  Dear {{ salut }}!
+  {% endtrans %}
+</p>
+
+<p>
+  {{ _('To help you get started, here are some useful links:') }}
+</p>
+
+<p>
+  <a href="{{ config.SITE_HOSTNAME }}{{ url_for('invenio_theme_tugraz.index') }}"> {{ _('TU Graz Repository') }} </a> <br>
+  <a href="{{ config.SITE_HOSTNAME }}{{ url_for('invenio_theme_tugraz.guide')">{{ _('Reference Guide') }}</a><br>
+  <a href="{{ config.SITE_HOSTNAME }}{{ url_for('invenio_theme_tugraz.terms')"> {{ _('Terms and Conditions') }} </a> <br>
+</p>
+
+{% if security.confirmable %}
+<p>{{ _('You can confirm your email through the link below:') }}</p>
+
+<p><a href="{{ confirmation_link }}">{{ _('Confirm my account') }}</a></p>
+{% endif %}
+
+<p>
+  {{ _('Best regards') }} <br>
+  {{ _('TU Graz Repository Team') }}
+</p>

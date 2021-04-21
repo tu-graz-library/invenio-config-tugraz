@@ -1,0 +1,14 @@
+{{ _('Dear %(email)s!', email=user.email) }}
+{{ _('To help you get started, here are some useful links:') }}
+
+  {{ _('Repository')}}:           https://{{ config.SITE_HOSTNAME }}{{ url_for('invenio_theme_tugraz.index') }}
+  {{ _('Repository Guide')}}:     https://{{ config.SITE_HOSTNAME }}{{ url_for('invenio_theme_tugraz.guide') }}
+  {{ _('Terms And Conditions')}}: https://{{ config.SITE_HOSTNAME }}{{ url_for('invenio_theme_tugraz.terms') }}
+
+{% if security.confirmable %}
+{{ _('You can confirm your email through the link below:') }}
+{{ confirmation_link }}">
+{% endif %}
+
+{{ _('Best regards') }}
+{{ _('TU Graz Repository Team') }}

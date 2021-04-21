@@ -7,6 +7,7 @@
 # details.
 
 """invenio module that adds tugraz configs."""
+from flask import Blueprint
 
 from . import config
 

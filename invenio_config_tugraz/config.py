@@ -172,6 +172,15 @@ SECURITY_CONFIRMABLE = False
 Instead user will get a welcome email.
 """
 
+# Flask-Security
+# =============
+# See https://pythonhosted.org/Flask-Security/configuration.html
+SECURITY_EMAIL_PLAINTEXT = True
+"""Render email content as plaintext."""
+
+SECURITY_EMAIL_HTML = False
+"""Render email content as HTML."""
+
 
 ACCOUNTS = True
 """Tells if the templates should use the accounts module.
@@ -208,9 +217,7 @@ RECAPTCHA_PRIVATE_KEY = None
 # See:
 # https://invenio-rdm-records.readthedocs.io/en/latest/configuration.html
 #
-RDM_RECORDS_USER_FIXTURE_PASSWORDS = {
-    "info@tugraz.at": None
-}
+RDM_RECORDS_USER_FIXTURE_PASSWORDS = {"info@tugraz.at": None}
 """Overrides for the user fixtures' passwords.
 The password set for a user fixture in this dictionary overrides the
 password set in the ``users.yaml`` file. This can be used to set custom
