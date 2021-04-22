@@ -1,21 +1,18 @@
-{{ _('Dear %(email)s!', email=user.email) }}
+{{ _('Dear user,') }}
+
+{{ _('Welcome to the Repository of TU Graz!') }}
 
 {{ _('To help you get started, here are some useful links:') }}
 
-{{ _('Repository')}}
-https://{{ config.SITE_HOSTNAME }}{{ url_for('invenio_theme_tugraz.index') }}
-
-{{ _('Repository Guide')}}
-https://{{ config.SITE_HOSTNAME }}{{ url_for('invenio_theme_tugraz.guide') }}
-
-{{ _('Terms And Conditions') }}
-https://{{ config.SITE_HOSTNAME }}{{ url_for('invenio_theme_tugraz.terms') }}
-
+    - {{ _('Repository Guide')}} ({{ _('how to upload files')}}) (https://{{ config.SITE_HOSTNAME }}{{ url_for('invenio_theme_tugraz.guide') }})
+    - {{ _('Terms And Conditions') }} (https://{{ config.SITE_HOSTNAME }}{{ url_for('invenio_theme_tugraz.terms') }})
+    - {{ _('Data Protection Rights')}} (https://{{ config.SITE_HOSTNAME }}{{ url_for('invenio_theme_tugraz.gdpr') }})
 
 {% if security.confirmable %}
 {{ _('You can confirm your email through the link below:') }}
 {{ confirmation_link }}">
 {% endif %}
+{{ _('If you require any assistance please do not hesitate to contact us at repository-support@tugraz.at.') }}
 
-{{ _('Best regards') }}
+{{ _('Best regards,') }}
 {{ _('TU Graz Repository Team') }}
