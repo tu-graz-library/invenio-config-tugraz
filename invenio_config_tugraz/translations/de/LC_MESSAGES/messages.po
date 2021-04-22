@@ -26,7 +26,7 @@ msgstr "Willkommen im TU Graz Repository!"
 #: invenio_config_tugraz/templates/security/email/welcome.txt:1
 #, python-format
 msgid "Dear %(email)s!"
-msgstr "Lieber %(email)s"
+msgstr "Lieber %(email)s!"
 
 #: invenio_config_tugraz/templates/security/email/welcome.txt:3
 msgid "To help you get started, here are some useful links:"
