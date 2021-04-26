@@ -1,5 +1,5 @@
 # Translations template for invenio-config-tugraz.
-# Copyright (C) 2021 Mojib Wali
+# Copyright (C) 2021 Graz University of Technology
 # This file is distributed under the same license as the
 # invenio-config-tugraz project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: invenio-config-tugraz 0.5.5\n"
 "Report-Msgid-Bugs-To: mojib.wali@tugraz.at\n"
-"POT-Creation-Date: 2021-04-22 12:08+0200\n"
+"POT-Creation-Date: 2021-04-26 12:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
