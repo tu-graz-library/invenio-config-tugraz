@@ -1,5 +1,5 @@
 # Translations template for invenio-config-tugraz.
-# Copyright (C) 2021 Mojib Wali
+# Copyright (C) 2021 Graz University of Technology
 # This file is distributed under the same license as the
 # invenio-config-tugraz project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
@@ -7,9 +7,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: invenio-config-tugraz 0.5.4\n"
+"Project-Id-Version: invenio-config-tugraz 0.5.5\n"
 "Report-Msgid-Bugs-To: mojib.wali@tugraz.at\n"
-"POT-Creation-Date: 2021-04-22 09:24+0200\n"
+"POT-Creation-Date: 2021-04-27 15:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,35 +23,56 @@ msgid "Welcome to TU Graz Repository!"
 msgstr ""
 
 #: invenio_config_tugraz/templates/security/email/welcome.txt:1
-#, python-format
-msgid "Dear %(email)s!"
+msgid "Dear user,"
 msgstr ""
 
 #: invenio_config_tugraz/templates/security/email/welcome.txt:3
-msgid "To help you get started, here are some useful links:"
+msgid "Welcome to the Repository of TU Graz!"
 msgstr ""
 
 #: invenio_config_tugraz/templates/security/email/welcome.txt:5
-msgid "Repository"
+msgid "To help you get started, here are some useful links:"
 msgstr ""
 
-#: invenio_config_tugraz/templates/security/email/welcome.txt:8
+#: invenio_config_tugraz/templates/security/email/welcome.txt:7
+msgid "Guidelines:"
+msgstr ""
+
+#: invenio_config_tugraz/templates/security/email/welcome.txt:7
 msgid "Repository Guide"
 msgstr ""
 
-#: invenio_config_tugraz/templates/security/email/welcome.txt:11
+#: invenio_config_tugraz/templates/security/email/welcome.txt:7
+msgid "how to upload files"
+msgstr ""
+
+#: invenio_config_tugraz/templates/security/email/welcome.txt:8
+msgid "Search Guide"
+msgstr ""
+
+#: invenio_config_tugraz/templates/security/email/welcome.txt:9
 msgid "Terms And Conditions"
 msgstr ""
 
-#: invenio_config_tugraz/templates/security/email/welcome.txt:16
+#: invenio_config_tugraz/templates/security/email/welcome.txt:10
+msgid "Data Protection Rights"
+msgstr ""
+
+#: invenio_config_tugraz/templates/security/email/welcome.txt:13
 msgid "You can confirm your email through the link below:"
 msgstr ""
 
-#: invenio_config_tugraz/templates/security/email/welcome.txt:20
-msgid "Best regards"
+#: invenio_config_tugraz/templates/security/email/welcome.txt:16
+msgid ""
+"If you require any assistance please do not hesitate to contact us at "
+"repository-support@tugraz.at."
 msgstr ""
 
-#: invenio_config_tugraz/templates/security/email/welcome.txt:21
+#: invenio_config_tugraz/templates/security/email/welcome.txt:18
+msgid "Best regards,"
+msgstr ""
+
+#: invenio_config_tugraz/templates/security/email/welcome.txt:19
 msgid "TU Graz Repository Team"
 msgstr ""
 
