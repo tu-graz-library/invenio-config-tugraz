@@ -4,10 +4,10 @@
 
 {{ _('To help you get started, here are some useful links:') }}
 
-    - {{ _('Repository Guide')}} ({{ _('how to upload files')}}) (https://{{ config.SITE_HOSTNAME }}{{ url_for('invenio_theme_tugraz.guide') }})
+    - {{ _('Guidelines:')}} {{ _('Repository Guide')}} ({{ _('how to upload files')}}) (https://{{ config.SITE_HOSTNAME }}{{ url_for('invenio_theme_tugraz.guide') }})
+    - {{ _('Search Guide')}} (https://{{ config.SITE_HOSTNAME }}/help/search
     - {{ _('Terms And Conditions') }} (https://{{ config.SITE_HOSTNAME }}{{ url_for('invenio_theme_tugraz.terms') }})
     - {{ _('Data Protection Rights')}} (https://{{ config.SITE_HOSTNAME }}{{ url_for('invenio_theme_tugraz.gdpr') }})
-
 {% if security.confirmable %}
 {{ _('You can confirm your email through the link below:') }}
 {{ confirmation_link }}">

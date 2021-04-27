@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: invenio-config-tugraz 0.5.5\n"
 "Report-Msgid-Bugs-To: mojib.wali@tugraz.at\n"
-"POT-Creation-Date: 2021-04-26 12:07+0200\n"
+"POT-Creation-Date: 2021-04-27 15:30+0200\n"
 "PO-Revision-Date: 2021-04-22 11:57+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: de\n"
@@ -38,6 +38,10 @@ msgstr ""
 "Links:"
 
 #: invenio_config_tugraz/templates/security/email/welcome.txt:7
+msgid "Guidelines:"
+msgstr "Leitfaden:"
+
+#: invenio_config_tugraz/templates/security/email/welcome.txt:7
 msgid "Repository Guide"
 msgstr "Handbuch"
 
@@ -46,18 +50,22 @@ msgid "how to upload files"
 msgstr "wie man Dateien hochlädt"
 
 #: invenio_config_tugraz/templates/security/email/welcome.txt:8
+msgid "Search Guide"
+msgstr "Suchanleitung"
+
+#: invenio_config_tugraz/templates/security/email/welcome.txt:9
 msgid "Terms And Conditions"
 msgstr "Nutzungsbedingungen"
 
-#: invenio_config_tugraz/templates/security/email/welcome.txt:9
+#: invenio_config_tugraz/templates/security/email/welcome.txt:10
 msgid "Data Protection Rights"
 msgstr "Datenschutzerklärung"
 
-#: invenio_config_tugraz/templates/security/email/welcome.txt:12
+#: invenio_config_tugraz/templates/security/email/welcome.txt:13
 msgid "You can confirm your email through the link below:"
 msgstr "Sie können Ihre E-Mail über den folgenden Link bestätigen:"
 
-#: invenio_config_tugraz/templates/security/email/welcome.txt:15
+#: invenio_config_tugraz/templates/security/email/welcome.txt:16
 msgid ""
 "If you require any assistance please do not hesitate to contact us at "
 "repository-support@tugraz.at."
@@ -65,11 +73,11 @@ msgstr ""
 "Wenn Sie Hilfe benötigen, zögern Sie bitte nicht, uns unter repository-"
 "support@tugraz.at zu kontaktieren."
 
-#: invenio_config_tugraz/templates/security/email/welcome.txt:17
+#: invenio_config_tugraz/templates/security/email/welcome.txt:18
 msgid "Best regards,"
 msgstr "Mit freundlichen Grüßen,"
 
-#: invenio_config_tugraz/templates/security/email/welcome.txt:18
+#: invenio_config_tugraz/templates/security/email/welcome.txt:19
 msgid "TU Graz Repository Team"
-msgstr ""
+msgstr "TU Graz Repository Team"
 
