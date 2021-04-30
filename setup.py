@@ -54,7 +54,7 @@ setup_requires = [
 install_requires = [
     "Flask-BabelEx>=0.9.4",
     # keep this in sync with invenioRDM release
-    "invenio_rdm_records>=0.28.0,<0.29.0",
+    "invenio_app_rdm==3.0.0",
 ]
 
 packages = find_packages()
