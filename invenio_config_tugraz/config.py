@@ -54,8 +54,6 @@ APP_DEFAULT_SECURE_HEADERS = {
             "'unsafe-eval'",
             "blob:",
             "ub-support.tugraz.at",  # zammad contact form
-            "api.datacite.org/dois",  # datacite
-            "api.test.datacite.org/dois",  # datacite test
         ],
     },
     "content_security_policy_report_only": False,
@@ -113,19 +111,22 @@ Set this to False when sending actual emails.
 # ===========
 # See https://invenio-userprofiles.readthedocs.io/en/latest/configuration.html
 
-USERPROFILES_EXTEND_SECURITY_FORMS = False
+USERPROFILES_EXTEND_SECURITY_FORMS = True
 """Set True in order to register user_profile.
 
 This also forces user to add username and fullname
 when register.
 """
 
-USERPROFILES_EMAIL_ENABLED = False
+USERPROFILES_EMAIL_ENABLED = True
 """Exclude the user email in the profile form."""
 
-# Invenio-shibboleth
+USERPROFILES_READ_ONLY = True
+"""Allow users to change profile info (name, email, etc...)."""
+
+# Invenio-saml
 # ===========
-# See https://invenio-shibboleth.readthedocs.io/en/latest/configuration.html
+# See https://invenio-saml.readthedocs.io/en/latest/configuration.html
 
 SSO_SAML_IDPS = {}
 """Configuration of IDPS. Actual values can be find in to invenio.cfg file"""
@@ -153,13 +154,16 @@ SSO_SAML_DEFAULT_SLS_ROUTE = "/sls/<idp>"
 # ===========
 # See https://invenio-accounts.readthedocs.io/en/latest/configuration.html
 
+ACCOUNTS_LOCAL_LOGIN_ENABLED = True
+"""Allow local login."""
+
 SECURITY_CHANGEABLE = False
 """Allow password change by users."""
 
 SECURITY_RECOVERABLE = False
 """Allow password recovery by users."""
 
-SECURITY_REGISTERABLE = False
+SECURITY_REGISTERABLE = True
 """"Allow users to register.
 
 With this variable set to "False" users will not be
@@ -227,16 +231,6 @@ If ``None`` or an empty string is configured in this dictionary, then the
 password from ``users.yaml`` will be used. If that is also absent, a password
 will be generated randomly.
 """
-
-# Custom Access Right
-# RDM_RECORDS_CUSTOM_VOCABULARIES = {
-#     'access_right': {
-#         'path': join(
-#             dirname(abspath(__file__)),
-#             'restrictions', 'access_right', 'access_right_limit.csv'
-#         )
-#     }
-# }
 
 # Invenio-app-rdm
 # =========================

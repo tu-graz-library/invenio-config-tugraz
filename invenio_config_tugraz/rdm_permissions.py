@@ -53,34 +53,34 @@ Using Custom Generator for a policy:
 Permissions for Invenio (RDM) Records.
 """
 
-from invenio_rdm_records.services import RDMRecordPermissionPolicy
-from invenio_rdm_records.services.config import RDMRecordServiceConfig
-from invenio_rdm_records.services.generators import IfDraft, IfRestricted, RecordOwners
-from invenio_records_permissions.generators import (
-    Admin,
-    AnyUser,
-    AuthenticatedUser,
-    Disable,
-    SuperUser,
-    SystemProcess,
-)
+# from invenio_rdm_records.services import RDMRecordPermissionPolicy
+# from invenio_rdm_records.services.config import RDMRecordServiceConfig
+# from invenio_rdm_records.services.generators import IfDraft, IfRestricted, RecordOwners
+# from invenio_records_permissions.generators import (
+#     Admin,
+#     AnyUser,
+#     AuthenticatedUser,
+#     Disable,
+#     SuperUser,
+#     SystemProcess,
+# )
 
 
-class TUGRAZPermissionPolicy(RDMRecordPermissionPolicy):
-    """Access control configuration for rdm records.
+# class TUGRAZPermissionPolicy(RDMRecordPermissionPolicy):
+#     """Access control configuration for rdm records.
 
-    This overrides the origin:
-    https://github.com/inveniosoftware/invenio-rdm-records/blob/master/invenio_rdm_records/services/permissions.py.
-    Access control configuration for records.
-    Note that even if the array is empty, the invenio_access Permission class
-    always adds the ``superuser-access``, so admins will always be allowed.
-    - Create action given to everyone for now.
-    - Read access given to everyone if public record and given to owners
-      always. (inherited)
-    - Update access given to record owners. (inherited)
-    - Delete access given to admins only. (inherited)
-    """
+#     This overrides the origin:
+#     https://github.com/inveniosoftware/invenio-rdm-records/blob/master/invenio_rdm_records/services/permissions.py.
+#     Access control configuration for records.
+#     Note that even if the array is empty, the invenio_access Permission class
+#     always adds the ``superuser-access``, so admins will always be allowed.
+#     - Create action given to everyone for now.
+#     - Read access given to everyone if public record and given to owners
+#       always. (inherited)
+#     - Update access given to record owners. (inherited)
+#     - Delete access given to admins only. (inherited)
+#     """
 
 
-class TUGRAZRDMRecordServiceConfig(RDMRecordServiceConfig):
-    """Overriding BibliographicRecordServiceConfig."""
+# class TUGRAZRDMRecordServiceConfig(RDMRecordServiceConfig):
+#     """Overriding BibliographicRecordServiceConfig."""
