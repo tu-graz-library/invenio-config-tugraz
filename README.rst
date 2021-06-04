@@ -38,6 +38,8 @@ Override configs from diffrent invenio modules to meet TU Graz requirement:
 * Invenio-Mail
 * Invenio-shibboleth
 * Invenio-accounts
+* Flask-security
+* Defined routes for TUG
 
 Further documentation is available on
 https://invenio-config-tugraz.readthedocs.io/
