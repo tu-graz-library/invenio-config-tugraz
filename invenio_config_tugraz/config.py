@@ -29,6 +29,13 @@ INVENIO_CONFIG_TUGRAZ_IP_RANGES =
 [["127.0.0.2", "127.0.0.99"], ["127.0.1.3", "127.0.1.5"]]
 """
 
+CONFIG_TUGRAZ_ROUTES = {
+    "guide": "/guide",
+    "terms": "/terms",
+    "gdpr": "/gdpr",
+}
+"""Defined routes for TUG."""
+
 # Invenio-App
 # ===========
 # See https://invenio-app.readthedocs.io/en/latest/configuration.html
