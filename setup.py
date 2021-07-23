@@ -16,12 +16,11 @@ readme = open("README.rst").read()
 history = open("CHANGES.rst").read()
 
 tests_require = [
-    "pytest-invenio>=1.4.0",
-    "invenio-app>=1.3.0,<2.0.0",
+    "pytest-invenio>=1.4.1",
 ]
 
 # Should follow invenio-app-rdm
-invenio_search_version = ">=1.4.0,<1.5.0"
+invenio_search_version = ">=1.4.1,<1.5.0"
 invenio_db_version = ">=1.0.9,<1.1.0"
 
 extras_require = {
@@ -30,7 +29,7 @@ extras_require = {
     "postgresql": [f"invenio-db[postgresql,versioning]{invenio_db_version}"],
     "sqlite": [f"invenio-db[versioning]{invenio_db_version}"],
     "docs": [
-        "Sphinx>=3",
+        "Sphinx>=3,<3.4.2",
     ],
     "tests": tests_require,
 }
@@ -47,14 +46,13 @@ for name, reqs in extras_require.items():
     extras_require["all"].extend(reqs)
 
 setup_requires = [
-    "Babel>=1.3",
-    "pytest-runner>=3.0.0,<5",
+    "Babel>=2.8,<3",
 ]
 
 install_requires = [
-    "Flask-BabelEx>=0.9.4",
     # keep this in sync with invenioRDM release
-    "invenio_app_rdm==4.0.0",
+    "invenio-rdm-records>=0.32.2,<0.33.0",
+    "invenio-cache>=1.1.0"
 ]
 
 packages = find_packages()
@@ -110,6 +108,7 @@ setup(
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
-        "Development Status :: 3 - Alpha",
+        "Programming Language :: Python :: 3.9",
+        "Development Status :: 5 - Production/Stable",
     ],
 )
