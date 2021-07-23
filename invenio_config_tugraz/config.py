@@ -29,6 +29,7 @@ INVENIO_CONFIG_TUGRAZ_IP_RANGES =
 [["127.0.0.2", "127.0.0.99"], ["127.0.1.3", "127.0.1.5"]]
 """
 
+
 CONFIG_TUGRAZ_ROUTES = {
     "guide": "/guide",
     "terms": "/terms",
@@ -40,6 +41,7 @@ CONFIG_TUGRAZ_ROUTES = {
 # ===========
 # See https://invenio-app.readthedocs.io/en/latest/configuration.html
 
+# TODO: move this to gitlab vars.
 APP_ALLOWED_HOSTS = [
     "0.0.0.0",
     "localhost",
@@ -54,11 +56,8 @@ APP_DEFAULT_SECURE_HEADERS = {
     "content_security_policy": {
         "default-src": [
             "'self'",
-            "fonts.googleapis.com",
-            "*.gstatic.com",
             "data:",
             "'unsafe-inline'",
-            "'unsafe-eval'",
             "blob:",
             "ub-support.tugraz.at",  # zammad contact form
         ],
@@ -77,6 +76,15 @@ APP_DEFAULT_SECURE_HEADERS = {
     "strict_transport_security_max_age": 31556926,  # One year in seconds
     "strict_transport_security_preload": False,
 }
+
+# Invenio-I18N
+# ============
+# See https://invenio-i18n.readthedocs.io/en/latest/configuration.html
+BABEL_DEFAULT_LOCALE = "en"
+# Default time zone
+BABEL_DEFAULT_TIMEZONE = "Europe/Vienna"
+# Other supported languages (do not include BABEL_DEFAULT_LOCALE in list).
+I18N_LANGUAGES = [("de", _("German"))]
 
 # Invenio-Mail
 # ===========
@@ -239,10 +247,15 @@ password from ``users.yaml`` will be used. If that is also absent, a password
 will be generated randomly.
 """
 
+RDM_RECORDS_DOI_DATACITE_FORMAT = "{prefix}/datacite.{id}"
+"""Customize the generated DOI string."""
+
 # Invenio-app-rdm
 # =========================
 # See https://github.com/inveniosoftware/invenio-app-rdm/blob/master/invenio_app_rdm/config.py
-APP_RDM_DEPOSIT_FORM_DEFAULTS = {}
+APP_RDM_DEPOSIT_FORM_DEFAULTS = {
+    "publisher": "Graz University of Technology",
+}
 """Default values for new records in the deposit UI.
 
 The keys denote the dot-separated path, where in the record's metadata
