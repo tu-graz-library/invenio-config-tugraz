@@ -247,7 +247,7 @@ password from ``users.yaml`` will be used. If that is also absent, a password
 will be generated randomly.
 """
 
-RDM_RECORDS_DOI_DATACITE_FORMAT = "{prefix}/datacite.{id}"
+RDM_RECORDS_DOI_DATACITE_FORMAT = "{prefix}/{id}"
 """Customize the generated DOI string."""
 
 # Invenio-app-rdm
