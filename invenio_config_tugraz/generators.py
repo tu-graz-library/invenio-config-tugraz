@@ -153,8 +153,74 @@ The succinct encoding of the permissions for your instance gives you
 
 from elasticsearch_dsl.query import Q
 from flask import current_app, request
-from invenio_access.permissions import any_user, superuser_access
+from flask_principal import RoleNeed
+from invenio_access.permissions import any_user
+from invenio_accounts.models import User
 from invenio_records_permissions.generators import Generator
+
+
+class TUGrazCurators(Generator):
+    """Allows users with certain role."""
+
+    def __init__(self):
+        """Constructor."""
+        super(TUGrazCurators, self).__init__()
+
+    def get_curators(self):
+        """Get curators from config."""
+        return current_app.config.get("TUGRAZ_CURATORS", {})
+
+    def needs(self, record=None, **kwargs):
+        """Enabling Needs."""
+        if record is None:
+            return []
+
+        owners = record.parent.access.owned_by
+        # owners is empty for demo records. not sure about other records.
+        if len(owners) == 0:
+            return []
+
+        try:
+            owner = owners[0].resolve()
+        except Exception as e:
+            print(f"exception during owner lookup: {e}")
+            return []
+
+        curators = self.get_curators()
+        curator = None
+        for c in curators.values():
+            if c["email"] == owner.email:
+                curator = c
+                break
+
+        if not curator:
+            return []
+
+        return [RoleNeed(curator["role"])]
+
+    def query_filter(self, **kwargs):
+        """Filters for current identity as curator."""
+        roles = [
+            need.value
+            for need in kwargs["identity"].provides
+            if need.method == "role"
+        ]
+        if len(roles) == 0:
+            return None
+
+        curator_emails = [
+            curator["email"]
+            for curator in self.get_curators().values()
+            if curator["role"] in roles
+        ]
+        # should be faster with limit as email is a unique column
+        curator_accounts = (
+            User.query.filter(User.email.in_(curator_emails))
+            .limit(len(roles))
+            .all()
+        )
+        curator_ids = [user.id for user in curator_accounts]
+        return Q('terms', **{"parent.access.owned_by.user": curator_ids})
 
 
 class RecordIp(Generator):
@@ -166,7 +232,9 @@ class RecordIp(Generator):
             return []
 
         # check if singleip is in the records restriction
-        is_single_ip = record.get("access", {}).get("access_right") == "singleip"
+        is_single_ip = (
+            record.get("access", {}).get("access_right") == "singleip"
+        )
 
         # check if the user ip is on list
         visible = self.check_permission()
