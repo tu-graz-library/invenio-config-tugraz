@@ -8,9 +8,9 @@
 
 """invenio module that adds tugraz configs."""
 
-from os.path import abspath, dirname, join
-
 from flask_babelex import gettext as _
+
+from .base_permissions import TUGrazPermissionPolicy
 
 INVENIO_CONFIG_TUGRAZ_SHIBBOLETH = False
 """Set True if SAML is configured"""
@@ -324,4 +324,30 @@ reopened regularly.
     )
 
 See https://docs.sqlalchemy.org/en/latest/core/engines.html.
+"""
+
+
+RDM_PERMISSION_POLICY = TUGrazPermissionPolicy
+
+TUGRAZ_CURATORS = {}
+"""Curator accounts for external records.
+
+Must have the following structure:
+
+.. code-block:: python
+
+    TUGRAZ_CURATORS = {
+        'pure' : {
+            'email' : 'curator_pure@repository.at',
+            'role' : 'curator_pure',
+        },
+    }
+
+fields:
+
+- "pure"  : name of the curator. only used here for easier management.
+- "email" : email of the curator user account.
+- "role"  : role a user has to have to manage records of a curator.\
+          must be created and added manually.
+
 """
