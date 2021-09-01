@@ -153,7 +153,7 @@ The succinct encoding of the permissions for your instance gives you
 
 from elasticsearch_dsl.query import Q
 from flask import current_app, request
-from flask_principal import RoleNeed
+from flask_principal import RoleNeed, UserNeed
 from invenio_access.permissions import any_user
 from invenio_accounts.models import User
 from invenio_records_permissions.generators import Generator
@@ -170,8 +170,17 @@ class TUGrazCurators(Generator):
         """Get curators from config."""
         return current_app.config.get("TUGRAZ_CURATORS", {})
 
+    def get_curator_by_email(self, email):
+        """Get curator by email."""
+        curators = self.get_curators()
+        for c in curators.values():
+            if c["email"] == email:
+                return c
+
+        return None
+
     def needs(self, record=None, **kwargs):
-        """Enabling Needs."""
+        """Defining needs."""
         if record is None:
             return []
 
@@ -186,13 +195,7 @@ class TUGrazCurators(Generator):
             print(f"exception during owner lookup: {e}")
             return []
 
-        curators = self.get_curators()
-        curator = None
-        for c in curators.values():
-            if c["email"] == owner.email:
-                curator = c
-                break
-
+        curator = self.get_curator_by_email(owner.email)
         if not curator:
             return []
 
@@ -221,6 +224,36 @@ class TUGrazCurators(Generator):
         )
         curator_ids = [user.id for user in curator_accounts]
         return Q('terms', **{"parent.access.owned_by.user": curator_ids})
+
+    def excludes(self, record=None, **kwargs):
+        """Preventing needs for curator account.
+
+        Curator account should only be able to update unpublished record.
+        Only viable if record has been published and owner is curator account.
+        """
+        if record is None:
+            return []
+
+        if not record.is_published:
+            return []
+
+        owners = record.parent.access.owned_by
+        # owners is empty for demo records. not sure about other records.
+        if len(owners) == 0:
+            return []
+
+        try:
+            owner = owners[0].resolve()
+        except Exception as e:
+            print(f"exception during owner lookup: {e}")
+            return []
+
+        curator = self.get_curator_by_email(owner.email)
+        if not curator:
+            return []
+
+        super().excludes()
+        return [UserNeed(owner.id)]
 
 
 class RecordIp(Generator):
