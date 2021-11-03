@@ -314,3 +314,11 @@ reopened regularly.
 
 See https://docs.sqlalchemy.org/en/latest/core/engines.html.
 """
+
+# OAI-PMH
+# =======
+# See https://github.com/inveniosoftware/invenio-oaiserver/blob/master/invenio_oaiserver/config.py
+# TODO: move to gitlab
+
+OAISERVER_ID_PREFIX = "repository.tugraz.at"
+"""The prefix that will be applied to the generated OAI-PMH ids."""
