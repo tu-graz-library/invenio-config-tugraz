@@ -29,7 +29,7 @@ extras_require = {
     "postgresql": [f"invenio-db[postgresql,versioning]{invenio_db_version}"],
     "sqlite": [f"invenio-db[versioning]{invenio_db_version}"],
     "docs": [
-        "Sphinx>=3,<3.4.2",
+        "Sphinx==4.2.0",
     ],
     "tests": tests_require,
 }
