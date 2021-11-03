@@ -41,17 +41,6 @@ CONFIG_TUGRAZ_ROUTES = {
 # ===========
 # See https://invenio-app.readthedocs.io/en/latest/configuration.html
 
-# TODO: move this to gitlab vars.
-APP_ALLOWED_HOSTS = [
-    "0.0.0.0",
-    "localhost",
-    "127.0.0.1",
-    "invenio-dev01.tugraz.at",
-    "invenio-test.tugraz.at",
-    "repository.tugraz.at",
-]
-"""Allowed Hosts"""
-
 APP_DEFAULT_SECURE_HEADERS = {
     "content_security_policy": {
         "default-src": [
