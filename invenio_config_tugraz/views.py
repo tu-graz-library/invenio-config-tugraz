@@ -33,21 +33,18 @@ def ui_blueprint(app):
 
     @blueprint.before_app_first_request
     def rank_higher():
-        """Rank this modules blueprint higher than blueprint of security module."""
-        blueprints = current_app._blueprint_order
-        our_index = None
-        security_index = None
+        """Rank this modules blueprint higher than blueprint of security module.
 
-        for index, bp in enumerate(blueprints):
-            if bp.name == "security":
-                security_index = index
-            if bp.name == "invenio_config_tugraz":
-                our_index = index
+        Needed in order to overwrite email templates.
 
-        if (security_index is not None) and (our_index > security_index):
-            temp = blueprints[security_index]
-            blueprints[security_index] = blueprints[our_index]
-            blueprints[our_index] = temp
+        Since the blueprints are in a dict and the order of insertion is
+         retained, popping and reinserting all items (except ours), ensures
+         our blueprint will be in front.
+        """
+        bps = current_app.blueprints
+        for blueprint_name in list(bps.keys()):
+            if blueprint_name != "invenio_config_tugraz":
+                bps.update({blueprint_name: bps.pop(blueprint_name)})
 
     return blueprint
 
