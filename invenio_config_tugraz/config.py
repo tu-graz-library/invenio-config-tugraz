@@ -236,7 +236,7 @@ password from ``users.yaml`` will be used. If that is also absent, a password
 will be generated randomly.
 """
 
-RDM_RECORDS_DOI_DATACITE_FORMAT = "{prefix}/{id}"
+DATACITE_FORMAT = "{prefix}/{id}"
 """Customize the generated DOI string."""
 
 # Invenio-app-rdm
@@ -315,10 +315,18 @@ reopened regularly.
 See https://docs.sqlalchemy.org/en/latest/core/engines.html.
 """
 
+# Redis (cache)
+# ========
+# Cache or Redis configurations
+RATELIMIT_AUTHENTICATED_USER = "25000 per hour;1000 per minute"
+"""Increase defaults for authenticated users."""
+
+RATELIMIT_GUEST_USER = "5000 per hour;500 per minute"
+"""Increase defaults for guest users."""
+
 # OAI-PMH
 # =======
 # See https://github.com/inveniosoftware/invenio-oaiserver/blob/master/invenio_oaiserver/config.py
-# TODO: move to gitlab
 
 OAISERVER_ID_PREFIX = "repository.tugraz.at"
 """The prefix that will be applied to the generated OAI-PMH ids."""
