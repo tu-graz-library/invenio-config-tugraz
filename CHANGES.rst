@@ -7,6 +7,10 @@
 
 Changes
 =======
+Version 0.7.1 (released 2021-12-07)
+
+- configs: adds new & changed configs for v7 #76
+
 Version 0.7.0 (released 2021-12-06)
 
 - fix: update blueprint reorder #74
