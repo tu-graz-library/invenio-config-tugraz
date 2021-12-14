@@ -330,3 +330,11 @@ RATELIMIT_GUEST_USER = "5000 per hour;500 per minute"
 
 OAISERVER_ID_PREFIX = "repository.tugraz.at"
 """The prefix that will be applied to the generated OAI-PMH ids."""
+
+OAISERVER_ADMIN_EMAILS = [
+    'oai@repository.tugraz.at',
+]
+"""The e-mail addresses of administrators of the repository.
+
+It **must** include one or more instances.
+"""
