@@ -51,7 +51,7 @@ setup_requires = [
 
 install_requires = [
     # keep this in sync with invenioRDM release
-    "invenio-rdm-records>=0.33.2,<0.34.0",
+    "invenio-rdm-records>=0.34.4,<0.35.0",
     "invenio-cache>=1.1.0"
 ]
 
