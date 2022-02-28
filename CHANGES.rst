@@ -7,6 +7,11 @@
 
 Changes
 =======
+Version 0.8.1 (released 2022-02-28)
+
+- config: set samesite cookie to strict
+- dep: bump in base dependencies
+
 Version 0.8.0 (released 2022-02-09)
 
 - dep: bump rdm-records version
