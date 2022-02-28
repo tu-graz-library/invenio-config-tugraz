@@ -20,8 +20,8 @@ tests_require = [
 ]
 
 # Should follow invenio-app-rdm
-invenio_search_version = ">=1.4.1,<1.5.0"
-invenio_db_version = ">=1.0.9,<1.1.0"
+invenio_search_version = ">=1.4.2,<1.5.0"
+invenio_db_version = ">=1.0.11,<1.1.0"
 
 extras_require = {
     "elasticsearch7": [f"invenio-search[elasticsearch7]{invenio_search_version}"],
@@ -51,7 +51,7 @@ setup_requires = [
 
 install_requires = [
     # keep this in sync with invenioRDM release
-    "invenio-rdm-records>=0.34.4,<0.35.0",
+    "invenio-rdm-records>=0.34.5,<0.35.0",
     "invenio-cache>=1.1.0"
 ]
 
