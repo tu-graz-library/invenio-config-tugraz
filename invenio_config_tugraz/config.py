@@ -324,6 +324,10 @@ RATELIMIT_AUTHENTICATED_USER = "25000 per hour;1000 per minute"
 RATELIMIT_GUEST_USER = "5000 per hour;500 per minute"
 """Increase defaults for guest users."""
 
+SESSION_COOKIE_SAMESITE = 'Strict'
+"""Sets cookie with the samesite flag to 'Strict' by default."""
+
+
 # OAI-PMH
 # =======
 # See https://github.com/inveniosoftware/invenio-oaiserver/blob/master/invenio_oaiserver/config.py
