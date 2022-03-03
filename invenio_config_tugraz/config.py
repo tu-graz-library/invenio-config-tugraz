@@ -260,7 +260,7 @@ If the value is callable, its return value will be used for the field
 (e.g. lambda/function for dynamic calculation of values).
 """
 
-APP_RDM_DEPOSIT_FORM_AUTOCOMPLETE_NAMES = False
+APP_RDM_DEPOSIT_FORM_AUTOCOMPLETE_NAMES = "search" # "searc_only" or "off"
 """Enable autocompleting names search field for creators/contributors."""
 
 SQLALCHEMY_ECHO = False
