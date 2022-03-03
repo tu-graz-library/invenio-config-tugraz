@@ -1,5 +1,5 @@
 ..
-    Copyright (C) 2020 - 2021 Graz University of Technology.
+    Copyright (C) 2020 - 2022 Graz University of Technology.
 
     invenio-config-tugraz is free software; you can redistribute it and/or
     modify it under the terms of the MIT License; see LICENSE file for more
@@ -7,6 +7,10 @@
 
 Changes
 =======
+Version 0.8.2 (released 2022-03-03)
+
+- config: new introduced to v8 of invenioRDM
+
 Version 0.8.1 (released 2022-02-28)
 
 - config: set samesite cookie to strict
