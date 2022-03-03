@@ -239,6 +239,13 @@ will be generated randomly.
 DATACITE_FORMAT = "{prefix}/{id}"
 """Customize the generated DOI string."""
 
+DATACITE_DATACENTER_SYMBOL = ""
+""""The OAI-PMH server's metadata format oai_datacite
+that allows you to harvest record from InvenioRDM in DataCite XML needs
+to be configured with your DataCite data center symbol.
+This is only required if you want your records to be harvestable in DataCite XML format.
+"""
+
 # Invenio-app-rdm
 # =========================
 # See https://github.com/inveniosoftware/invenio-app-rdm/blob/master/invenio_app_rdm/config.py
@@ -251,6 +258,12 @@ The keys denote the dot-separated path, where in the record's metadata
 the values should be set (see invenio-records.dictutils).
 If the value is callable, its return value will be used for the field
 (e.g. lambda/function for dynamic calculation of values).
+"""
+
+APP_RDM_DEPOSIT_FORM_AUTOCOMPLETE_NAMES = "search"
+"""Enable autocompleting names search field for creators/contributors.
+
+(e,g, "searc_only" or "off")
 """
 
 SQLALCHEMY_ECHO = False
