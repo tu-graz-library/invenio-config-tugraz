@@ -16,10 +16,10 @@
         :target: https://pypi.python.org/pypi/invenio-config-tugraz
 
 .. image:: https://img.shields.io/github/tag/tu-graz-library/invenio-config-tugraz.svg
-        :target: https://github.com/mb-wali/invenio-config-tugraz/releases
+        :target: https://github.com/tu-graz-library/invenio-config-tugraz/releases
 
 .. image:: https://img.shields.io/github/license/tu-graz-library/invenio-config-tugraz.svg
-        :target: https://github.com/mb-wali/invenio-config-tugraz/blob/master/LICENSE
+        :target: https://github.com/tu-graz-library/invenio-config-tugraz/blob/master/LICENSE
 
 .. image:: https://readthedocs.org/projects/invenio-config-tugraz/badge/?version=latest
         :target: https://invenio-config-tugraz.readthedocs.io/en/latest/?badge=latest
