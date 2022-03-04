@@ -260,10 +260,15 @@ If the value is callable, its return value will be used for the field
 (e.g. lambda/function for dynamic calculation of values).
 """
 
-APP_RDM_DEPOSIT_FORM_AUTOCOMPLETE_NAMES = "search"
-"""Enable autocompleting names search field for creators/contributors.
+APP_RDM_DEPOSIT_FORM_AUTOCOMPLETE_NAMES = 'off'
+"""Behavior for autocomplete names search field for creators/contributors.
 
-(e.g. 'searc_only' or 'off')
+Available options:
+
+- ``search`` (default): Show search field and form always.
+- ``search_only``: Only show search field. Form displayed after selection or
+  explicit "manual" entry.
+- ``off``: Only show person form (no search field).
 """
 
 SQLALCHEMY_ECHO = False
