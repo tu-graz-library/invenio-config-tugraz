@@ -10,7 +10,7 @@
 
 from os.path import abspath, dirname, join
 
-from flask_babelex import gettext as _
+from flask_babelex import lazy_gettext as _
 
 INVENIO_CONFIG_TUGRAZ_SHIBBOLETH = False
 """Set True if SAML is configured"""
@@ -263,7 +263,7 @@ If the value is callable, its return value will be used for the field
 APP_RDM_DEPOSIT_FORM_AUTOCOMPLETE_NAMES = "search"
 """Enable autocompleting names search field for creators/contributors.
 
-(e,g, "searc_only" or "off")
+(e.g. 'searc_only' or 'off')
 """
 
 SQLALCHEMY_ECHO = False
