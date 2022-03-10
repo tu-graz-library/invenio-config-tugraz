@@ -7,6 +7,10 @@
 
 Changes
 =======
+Version 0.8.3 (released 2022-03-10)
+
+- config: fix comment & import
+
 Version 0.8.2 (released 2022-03-03)
 
 - config: new introduced to v8 of invenioRDM
