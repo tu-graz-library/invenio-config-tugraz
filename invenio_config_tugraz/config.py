@@ -10,7 +10,7 @@
 
 from os.path import abspath, dirname, join
 
-from flask_babelex import lazy_gettext as _
+from flask_babelex import gettext as _
 
 INVENIO_CONFIG_TUGRAZ_SHIBBOLETH = False
 """Set True if SAML is configured"""
