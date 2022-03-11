@@ -7,6 +7,10 @@
 
 Changes
 =======
+Version 0.8.4 (released 2022-03-11)
+
+- config: use gettext
+
 Version 0.8.3 (released 2022-03-10)
 
 - config: fix comment & import
