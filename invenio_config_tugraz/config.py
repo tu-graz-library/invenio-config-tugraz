@@ -271,6 +271,17 @@ Available options:
 - ``off``: Only show person form (no search field).
 """
 
+APP_RDM_DEPOSIT_FORM_QUOTA = {
+    "maxFiles": 100,
+    # Easiest way to set this to a certain amount is to start from 1 Gb
+    # and go from there:
+    #   1 Gb: 10 ** 9
+    #  50 Gb: 10 ** 9 * 50
+    # 100 Mb: 10 ** 9 * 0.1
+    "maxStorage": 10 ** 9 * 10,
+}
+"""Deposit file upload quota """
+
 SQLALCHEMY_ECHO = False
 """Enable to see all SQL queries."""
 
