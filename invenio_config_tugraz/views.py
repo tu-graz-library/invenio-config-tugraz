@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2020-2021 Graz University of Technology.
+# Copyright (C) 2020-2022 Graz University of Technology.
 #
 # invenio-config-tugraz is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
@@ -8,10 +8,6 @@
 
 """invenio module for TUGRAZ config."""
 
-from os import environ
-from typing import Dict
-
-from elasticsearch_dsl.utils import AttrDict
 from flask import Blueprint, current_app, redirect, url_for
 from flask_babelex import get_locale
 

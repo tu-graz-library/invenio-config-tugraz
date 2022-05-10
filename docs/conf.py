@@ -47,8 +47,8 @@ master_doc = "index"
 
 # General information about the project.
 project = u"invenio-config-tugraz"
-copyright = u"2020, Mojib Wali"
-author = u"Mojib Wali"
+copyright = u"2022, TU Graz"
+author = u"TU Graz"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
