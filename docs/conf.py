@@ -46,9 +46,9 @@ source_suffix = ".rst"
 master_doc = "index"
 
 # General information about the project.
-project = u"invenio-config-tugraz"
-copyright = u"2022, TU Graz"
-author = u"TU Graz"
+project = "invenio-config-tugraz"
+copyright = "2022, TU Graz"
+author = "TU Graz"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -243,8 +243,8 @@ latex_documents = [
     (
         master_doc,
         "invenio-config-tugraz.tex",
-        u"invenio-config-tugraz Documentation",
-        u"Mojib Wali",
+        "invenio-config-tugraz Documentation",
+        "Mojib Wali",
         "manual",
     ),
 ]
@@ -278,7 +278,7 @@ man_pages = [
     (
         master_doc,
         "invenio-config-tugraz",
-        u"invenio-config-tugraz Documentation",
+        "invenio-config-tugraz Documentation",
         [author],
         1,
     )
@@ -297,7 +297,7 @@ texinfo_documents = [
     (
         master_doc,
         "invenio-config-tugraz",
-        u"invenio-config-tugraz Documentation",
+        "invenio-config-tugraz Documentation",
         author,
         "invenio-config-tugraz",
         "invenio module that adds tugraz configs.",
@@ -321,8 +321,8 @@ texinfo_documents = [
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {
     "python": ("https://docs.python.org/", None),
-    'flask': ('https://flask.palletsprojects.com/', None),
-    'werkzeug': ('https://werkzeug.palletsprojects.com/', None),
+    "flask": ("https://flask.palletsprojects.com/", None),
+    "werkzeug": ("https://werkzeug.palletsprojects.com/", None),
     # TODO: Configure external documentation references, eg:
     # 'Flask-Admin': ('https://flask-admin.readthedocs.io/en/latest/', None),
 }

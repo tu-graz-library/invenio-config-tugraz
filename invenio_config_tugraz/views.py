@@ -48,22 +48,34 @@ def ui_blueprint(app):
 def guide():
     """TUGraz_Repository_Guide."""
     locale = get_locale()
-    return redirect(url_for('static',
-                            filename=f'documents/TUGraz_Repository_Guide_02_{locale}.pdf',
-                            _external=True))
+    return redirect(
+        url_for(
+            "static",
+            filename=f"documents/TUGraz_Repository_Guide_02_{locale}.pdf",
+            _external=True,
+        )
+    )
 
 
 def terms():
     """Terms_And_Conditions."""
     locale = get_locale()
-    return redirect(url_for('static',
-                            filename=f'documents/TUGraz_Repository_Terms_And_Conditions_{locale}.pdf',
-                            _external=True))
+    return redirect(
+        url_for(
+            "static",
+            filename=f"documents/TUGraz_Repository_Terms_And_Conditions_{locale}.pdf",
+            _external=True,
+        )
+    )
 
 
 def gdpr():
     """General_Data_Protection_Rights."""
     locale = get_locale()
-    return redirect(url_for('static',
-                            filename=f'documents/TUGraz_Repository_General_Data_Protection_Rights_{locale}.pdf',
-                            _external=True))
+    return redirect(
+        url_for(
+            "static",
+            filename=f"documents/TUGraz_Repository_General_Data_Protection_Rights_{locale}.pdf",
+            _external=True,
+        )
+    )

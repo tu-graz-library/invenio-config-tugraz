@@ -26,4 +26,6 @@ def test_recordip(create_app, open_record, singleip_record):
     assert generator.excludes(record=open_record) == []
     assert generator.excludes(record=open_record) == []
 
-    assert generator.query_filter().to_dict() == {'bool': {'must_not': [{'match': {'access.access_right': 'singleip'}}]}}
+    assert generator.query_filter().to_dict() == {
+        "bool": {"must_not": [{"match": {"access.access_right": "singleip"}}]}
+    }
