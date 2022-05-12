@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2020-2021 Graz University of Technology.
+# Copyright (C) 2020-2022 Graz University of Technology.
 #
 # invenio-config-tugraz is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
@@ -153,7 +153,7 @@ The succinct encoding of the permissions for your instance gives you
 
 from elasticsearch_dsl.query import Q
 from flask import current_app, request
-from invenio_access.permissions import any_user, superuser_access
+from invenio_access.permissions import any_user
 from invenio_records_permissions.generators import Generator
 
 

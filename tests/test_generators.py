@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2020 Mojib Wali.
+# Copyright (C) 2020-2022 Graz University of Technology.
 #
 # invenio-config-tugraz is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
@@ -26,4 +26,6 @@ def test_recordip(create_app, open_record, singleip_record):
     assert generator.excludes(record=open_record) == []
     assert generator.excludes(record=open_record) == []
 
-    assert generator.query_filter().to_dict() == {'bool': {'must_not': [{'match': {'access.access_right': 'singleip'}}]}}
+    assert generator.query_filter().to_dict() == {
+        "bool": {"must_not": [{"match": {"access.access_right": "singleip"}}]}
+    }

@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2020-2021 Graz University of Technology.
+# Copyright (C) 2020-2022 Graz University of Technology.
 #
 # invenio-config-tugraz is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
 # details.
 
 """invenio module that adds tugraz configs."""
-
-from os.path import abspath, dirname, join
 
 from flask_babelex import gettext as _
 
@@ -260,7 +258,7 @@ If the value is callable, its return value will be used for the field
 (e.g. lambda/function for dynamic calculation of values).
 """
 
-APP_RDM_DEPOSIT_FORM_AUTOCOMPLETE_NAMES = 'off'
+APP_RDM_DEPOSIT_FORM_AUTOCOMPLETE_NAMES = "off"
 """Behavior for autocomplete names search field for creators/contributors.
 
 Available options:
@@ -342,7 +340,7 @@ RATELIMIT_AUTHENTICATED_USER = "25000 per hour;1000 per minute"
 RATELIMIT_GUEST_USER = "5000 per hour;500 per minute"
 """Increase defaults for guest users."""
 
-SESSION_COOKIE_SAMESITE = 'Strict'
+SESSION_COOKIE_SAMESITE = "Strict"
 """Sets cookie with the samesite flag to 'Strict' by default."""
 
 
@@ -354,7 +352,7 @@ OAISERVER_ID_PREFIX = "repository.tugraz.at"
 """The prefix that will be applied to the generated OAI-PMH ids."""
 
 OAISERVER_ADMIN_EMAILS = [
-    'oai@repository.tugraz.at',
+    "oai@repository.tugraz.at",
 ]
 """The e-mail addresses of administrators of the repository.
 

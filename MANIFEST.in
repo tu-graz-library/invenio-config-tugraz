@@ -52,3 +52,4 @@ recursive-include invenio_config_tugraz *.csv
 
 # added by check-manifest
 recursive-include invenio_config_tugraz *.pdf
+include .git-blame-ignore-revs
