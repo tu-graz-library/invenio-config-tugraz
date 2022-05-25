@@ -276,7 +276,7 @@ APP_RDM_DEPOSIT_FORM_QUOTA = {
     #   1 Gb: 10 ** 9
     #  50 Gb: 10 ** 9 * 50
     # 100 Mb: 10 ** 9 * 0.1
-    "maxStorage": 10 ** 9 * 10,
+    "maxStorage": 10**9 * 10,
 }
 """Deposit file upload quota """
 
