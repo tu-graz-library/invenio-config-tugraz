@@ -178,6 +178,9 @@ SECURITY_CONFIRMABLE = False
 Instead user will get a welcome email.
 """
 
+SECURITY_LOGIN_WITHOUT_CONFIRMATION = False
+"""Require users to confirm email before being able to login."""
+
 # Flask-Security
 # =============
 # See https://pythonhosted.org/Flask-Security/configuration.html
