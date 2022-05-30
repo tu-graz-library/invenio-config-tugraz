@@ -11,6 +11,6 @@
 from .ext import InvenioConfigTugraz
 from .generators import RecordIp
 
-__version__ = "0.9.0"
+__version__ = "0.9.1"
 
 __all__ = ("__version__", "InvenioConfigTugraz", "RecordIp")
