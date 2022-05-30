@@ -7,6 +7,10 @@
 
 Changes
 =======
+Version 0.9.1 (released 2022-05-30)
+
+- ci(publish): ping babel version (#99)
+
 Version 0.9.0 (released 2022-05-30)
 
 - config: adds new introduced configs v9
