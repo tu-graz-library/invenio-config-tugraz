@@ -7,6 +7,14 @@
 
 Changes
 =======
+Version 0.9.0 (released 2022-05-30)
+
+- config: adds new introduced configs v9
+- dep: compatible to v9 rdm
+- config: add deposit form quota variable (#91)
+- migrate setup py to cfg (#94)
+- fix: update email welcome template with SITE_UI_URL (#93)
+
 Version 0.8.4 (released 2022-03-11)
 
 - config: use gettext
