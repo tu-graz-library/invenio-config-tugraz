@@ -151,10 +151,10 @@ The succinct encoding of the permissions for your instance gives you
     - great flexibility by defining your own actions, generators and policies
 """
 
-from elasticsearch_dsl.query import Q
 from flask import current_app, request
 from invenio_access.permissions import any_user
 from invenio_records_permissions.generators import Generator
+from invenio_search.engine import dsl
 
 
 class RecordIp(Generator):
@@ -208,10 +208,10 @@ class RecordIp(Generator):
 
         if not visible:
             # If user ip is not on the list, and If the record contains 'singleip' will not be seen
-            return ~Q("match", **{"access.access_right": "singleip"})
+            return ~dsl.Q("match", **{"access.access_right": "singleip"})
 
         # Lists all records
-        return Q("match_all")
+        return dsl.Q("match_all")
 
     def check_permission(self):
         """Check for User IP address in config variable."""
