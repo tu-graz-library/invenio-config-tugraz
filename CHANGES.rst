@@ -7,6 +7,10 @@
 
 Changes
 =======
+Version 0.10.0 (released 2022-10-13)
+
+- global: migrate to v10 (#101)
+
 Version 0.9.1 (released 2022-05-30)
 
 - ci(publish): ping babel version (#99)
