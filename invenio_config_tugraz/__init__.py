@@ -10,7 +10,13 @@
 
 from .ext import InvenioConfigTugraz
 from .generators import RecordIp
+from .utils import get_identity_from_user_by_email
 
 __version__ = "0.10.0"
 
-__all__ = ("__version__", "InvenioConfigTugraz", "RecordIp")
+__all__ = (
+    "__version__",
+    "InvenioConfigTugraz",
+    "RecordIp",
+    "get_identity_from_user_by_email",
+)
