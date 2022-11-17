@@ -7,6 +7,11 @@
 
 Changes
 =======
+
+Version v0.10.1 (release 2022-11-17)
+
+- global: add function
+
 Version 0.10.0 (released 2022-10-13)
 
 - global: migrate to v10 (#101)
