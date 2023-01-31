@@ -51,7 +51,7 @@ def guide():
     return redirect(
         url_for(
             "static",
-            filename=f"documents/TUGraz_Repository_Guide_02_{locale}.pdf",
+            filename=f"documents/TUGraz_Repository_Guide_03_{locale}.pdf",
             _external=True,
         )
     )
