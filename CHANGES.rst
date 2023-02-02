@@ -8,6 +8,12 @@
 Changes
 =======
 
+Version v0.10.2 (release 2023-02-02)
+
+- change version name
+- footer: update guid
+
+
 Version v0.10.1 (release 2022-11-17)
 
 - global: add function
