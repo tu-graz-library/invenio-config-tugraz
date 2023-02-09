@@ -23,7 +23,7 @@ function cleanup() {
 }
 trap cleanup EXIT
 
-python -m check_manifest --ignore ".*-requirements.txt"
+python -m check_manifest
 python -m sphinx.cmd.build -qnN docs docs/_build/html
 eval "$(docker-services-cli up --search ${SEARCH:-elasticsearch} --env)"
 python -m pytest
