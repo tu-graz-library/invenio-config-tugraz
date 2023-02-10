@@ -12,7 +12,7 @@ from .ext import InvenioConfigTugraz
 from .generators import RecordIp
 from .utils import get_identity_from_user_by_email
 
-__version__ = "0.10.2"
+__version__ = "0.10.4"
 
 __all__ = (
     "__version__",
