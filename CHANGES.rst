@@ -8,6 +8,11 @@
 Changes
 =======
 
+Version v0.11.0 (release 2023-04-20)
+
+- global: make package compatible with v11
+
+
 Version v0.10.4 (release 2023-02-10)
 
 
