@@ -9,7 +9,7 @@
 """invenio module for TUGRAZ config."""
 
 from flask import Blueprint, current_app, redirect, url_for
-from flask_babelex import get_locale
+from invenio_i18n import get_locale
 
 
 def ui_blueprint(app):
