@@ -8,6 +8,12 @@
 Changes
 =======
 
+Version v0.12.0 (release 2023-11-10)
+
+- setup: remove python3.8 support
+- global: make it compatible with v12
+
+
 Version v0.11.0 (release 2023-04-20)
 
 - global: make package compatible with v11
