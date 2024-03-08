@@ -8,6 +8,11 @@
 Changes
 =======
 
+Version v0.12.1 (release 2024-03-08)
+
+- setup: remove upper limit of rdm-records
+
+
 Version v0.12.0 (release 2023-11-10)
 
 - setup: remove python3.8 support
