@@ -8,7 +8,7 @@
 
 """invenio module for TUGRAZ config."""
 
-from flask import Blueprint, current_app, redirect, url_for
+from flask import Blueprint, redirect, url_for
 from invenio_i18n import get_locale
 
 
@@ -26,21 +26,6 @@ def ui_blueprint(app):
     blueprint.add_url_rule(routes["guide"], view_func=guide)
     blueprint.add_url_rule(routes["terms"], view_func=terms)
     blueprint.add_url_rule(routes["gdpr"], view_func=gdpr)
-
-    @blueprint.before_app_first_request
-    def rank_higher():
-        """Rank this modules blueprint higher than blueprint of security module.
-
-        Needed in order to overwrite email templates.
-
-        Since the blueprints are in a dict and the order of insertion is
-         retained, popping and reinserting all items (except ours), ensures
-         our blueprint will be in front.
-        """
-        bps = current_app.blueprints
-        for blueprint_name in list(bps.keys()):
-            if blueprint_name != "invenio_config_tugraz":
-                bps.update({blueprint_name: bps.pop(blueprint_name)})
 
     return blueprint
 

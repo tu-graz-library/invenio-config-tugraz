@@ -7,6 +7,7 @@
 # details.
 
 """invenio module that adds tugraz configs."""
+
 from . import config
 
 
@@ -28,3 +29,23 @@ class InvenioConfigTugraz(object):
         for k in dir(config):
             if k.startswith("INVENIO_CONFIG_TUGRAZ_"):
                 app.config.setdefault(k, getattr(config, k))
+
+
+def finalize_app(app):
+    """Finalize app."""
+    rank_blueprint_higher(app)
+
+
+def rank_blueprint_higher(app):
+    """Rank this module's blueprint higher than blueprint of security module.
+
+    Needed in order to overwrite email templates.
+
+    Since the blueprints are in a dict and the order of insertion is
+        retained, popping and reinserting all items (except ours), ensures
+        our blueprint will be in front.
+    """
+    bps = app.blueprints
+    for blueprint_name in list(bps.keys()):
+        if blueprint_name != "invenio_config_tugraz":
+            bps.update({blueprint_name: bps.pop(blueprint_name)})
