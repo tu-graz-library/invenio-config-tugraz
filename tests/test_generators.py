@@ -10,7 +10,7 @@
 
 from invenio_access.permissions import any_user
 
-from invenio_config_tugraz.generators import RecordIp
+from invenio_config_tugraz.permissions.generators import RecordIp
 
 
 def test_recordip(create_app, open_record, singleip_record):
