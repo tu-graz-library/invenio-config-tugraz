@@ -30,3 +30,38 @@ def get_identity_from_user_by_email(email: str = None) -> Identity:
     identity.provides.add(any_user)
 
     return identity
+
+
+def tugraz_account_setup_extension(user, account_info):  # noqa: W0613
+    """Add tugraz_authenticated role to user after SAML-login was acknowledged.
+
+    To use, have `acs_handler_factory` call invenio_saml's `default_account_setup` first,
+    then this function second.
+
+    .. code-block:: python
+
+        # invenio.cfg
+        from invenio_saml.handlers import default_account_setup, acs_handler_factory
+
+        def tugraz_account_setup(user, account_info):
+            # links external `account_info` with our database's `user` for future logins
+            default_account_setup(user, account_info)
+            tugraz_account_setup_extension(user, account_info)
+
+        SSO_SAML_IDPS = {
+            "my-tugraz-idp": {
+                ...
+                "acs_handler": acs_handler_factory(
+                    "my-tugraz-idp", account_setup=tugraz_account_setup
+                )
+            }
+        }
+
+    For this to work, the role tugraz_authenticated must have been created
+    (e.g. via `invenio roles create tugraz_authenticated`).
+    """
+    user_email = account_info["user"]["email"]
+
+    # NOTE: `datastore.commit`ing will be done by acs_handler that calls this func
+    # NOTE: this is a No-Op when user_email already has role tugraz_authenticated
+    current_accounts.datastore.add_role_to_user(user_email, "tugraz_authenticated")
