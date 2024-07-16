@@ -52,7 +52,7 @@ from invenio_records_permissions.generators import (
 from invenio_records_permissions.policies.records import RecordPermissionPolicy
 from invenio_users_resources.services.permissions import UserManager
 
-from .generators import TUGrazAuthenticatedUser
+from .generators import AllowedFromIPNetwork, RecordSingleIP, TUGrazAuthenticatedUser
 
 
 class TUGrazRDMRecordPermissionPolicy(RecordPermissionPolicy):
@@ -87,11 +87,18 @@ class TUGrazRDMRecordPermissionPolicy(RecordPermissionPolicy):
         SubmissionReviewer(),
         CommunityInclusionReviewers(),
         RecordCommunitiesAction("view"),
+        AllowedFromIPNetwork(),
+        RecordSingleIP(),
     ]
 
     can_tugraz_authenticated = [TUGrazAuthenticatedUser(), SystemProcess()]
     can_authenticated = can_tugraz_authenticated
-    can_all = [AnyUser(), SystemProcess()]
+    can_all = [
+        AnyUser(),
+        SystemProcess(),
+        AllowedFromIPNetwork(),
+        RecordSingleIP(),
+    ]
 
     #
     # Miscellaneous

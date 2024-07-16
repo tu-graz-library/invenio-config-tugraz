@@ -45,7 +45,11 @@ method specifies those from the actor's point-of-view in search scenarios.
 
 """
 
+from ipaddress import ip_address, ip_network
+from typing import Any
+
 from flask import current_app, request
+from flask_principal import Need
 from invenio_access.permissions import any_user
 from invenio_records_permissions.generators import Generator
 from invenio_search.engine import dsl
@@ -53,32 +57,27 @@ from invenio_search.engine import dsl
 from .roles import tugraz_authenticated_user
 
 
-class RecordIp(Generator):
+class RecordSingleIP(Generator):
     """Allowed any user with accessing with the IP."""
 
-    def needs(self, record=None, **kwargs):
-        """Enabling Needs, Set of Needs granting permission."""
+    def needs(self, record: dict | None = None, **__: dict) -> list[Need]:
+        """Set of Needs granting permission. Enabling Needs."""
         if record is None:
             return []
 
-        # check if singleip is in the records restriction
-        is_single_ip = record.get("access", {}).get("access_right") == "singleip"
-
-        # check if the user ip is on list
-        visible = self.check_permission()
-
-        if not is_single_ip:
-            # if record does not have singleip - return any_user
+        # if record does not have singleip - return any_user
+        if not record.get("custom_fields", {}).get("single_ip", False):
             return [any_user]
-            # if record has singleip, then check the ip of user - if ip user is on list - return any_user
-        elif visible:
-            return [any_user]
-        else:
-            # non of the above - return empty
-            return []
 
-    def excludes(self, **kwargs):
-        """Preventing Needs, Set of Needs denying permission.
+        # if record has singleip, and the ip of the user matches the allowed ip
+        if self.check_permission():
+            return [any_user]
+
+        # non of the above - return empty
+        return []
+
+    def excludes(self, **kwargs: dict) -> list[Need]:
+        """Set of Needs denying permission. Preventing Needs.
 
         If ANY of the Needs are matched, permission is revoked.
 
@@ -95,33 +94,116 @@ class RecordIp(Generator):
         If the same Need is returned by `needs` and `excludes`, then that
         Need provider is disallowed.
         """
-        return []
+        try:
+            if (
+                kwargs["record"]["custom_fields"]["single_ip"]
+                and not self.check_permission()
+            ):
+                return [any_user]
 
-    def query_filter(self, *args, **kwargs):
-        """Filters for singleip records."""
-        # check if the user ip is on list
-        visible = self.check_permission()
+        except KeyError:
+            return []
+        else:
+            return []
 
-        if not visible:
+    def query_filter(self, *_: dict, **__: dict) -> Any:  # noqa: ANN401
+        """Filter for singleip records."""
+        if not self.check_permission():
             # If user ip is not on the list, and If the record contains 'singleip' will not be seen
-            return ~dsl.Q("match", **{"access.access_right": "singleip"})
+            return ~dsl.Q("match", **{"custom_fields.single_ip": True})
 
         # Lists all records
         return dsl.Q("match_all")
 
-    def check_permission(self):
-        """Check for User IP address in config variable."""
-        # Get user IP
-        user_ip = request.remote_addr
-        # Checks if the user IP is among single IPs
-        if user_ip in current_app.config["INVENIO_CONFIG_TUGRAZ_SINGLE_IP"]:
-            return True
-        return False
+    def check_permission(self) -> bool:
+        """Check for User IP address in config variable.
+
+        If the user ip is in the configured list return True.
+        """
+        try:
+            user_ip = request.remote_addr
+        except RuntimeError:
+            return False
+
+        single_ips = current_app.config["CONFIG_TUGRAZ_SINGLE_IPS"]
+
+        return user_ip in single_ips
+
+
+class AllowedFromIPNetwork(Generator):
+    """Allowed from ip range."""
+
+    def needs(self, record: dict | None = None, **__: dict) -> list[Need]:
+        """Set of Needs granting permission. Enabling Needs."""
+        if record is None:
+            return []
+
+        # if the record doesn't have set the ip range allowance
+        if not record.get("custom_fields", {}).get("ip_network", False):
+            return [any_user]
+
+        # if the record has set the ip_range allowance and is in the range
+        if self.check_permission():
+            return [any_user]
+
+        # non of the above - return empty
+        return []
+
+    def excludes(self, **kwargs: dict) -> Need:
+        """Set of Needs denying permission. Preventing Needs.
+
+        If ANY of the Needs are matched, permission is revoked.
+
+        .. note::
+
+            ``_load_permissions()`` method from `Permission
+            <https://invenio-access.readthedocs.io/en/latest/api.html
+            #invenio_access.permissions.Permission>`_ adds by default the
+            ``superuser_access`` Need (if tied to a User or Role) for us.
+
+            It also expands ActionNeeds into the Users/Roles that
+            provide them.
+
+        If the same Need is returned by `needs` and `excludes`, then that
+        Need provider is disallowed.
+        """
+        try:
+            if (
+                kwargs["record"]["custom_fields"]["ip_network"]
+                and not self.check_permission()
+            ):
+                return [any_user]
+
+        except KeyError:
+            return []
+        else:
+            return []
+
+    def query_filter(self, *_: dict, **__: dict) -> Any:  # noqa: ANN401
+        """Filter for ip range records."""
+        if not self.check_permission():
+            return ~dsl.Q("match", **{"custom_fields.ip_network": True})
+
+        return dsl.Q("match_all")
+
+    def check_permission(self) -> bool:
+        """Check for User IP address in the configured network."""
+        try:
+            user_ip = request.remote_addr
+        except RuntimeError:
+            return False
+
+        network = current_app.config["CONFIG_TUGRAZ_IP_NETWORK"]
+
+        try:
+            return ip_address(user_ip) in ip_network(network)
+        except ValueError:
+            return False
 
 
 class TUGrazAuthenticatedUser(Generator):
     """Generates the `tugraz_authenticated_user` role-need."""
 
-    def needs(self, **__):
+    def needs(self, **__: dict) -> list[Need]:
         """Generate needs to be checked against current user identity."""
         return [tugraz_authenticated_user]

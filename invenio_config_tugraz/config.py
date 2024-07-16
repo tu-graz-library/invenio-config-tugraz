@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2020-2023 Graz University of Technology.
+# Copyright (C) 2020-2024 Graz University of Technology.
 #
 # invenio-config-tugraz is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
@@ -10,22 +10,25 @@
 
 from invenio_i18n import gettext as _
 
-INVENIO_CONFIG_TUGRAZ_SHIBBOLETH = False
+CONFIG_TUGRAZ_SHIBBOLETH = False
 """Set True if SAML is configured"""
 
-INVENIO_CONFIG_TUGRAZ_SINGLE_IP = []
+CONFIG_TUGRAZ_SINGLE_IPS = []
 """Allows access to users whose IP address is listed.
 
-INVENIO_CONFIG_TUGRAZ_SINGLE_IP =
+INVENIO_CONFIG_TUGRAZ_SINGLE_IPS =
     ["127.0.0.1", "127.0.0.2"]
 """
 
-INVENIO_CONFIG_TUGRAZ_IP_RANGES = []
+CONFIG_TUGRAZ_IP_RANGES = []
 """Allows access to users whose range of IP address is listed.
 
 INVENIO_CONFIG_TUGRAZ_IP_RANGES =
 [["127.0.0.2", "127.0.0.99"], ["127.0.1.3", "127.0.1.5"]]
 """
+
+CONFIG_TUGRAZ_IP_NETWORK = ""
+"""Allows access to users who are in the IP network."""
 
 
 CONFIG_TUGRAZ_ROUTES = {
