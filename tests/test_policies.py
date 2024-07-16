@@ -15,6 +15,9 @@ from invenio_config_tugraz.permissions.policies import TUGrazRDMRecordPermission
 ALLOWED_DIFFERENCES = {
     "can_authenticated",
     "can_create",
+    "can_search",
+    "can_view",
+    "can_all",
     "can_search_drafts",
     "can_tugraz_authenticated",
 }
