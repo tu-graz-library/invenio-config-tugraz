@@ -23,7 +23,7 @@ ALLOWED_DIFFERENCES = {
 }
 
 
-def test_policies_synced():
+def test_policies_synced() -> None:
     """Make sure our permission-policy stays synced with invenio's."""
     tugraz_cans = {
         name: getattr(TUGrazRDMRecordPermissionPolicy, name)
@@ -38,17 +38,20 @@ def test_policies_synced():
 
     # check whether same set of `can_<action>`s`
     if extras := set(tugraz_cans) - set(rdm_cans) - ALLOWED_DIFFERENCES:
-        raise KeyError(
-            f"TU Graz's permission-policy has additional fields over invenio-rdm's:{extras}\n"
-            "if this is intentional, add to ALLOWED_DIFFERENCES in test-file\n"
-            "otherwise remove extraneous fields from TUGrazRDMRecordPermissionPolicy"
-        )
+        msg = f"""
+        TU Graz's permission-policy has additional fields over invenio-rdm's:{extras}
+        if this is intentional, add to ALLOWED_DIFFERENCES in test-file
+        otherwise remove extraneous fields from TUGrazRDMRecordPermissionPolicy
+        """
+        raise KeyError(msg)
+
     if missing := set(rdm_cans) - set(tugraz_cans):
-        raise KeyError(
-            f"invenio-rdm's permission-policy has fields unhandled by TU Graz's: {missing}\n"
-            "if this is intentional, add to ALLOWED_DIFFERENCES\n"
-            "otherwise set the corresponding fields in TUGrazRDMRecordPermissionPolicy"
-        )
+        msg = f"""
+        invenio-rdm's permission-policy has fields unhandled by TU Graz's: {missing}
+        if this is intentional, add to ALLOWED_DIFFERENCES
+        otherwise set the corresponding fields in TUGrazRDMRecordPermissionPolicy
+        """
+        raise KeyError(msg)
 
     # check whether same permission-generators used for same `can_<action>`
     for can_name in rdm_cans.keys() & tugraz_cans.keys():
@@ -61,21 +64,25 @@ def test_policies_synced():
         # permission-Generators don't implement equality checks for their instances
         # we can however compare which types (classes) of Generators are used...
         if {type(gen) for gen in tugraz_can} != {type(gen) for gen in rdm_can}:
-            raise ValueError(
-                f"permission-policy for `{can_name}` differs between TU-Graz and invenio-rdm\n"
-                "if this is intentional, add to ALLOWED_DIFFERENCES in test-file\n"
-                "otherwise fix TUGrazRDMRecordPermissionPolicy"
-            )
+            msg = f"""
+            permission-policy for `{can_name}` differs between TU-Graz and invenio-rdm
+            if this is intentional, add to ALLOWED_DIFFERENCES in test-file
+            otherwise fix TUGrazRDMRecordPermissionPolicy
+            """
+            raise ValueError(msg)
 
     # check whether same `NEED_LABEL_TO_ACTION`
     tugraz_label_to_action = TUGrazRDMRecordPermissionPolicy.NEED_LABEL_TO_ACTION
     rdm_label_to_action = RDMRecordPermissionPolicy.NEED_LABEL_TO_ACTION
+
     for label in tugraz_label_to_action.keys() & rdm_label_to_action.keys():
         if label in ALLOWED_DIFFERENCES:
             continue
+
         if tugraz_label_to_action.get(label) != rdm_label_to_action.get(label):
-            raise ValueError(
-                f"invenio-rdm's NEED_LABEL_TO_ACTION differs from TU Graz's in {label}\n"
-                "if this is intentional, add to ALLOWED_DIFFERENCES in test-file\n"
-                "otherwise fix TUGrazRDMRecordPermissionPolicy.NEED_LABEL_TO_ACTION"
-            )
+            msg = f"""
+            invenio-rdm's NEED_LABEL_TO_ACTION differs from TU Graz's in {label}
+            if this is intentional, add to ALLOWED_DIFFERENCES in test-file
+            otherwise fix TUGrazRDMRecordPermissionPolicy.NEED_LABEL_TO_ACTION
+            """
+            raise ValueError(msg)

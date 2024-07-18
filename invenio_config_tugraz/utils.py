@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2022 Graz University of Technology.
+# Copyright (C) 2022-2024 Graz University of Technology.
 #
 # invenio-config-tugraz is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
@@ -8,21 +8,27 @@
 
 """Utils file."""
 
+import warnings
+
 from flask_principal import Identity
 from invenio_access import any_user
 from invenio_access.utils import get_identity
 from invenio_accounts import current_accounts
 
 
-def get_identity_from_user_by_email(email: str = None) -> Identity:
+def get_identity_from_user_by_email(email: str | None = None) -> Identity:
     """Get the user specified via email or ID."""
+    warnings.warn("deprecated", DeprecationWarning, stacklevel=2)
+
     if email is None:
-        raise ValueError("the email has to be set to get a identity")
+        msg = "the email has to be set to get a identity"
+        raise ValueError(msg)
 
     user = current_accounts.datastore.get_user(email)
 
     if user is None:
-        raise LookupError(f"user with {email} not found")
+        msg = f"user with {email} not found"
+        raise LookupError(msg)
 
     identity = get_identity(user)
 
@@ -32,7 +38,7 @@ def get_identity_from_user_by_email(email: str = None) -> Identity:
     return identity
 
 
-def tugraz_account_setup_extension(user, account_info):  # noqa: W0613
+def tugraz_account_setup_extension(user, account_info) -> None:  # noqa: ANN001, ARG001
     """Add tugraz_authenticated role to user after SAML-login was acknowledged.
 
     To use, have `acs_handler_factory` call invenio_saml's `default_account_setup` first,
