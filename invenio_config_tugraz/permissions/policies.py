@@ -115,7 +115,7 @@ class TUGrazRDMRecordPermissionPolicy(RecordPermissionPolicy):
     can_read = [IfRestricted("record", then_=can_view, else_=can_all)]
 
     can_read_deleted = [
-        IfRecordDeleted(then_=[UserManager, SystemProcess()], else_=can_read)
+        IfRecordDeleted(then_=[UserManager, SystemProcess()], else_=can_read),
     ]
     can_read_deleted_files = can_read_deleted
     can_media_read_deleted_files = can_read_deleted_files
@@ -124,7 +124,7 @@ class TUGrazRDMRecordPermissionPolicy(RecordPermissionPolicy):
         ResourceAccessToken("read"),
     ]
     can_get_content_files = [
-        IfFileIsLocal(then_=can_read_files, else_=[SystemProcess()])
+        IfFileIsLocal(then_=can_read_files, else_=[SystemProcess()]),
     ]
     can_create = can_tugraz_authenticated
 
@@ -137,10 +137,10 @@ class TUGrazRDMRecordPermissionPolicy(RecordPermissionPolicy):
     can_update_draft = can_review
     can_draft_create_files = can_review
     can_draft_set_content_files = [
-        IfFileIsLocal(then_=can_review, else_=[SystemProcess()])
+        IfFileIsLocal(then_=can_review, else_=[SystemProcess()]),
     ]
     can_draft_get_content_files = [
-        IfFileIsLocal(then_=can_draft_read_files, else_=[SystemProcess()])
+        IfFileIsLocal(then_=can_draft_read_files, else_=[SystemProcess()]),
     ]
     can_draft_commit_files = [IfFileIsLocal(then_=can_review, else_=[SystemProcess()])]
     can_draft_update_files = can_review
@@ -150,14 +150,14 @@ class TUGrazRDMRecordPermissionPolicy(RecordPermissionPolicy):
             "RDM_ALLOW_METADATA_ONLY_RECORDS",
             then_=[IfNewRecord(then_=can_tugraz_authenticated, else_=can_review)],
             else_=[],
-        )
+        ),
     ]
     can_manage_record_access = [
         IfConfig(
             "RDM_ALLOW_RESTRICTED_RECORDS",
             then_=[IfNewRecord(then_=can_tugraz_authenticated, else_=can_review)],
             else_=[],
-        )
+        ),
     ]
 
     #
@@ -179,7 +179,7 @@ class TUGrazRDMRecordPermissionPolicy(RecordPermissionPolicy):
             "RDM_ALLOW_EXTERNAL_DOI_VERSIONING",
             then_=can_curate,
             else_=[IfExternalDOIRecord(then_=[Disable()], else_=can_curate)],
-        )
+        ),
     ]
     can_publish = can_review
     can_lift_embargo = can_manage
@@ -198,13 +198,13 @@ class TUGrazRDMRecordPermissionPolicy(RecordPermissionPolicy):
     can_draft_media_create_files = can_review
     can_draft_media_read_files = can_review
     can_draft_media_set_content_files = [
-        IfFileIsLocal(then_=can_review, else_=[SystemProcess()])
+        IfFileIsLocal(then_=can_review, else_=[SystemProcess()]),
     ]
     can_draft_media_get_content_files = [
-        IfFileIsLocal(then_=can_preview, else_=[SystemProcess()])
+        IfFileIsLocal(then_=can_preview, else_=[SystemProcess()]),
     ]
     can_draft_media_commit_files = [
-        IfFileIsLocal(then_=can_preview, else_=[SystemProcess()])
+        IfFileIsLocal(then_=can_preview, else_=[SystemProcess()]),
     ]
     can_draft_media_delete_files = can_review
     can_draft_media_update_files = can_review
@@ -217,7 +217,7 @@ class TUGrazRDMRecordPermissionPolicy(RecordPermissionPolicy):
         ResourceAccessToken("read"),
     ]
     can_media_get_content_files = [
-        IfFileIsLocal(then_=can_read, else_=[SystemProcess()])
+        IfFileIsLocal(then_=can_read, else_=[SystemProcess()]),
     ]
     can_media_create_files = [Disable()]
     can_media_set_content_files = [Disable()]
@@ -251,13 +251,3 @@ class TUGrazRDMRecordPermissionPolicy(RecordPermissionPolicy):
     # Used to hide at the moment the `parent.is_verified` field. It should be set to
     # correct permissions based on which the field will be exposed only to moderators
     can_moderate = [Disable()]
-
-
-# Plans on where to use `RecordIp` generator:
-# class TUGRAZPermissionPolicy(BasePermissionPolicy):
-
-#     # Read access to API given to everyone.
-#     can_search = [AnyUser(), RecordIp()]
-
-#     # Read access given to everyone if public record/files and owners always.
-#     can_read = [AnyUserIfPublic(), RecordOwners(), RecordIp()]

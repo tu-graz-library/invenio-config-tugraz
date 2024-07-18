@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2020-2022 Graz University of Technology.
+# Copyright (C) 2020-2024 Graz University of Technology.
 #
 # invenio-config-tugraz is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
@@ -8,11 +8,12 @@
 
 """invenio module for TUGRAZ config."""
 
-from flask import Blueprint, redirect, url_for
+from flask import Blueprint, Flask, redirect, url_for
 from invenio_i18n import get_locale
+from werkzeug.wrappers import Response as BaseResponse
 
 
-def ui_blueprint(app):
+def ui_blueprint(app: Flask) -> Blueprint:
     """Blueprint for the routes and resources provided by invenio-config-tugraz."""
     routes = app.config.get("CONFIG_TUGRAZ_ROUTES")
 
@@ -30,7 +31,7 @@ def ui_blueprint(app):
     return blueprint
 
 
-def guide():
+def guide() -> BaseResponse:
     """TUGraz_Repository_Guide."""
     locale = get_locale()
     return redirect(
@@ -38,11 +39,11 @@ def guide():
             "static",
             filename=f"documents/TUGraz_Repository_Guide_02.1_{locale}.pdf",
             _external=True,
-        )
+        ),
     )
 
 
-def terms():
+def terms() -> BaseResponse:
     """Terms_And_Conditions."""
     locale = get_locale()
     return redirect(
@@ -50,11 +51,11 @@ def terms():
             "static",
             filename=f"documents/TUGraz_Repository_Terms_And_Conditions_{locale}.pdf",
             _external=True,
-        )
+        ),
     )
 
 
-def gdpr():
+def gdpr() -> BaseResponse:
     """General_Data_Protection_Rights."""
     locale = get_locale()
     return redirect(
@@ -62,5 +63,5 @@ def gdpr():
             "static",
             filename=f"documents/TUGraz_Repository_General_Data_Protection_Rights_{locale}.pdf",
             _external=True,
-        )
+        ),
     )
