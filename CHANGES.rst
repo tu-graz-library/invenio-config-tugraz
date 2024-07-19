@@ -8,6 +8,16 @@
 Changes
 =======
 
+Version v0.12.2 (release 2024-07-19)
+
+- setup: introduce ruff
+- perm: implement single-ip and ip-network
+- utils: add invenio_saml-compatible account-setup
+- add new permission-policy, add new role
+- fix deprecated `before_app_first_request`
+- setup: add support for python3.11 and 3.12
+
+
 Version v0.12.1 (release 2024-03-08)
 
 - setup: remove upper limit of rdm-records
