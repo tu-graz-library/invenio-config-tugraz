@@ -8,6 +8,11 @@
 Changes
 =======
 
+Version v0.12.3 (release 2024-07-25)
+
+- fix(tugraz_authenticated): missmatch of role name
+
+
 Version v0.12.2 (release 2024-07-19)
 
 - setup: introduce ruff
