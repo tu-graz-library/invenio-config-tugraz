@@ -65,12 +65,11 @@ class RecordSingleIP(Generator):
         if record is None:
             return []
 
-        # if record does not have singleip - return any_user
-        if not record.get("custom_fields", {}).get("single_ip", False):
-            return [any_user]
-
         # if record has singleip, and the ip of the user matches the allowed ip
-        if self.check_permission():
+        if (
+            record.get("custom_fields", {}).get("single_ip", False)
+            and self.check_permission()
+        ):
             return [any_user]
 
         # non of the above - return empty
@@ -138,12 +137,11 @@ class AllowedFromIPNetwork(Generator):
         if record is None:
             return []
 
-        # if the record doesn't have set the ip range allowance
-        if not record.get("custom_fields", {}).get("ip_network", False):
-            return [any_user]
-
         # if the record has set the ip_range allowance and is in the range
-        if self.check_permission():
+        if (
+            record.get("custom_fields", {}).get("ip_network", False)
+            and self.check_permission()
+        ):
             return [any_user]
 
         # non of the above - return empty
