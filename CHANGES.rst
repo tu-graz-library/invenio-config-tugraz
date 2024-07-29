@@ -8,6 +8,11 @@
 Changes
 =======
 
+Version v0.12.5 (release 2024-07-29)
+
+- fix: permission for ip
+
+
 Version v0.12.3 (release 2024-07-25)
 
 - fix(tugraz_authenticated): missmatch of role name
