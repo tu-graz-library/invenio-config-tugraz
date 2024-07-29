@@ -134,6 +134,7 @@ class AllowedFromIPNetwork(Generator):
 
     def needs(self, record: dict | None = None, **__: dict) -> list[Need]:
         """Set of Needs granting permission. Enabling Needs."""
+        print("AllowedFromIPNetwork.needs")
         if record is None:
             return []
 
@@ -142,6 +143,7 @@ class AllowedFromIPNetwork(Generator):
             record.get("custom_fields", {}).get("ip_network", False)
             and self.check_permission()
         ):
+            print("AllowedFromIPNetwork.needs if")
             return [any_user]
 
         # non of the above - return empty
