@@ -28,14 +28,14 @@ from saml2.mdstore import MetadataStore
 
 
 @click.group()
-def config_tugraz():
+def config_tugraz() -> None:
     """CLI-group for "invenio config-tugraz" commands."""
 
 
 class StringRepresenter:
     """Represents itself exactly as the string passed to init, without quotes around it."""
 
-    def __init__(self, string: str):
+    def __init__(self, string: str) -> None:
         """Init."""
         self.string = string
 
@@ -71,32 +71,35 @@ def parse_into_config(mds: MetadataStore, idp_id: str, langpref: str = "en") -> 
     # see invenio-saml for structure of this configuration
 
     sso_urls: list[str] = mds.single_sign_on_service(
-        idp_id, binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+        idp_id,
+        binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect",
     )
     if len(sso_urls) != 1:
-        raise ValueError(
-            f"{idp_id} has {len(sso_urls)} SSO-URLs for SAML's `Redirect` binding"
-        )
+        msg = f"{idp_id} has {len(sso_urls)} SSO-URLs for SAML's `Redirect` binding"
+        raise ValueError(msg)
     # NOTE: by .xsd, "location"-key must exist here
     sso_url = sso_urls[0]["location"]
 
     certs: list[tuple[None, str]] = mds.certs(
-        idp_id, descriptor="idpsso", use="signing"
+        idp_id,
+        descriptor="idpsso",
+        use="signing",
     )
     if len(certs) < 1:
-        raise ValueError(f"{idp_id} has no signing certificates")
+        msg = f"{idp_id} has no signing certificates"
+        raise ValueError(msg)
     # there might be multiple signing certificates, by spec they should all work
     x509cert = certs[-1][1]
 
     # names/titles can be gotten from <md:Organization> or <mdui:DisplayName>
     preferred_display_names = list(
-        mds.mdui_uiinfo_display_name(idp_id, langpref=langpref)
+        mds.mdui_uiinfo_display_name(idp_id, langpref=langpref),
     )
     display_names = list(mds.mdui_uiinfo_display_name(idp_id))
     preferred_names = [name] if (name := mds.name(idp_id, langpref=langpref)) else []
     names = [name] if (name := mds.name(idp_id)) else []
     preferred_descriptions = list(
-        mds.mdui_uiinfo_description(idp_id, langpref=langpref)
+        mds.mdui_uiinfo_description(idp_id, langpref=langpref),
     )
     descriptions = list(mds.mdui_uiinfo_description(idp_id))
 
@@ -143,22 +146,26 @@ def parse_into_config(mds: MetadataStore, idp_id: str, langpref: str = "en") -> 
             "security": {},  # leave at defaults
         },
         "mappings": {},
-        "acs_handler": StringRepresenter(f'acs_handler_factory("{str(idp_id)}")'),
+        "acs_handler": StringRepresenter(f'acs_handler_factory("{idp_id}")'),
         "auto_confirm": True,  # no need to click confirmation-link in some email
     }
 
 
-def exclude_item_if_includes(input_dict: dict, *exclusions: str):
+def exclude_item_if_includes(input_dict: dict, *exclusions: str) -> dict:
     """Jinja-filter for excluding items from a dict."""
     return {k: v for k, v in input_dict.items() if all(e not in k for e in exclusions)}
 
 
 @config_tugraz.command()
 @click.option(
-    "-f", "--file", help="path to SAML-XML file, mutually exclusive with --url"
+    "-f",
+    "--file",
+    help="path to SAML-XML file, mutually exclusive with --url",
 )
 @click.option(
-    "-u", "--url", help="url to SAML-XML file, mutually exclusive with --file"
+    "-u",
+    "--url",
+    help="url to SAML-XML file, mutually exclusive with --file",
 )
 @click.option(
     "-t",
@@ -170,7 +177,7 @@ def echo_saml_config(
     file: str | None = None,
     url: str | None = None,
     template_path: pathlib.Path | None = None,
-):
+) -> None:
     """Parse SAML-XML into `invenio-saml`-compatible config, echo that config to stdout.
 
     Prints configuration to stdout, prints some notes to stderr.
@@ -179,13 +186,15 @@ def echo_saml_config(
     examples:
         invenio config-tugraz echo-saml-config --url "https://eduid.at/md/aconet-registered.xml" > output
         invenio config-tugraz echo-saml-config --file "/path/to/eduid.xml" | my-clipboard
-    """
+    """  # noqa: D301  # allow backspace `\b`, which prevents click from wrapping newlines
     if template_path is None:
         template_path: Traversable = resources.files(__package__).joinpath(
-            "config_templates", "tugraz", "saml.cfg.jinja"
+            "config_templates",
+            "tugraz",
+            "saml.cfg.jinja",
         )
 
-    jinja_env = Environment(loader=loaders.BaseLoader())
+    jinja_env = Environment(loader=loaders.BaseLoader())  # noqa: S701
     jinja_env.globals["format_str"] = partial(black.format_str, mode=black.FileMode())
     jinja_env.globals["repr"] = repr
     jinja_env.filters["exclude_item_if_includes"] = exclude_item_if_includes
@@ -193,7 +202,9 @@ def echo_saml_config(
 
     if file and url:
         click.secho(
-            "`--file` and `--url` are mutually exclusive", file=sys.stderr, fg="red"
+            "`--file` and `--url` are mutually exclusive",
+            file=sys.stderr,
+            fg="red",
         )
         sys.exit(1)
 
@@ -205,7 +216,9 @@ def echo_saml_config(
         mds.load("remote", url=url)
     else:
         click.secho(
-            "must give exactly one of `--file`, `--url`", file=sys.stderr, fg="red"
+            "must give exactly one of `--file`, `--url`",
+            file=sys.stderr,
+            fg="red",
         )
         sys.exit(1)
 
