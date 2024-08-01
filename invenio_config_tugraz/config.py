@@ -8,6 +8,7 @@
 
 """invenio module that adds tugraz configs."""
 
+from celery.schedules import crontab
 from invenio_i18n import gettext as _
 
 CONFIG_TUGRAZ_SHIBBOLETH = False
@@ -37,6 +38,17 @@ CONFIG_TUGRAZ_ROUTES = {
     "gdpr": "/gdpr",
 }
 """Defined routes for TUG."""
+
+CONFIG_TUGRAZ_CELERY_BEAT_SCHEDULE = {
+    "update_saml_idp_config": {
+        "task": "invenio_config_tugraz.tasks.update_saml_idp_config",
+        "schedule": crontab(minute=40, hour=1),
+    }
+}
+"""Celery beat configuration for config-tugraz."""
+
+CONFIG_TUGRAZ_SAML_UPDATE_URL = ""
+"""URL from which to update SAML IdP configuration."""
 
 # Invenio-App
 # ===========
