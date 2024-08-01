@@ -9,6 +9,7 @@
 """Module tests."""
 
 from flask import Flask
+from invenio_saml.handlers import acs_handler_factory, default_account_setup
 
 from invenio_config_tugraz import InvenioConfigTugraz
 
@@ -31,3 +32,9 @@ def test_init() -> None:
     assert "invenio-config-tugraz" not in app.extensions
     ext.init_app(app)
     assert "invenio-config-tugraz" in app.extensions
+
+
+def test_create_acs_handler() -> None:
+    """Just to see whether creating acs_handlers breaks CI..."""
+    acs_handler = acs_handler_factory("idp", account_setup=default_account_setup)
+    assert callable(acs_handler)
