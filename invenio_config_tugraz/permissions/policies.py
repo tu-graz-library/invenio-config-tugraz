@@ -28,6 +28,10 @@ is verified at the moment it is undertaken.
 
 from invenio_administration.generators import Administration
 from invenio_communities.generators import CommunityCurators
+from invenio_curations.services.generators import (
+    CurationModerators,
+    IfCurationRequestExists,
+)
 from invenio_rdm_records.services.generators import (
     AccessGrant,
     CommunityInclusionReviewers,
@@ -80,6 +84,9 @@ class TUGrazRDMRecordPermissionPolicy(RecordPermissionPolicy):
         SecretLinks("preview"),
         SubmissionReviewer(),
         UserManager,
+        # Allow curation moderators to access a record, if a request for the record exists.
+        # Since we set all other permission in this policy as well, this only has to be specified here.
+        IfCurationRequestExists(then_=[CurationModerators()], else_=[]),
     ]
     can_view = can_preview + [
         AccessGrant("view"),
