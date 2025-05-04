@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2020-2024 Graz University of Technology.
+# Copyright (C) 2020-2025 Graz University of Technology.
 #
 # invenio-config-tugraz is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
@@ -35,6 +35,7 @@ from invenio_rdm_records.services.generators import (
     IfExternalDOIRecord,
     IfFileIsLocal,
     IfNewRecord,
+    IfOneCommunity,
     IfRecordDeleted,
     IfRestricted,
     RecordCommunitiesAction,
@@ -63,6 +64,11 @@ class TUGrazRDMRecordPermissionPolicy(RecordPermissionPolicy):
         "bucket-read": "read_files",
         "object-read": "read_files",
     }
+
+    # permission meant for global curators of the instance
+    # (for now applies to internal notes field only
+    # to be replaced with an adequate permission when it is defined)
+    can_manage_internal = [SystemProcess()]
 
     #
     # General permission-groups, to be used below
@@ -128,6 +134,8 @@ class TUGrazRDMRecordPermissionPolicy(RecordPermissionPolicy):
     ]
     can_create = can_tugraz_authenticated
 
+    can_search_revisions = [Administration()]
+
     #
     # Drafts
     #
@@ -168,6 +176,7 @@ class TUGrazRDMRecordPermissionPolicy(RecordPermissionPolicy):
     can_pid_update = can_review
     can_pid_discard = can_review
     can_pid_delete = can_review
+    can_pid_manage = [SystemProcess()]
 
     #
     # Actions
@@ -188,7 +197,23 @@ class TUGrazRDMRecordPermissionPolicy(RecordPermissionPolicy):
     # Record communities
     #
     can_add_community = can_manage
-    can_remove_community = [RecordOwners(), CommunityCurators(), SystemProcess()]
+    can_remove_community_ = [
+        RecordOwners(),
+        CommunityCurators(),
+        SystemProcess(),
+    ]
+    can_remove_community = [
+        IfConfig(
+            "RDM_COMMUNITY_REQUIRED_TO_PUBLISH",
+            then_=[
+                IfOneCommunity(
+                    then_=[Administration(), SystemProcess()],
+                    else_=can_remove_community_,
+                ),
+            ],
+            else_=can_remove_community_,
+        ),
+    ]
     can_remove_record = [CommunityCurators()]
     can_bulk_add = [SystemProcess()]
 
