@@ -31,6 +31,7 @@ from invenio_communities.generators import CommunityCurators
 from invenio_rdm_records.services.generators import (
     AccessGrant,
     CommunityInclusionReviewers,
+    IfAtLeastOneCommunity,
     IfDeleted,
     IfExternalDOIRecord,
     IfNewRecord,
@@ -165,6 +166,10 @@ class TUGrazRDMRecordPermissionPolicy(RecordPermissionPolicy):
     ]
     can_draft_update_files = can_review
     can_draft_delete_files = can_review
+
+    can_draft_get_file_transfer_metadata = [SystemProcess()]
+    can_draft_update_file_transfer_metadata = [SystemProcess()]
+
     can_manage_files = [
         IfConfig(
             "RDM_ALLOW_METADATA_ONLY_RECORDS",
@@ -202,7 +207,18 @@ class TUGrazRDMRecordPermissionPolicy(RecordPermissionPolicy):
             else_=[IfExternalDOIRecord(then_=[Disable()], else_=can_curate)],
         ),
     ]
-    can_publish = can_review
+    can_publish = [
+        IfConfig(
+            "RDM_COMMUNITY_REQUIRED_TO_PUBLISH",
+            then_=[
+                IfAtLeastOneCommunity(
+                    then_=can_review,
+                    else_=[Administration(), SystemProcess()],
+                ),
+            ],
+            else_=can_review,
+        ),
+    ]
     can_lift_embargo = can_manage
 
     #
@@ -226,7 +242,7 @@ class TUGrazRDMRecordPermissionPolicy(RecordPermissionPolicy):
             else_=can_remove_community_,
         ),
     ]
-    can_remove_record = [CommunityCurators()]
+    can_remove_record = [CommunityCurators(), Administration(), SystemProcess()]
     can_bulk_add = [SystemProcess()]
 
     #
@@ -289,6 +305,9 @@ class TUGrazRDMRecordPermissionPolicy(RecordPermissionPolicy):
     can_commit_files = [Disable()]
     can_update_files = [Disable()]
 
-    # Used to hide at the moment the `parent.is_verified` field. It should be set to
+    can_get_file_transfer_metadata = [Disable()]
+    can_update_file_transfer_metadata = [Disable()]
+
+    # Used to hide the `parent.is_verified` field. It should be set to
     # correct permissions based on which the field will be exposed only to moderators
-    can_moderate = [Disable()]
+    can_moderate = [SystemProcess()]
