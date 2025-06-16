@@ -8,6 +8,15 @@
 Changes
 =======
 
+Version v0.13.0 (release 2025-06-16)
+
+- fix: changed permissions
+- global: upgrade rdm-records dep
+- chore: apply ruff updates
+- permission: add missing can_*
+- setup: relax upper pins
+
+
 Version v0.12.5 (release 2024-07-29)
 
 - fix: permission for ip
