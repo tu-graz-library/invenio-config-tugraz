@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2020-2024 Graz University of Technology.
+# Copyright (C) 2020-2025 Graz University of Technology.
 #
 # invenio-config-tugraz is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
@@ -10,13 +10,11 @@
 
 from flask import Flask
 
-from invenio_config_tugraz import InvenioConfigTugraz
+from invenio_config_tugraz import InvenioConfigTugraz, __version__
 
 
 def test_version() -> None:
     """Test version import."""
-    from invenio_config_tugraz import __version__
-
     assert __version__
 
 
