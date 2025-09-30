@@ -47,6 +47,9 @@ from invenio_communities.permissions import (
     # however, this import should trace the base class of `CommunityPermissionPolicy`
     # importing it from invenio-communities better guarantees that
     BasePermissionPolicy,
+from invenio_curations.services.generators import (
+    CurationModerators,
+    IfCurationRequestExists,
 )
 from invenio_rdm_records.services.generators import (
     AccessGrant,
@@ -120,6 +123,7 @@ class TUGrazRDMRecordPermissionPolicy(RecordPermissionPolicy):
         SecretLinks("preview"),
         SubmissionReviewer(),
         UserManager,
+        IfCurationRequestExists(then_=[CurationModerators()], else_=[]),
     ]
     can_view = can_preview + [
         AccessGrant("view"),

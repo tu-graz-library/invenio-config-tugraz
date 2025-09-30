@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2020-2024 Graz University of Technology.
+# Copyright (C) 2020-2025 Graz University of Technology.
 #
 # invenio-config-tugraz is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
@@ -374,4 +374,19 @@ OAISERVER_ADMIN_EMAILS = [
 """The e-mail addresses of administrators of the repository.
 
 It **must** include one or more instances.
+"""
+
+from invenio_curations.services.components import CurationComponent
+from invenio_curations.services.permissions import CurationRDMRequestsPermissionPolicy
+
+TUGRAZ_REQUEST_PERMISSION_POLICY = CurationRDMRequestsPermissionPolicy
+"""TU Graz permission-policy for RequestsService.
+
+To use, set config-variable `REQUEST_PERMISSION_POLICY` to `TUGRAZ_REQUEST_PERMISSION_POLICY`.
+"""
+
+TUGRAZ_RDM_RECORDS_SERVICE_COMPONENTS = [CurationComponent]
+"""TU Graz default RDM record components.
+
+To use, append TUGRAZ_RDM_RECORDS_SERVICE_COMPONENTS to other needed components.
 """
