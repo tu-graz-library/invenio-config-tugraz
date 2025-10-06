@@ -6,9 +6,11 @@
 # modify it under the terms of the MIT License; see LICENSE file for more
 # details.
 
-"""TU Graz permission-policy for RDMRecordService.
+"""TU Graz permission-policy for invenio services.
 
-To use, set config-variable `RDM_PERMISSION_POLICY` to `TUGrazRDMRecordPermissionPolicy`.
+To use, set these config-variables:
+  `RDM_PERMISSION_POLICY` to `TUGrazRDMRecordPermissionPolicy`
+  `COMMUNITIES_PERMISSION_POLICY` to `TUGrazCommunityPermissionPolicy`
 
 Policies list **what actions** can be done **by whom**
 over an implied category of objects (typically records). A Policy is
@@ -25,9 +27,27 @@ One can define any action as long as it follows that pattern and
 is verified at the moment it is undertaken.
 """
 
-
 from invenio_administration.generators import Administration
-from invenio_communities.generators import CommunityCurators
+from invenio_communities.generators import (
+    AllowedMemberTypes,
+    CommunityCurators,
+    CommunityManagers,
+    CommunityManagersForRole,
+    CommunityMembers,
+    CommunityOwners,
+    CommunitySelfMember,
+    IfCommunityDeleted,
+    IfMemberPolicyClosed,
+    IfRecordSubmissionPolicyClosed,
+    ReviewPolicy,
+)
+from invenio_communities.generators import IfRestricted as IfRestrictedCommunity
+from invenio_communities.permissions import (
+    # at time of writing, BasePermissionPolicy is originally from `invenio_records_permissions`
+    # however, this import should trace the base class of `CommunityPermissionPolicy`
+    # importing it from invenio-communities better guarantees that
+    BasePermissionPolicy,
+)
 from invenio_rdm_records.services.generators import (
     AccessGrant,
     CommunityInclusionReviewers,
@@ -46,6 +66,7 @@ from invenio_rdm_records.services.generators import (
 )
 from invenio_records_permissions.generators import (
     AnyUser,
+    AuthenticatedUser,
     Disable,
     IfConfig,
     SystemProcess,
@@ -56,9 +77,15 @@ from invenio_records_resources.services.files.transfer import (
     LOCAL_TRANSFER_TYPE,
     MULTIPART_TRANSFER_TYPE,
 )
+from invenio_users_resources.services.generators import GroupsEnabled
 from invenio_users_resources.services.permissions import UserManager
 
-from .generators import AllowedFromIPNetwork, RecordSingleIP, TUGrazAuthenticatedUser
+from .generators import (
+    AllowedFromIPNetwork,
+    RecordSingleIP,
+    TUGrazAuthenticatedButNotCommunityMembers,
+    TUGrazAuthenticatedUser,
+)
 
 
 class TUGrazRDMRecordPermissionPolicy(RecordPermissionPolicy):
@@ -311,3 +338,174 @@ class TUGrazRDMRecordPermissionPolicy(RecordPermissionPolicy):
     # Used to hide the `parent.is_verified` field. It should be set to
     # correct permissions based on which the field will be exposed only to moderators
     can_moderate = [SystemProcess()]
+
+
+class TUGrazCommunityPermissionPolicy(BasePermissionPolicy):
+    """Have communities respect `tugraz_authenticated` rather than *signed up*."""
+
+    # NOTE: this class's body was copied from invenio_communities.permissions:CommunityPermissionPolicy
+
+    # Community
+    can_create = [TUGrazAuthenticatedUser(), SystemProcess()]
+
+    can_read = [
+        IfRestrictedCommunity(
+            "visibility",
+            then_=[CommunityMembers()],
+            else_=[AnyUser()],
+        ),
+        SystemProcess(),
+    ]
+
+    # Used for search filtering of deleted records
+    # cannot be implemented inside can_read - otherwise permission will
+    # kick in before tombstone renders
+    can_read_deleted = [
+        IfCommunityDeleted(then_=[UserManager, SystemProcess()], else_=can_read),
+    ]
+
+    can_update = [CommunityOwners(), SystemProcess()]
+
+    can_delete = [CommunityOwners(), SystemProcess()]
+
+    can_purge = [CommunityOwners(), SystemProcess()]
+
+    can_manage_access = [
+        IfConfig("COMMUNITIES_ALLOW_RESTRICTED", then_=can_update, else_=[]),
+    ]
+
+    can_create_restricted = [
+        IfConfig("COMMUNITIES_ALLOW_RESTRICTED", then_=can_create, else_=[]),
+    ]
+
+    can_search = [AnyUser(), SystemProcess()]
+
+    # NOTE: this is deliberately left at `AuthenticatedUser` rather than `TUGrazAuthenticatedUser`
+    # requiring `TUGrazAuthenticatedUser` would break *My Communities* part of communites page for
+    # users that are authenticated but not tugraz_authenticated
+    can_search_user_communities = [AuthenticatedUser(), SystemProcess()]
+
+    can_search_invites = [CommunityManagers(), SystemProcess()]
+
+    can_search_requests = [CommunityManagers(), CommunityCurators(), SystemProcess()]
+
+    can_rename = [CommunityOwners(), SystemProcess()]
+
+    can_submit_record = [
+        IfRecordSubmissionPolicyClosed(
+            then_=[CommunityMembers()],
+            else_=[
+                IfRestrictedCommunity(
+                    "visibility",
+                    then_=[CommunityMembers()],
+                    else_=[TUGrazAuthenticatedUser()],
+                ),
+            ],
+        ),
+        SystemProcess(),
+    ]
+
+    # who can include a record directly, without a review
+    can_include_directly = [
+        ReviewPolicy(
+            closed_=[Disable()],
+            open_=[CommunityCurators()],
+            members_=[CommunityMembers()],
+        ),
+        SystemProcess(),
+    ]
+
+    can_members_add = [
+        CommunityManagersForRole(),
+        AllowedMemberTypes("group"),
+        GroupsEnabled("group"),
+        SystemProcess(),
+    ]
+
+    can_members_invite = [
+        CommunityManagersForRole(),
+        AllowedMemberTypes("user", "email"),
+        SystemProcess(),
+    ]
+
+    can_members_manage = [
+        CommunityManagers(),
+        SystemProcess(),
+    ]
+
+    can_members_search = [
+        CommunityMembers(),
+        SystemProcess(),
+    ]
+
+    can_members_search_public = [
+        IfRestrictedCommunity(
+            "visibility",
+            then_=[CommunityMembers()],
+            else_=[
+                IfRestrictedCommunity(
+                    "members_visibility",
+                    then_=[CommunityMembers()],
+                    else_=[AnyUser()],
+                ),
+            ],
+        ),
+        SystemProcess(),
+    ]
+
+    # Ability to use membership update api
+    can_members_bulk_update = [
+        CommunityMembers(),
+        SystemProcess(),
+    ]
+
+    can_members_bulk_delete = can_members_bulk_update
+
+    # Ability to update a single membership
+    can_members_update = [
+        CommunityManagersForRole(),
+        CommunitySelfMember(),
+        SystemProcess(),
+    ]
+
+    # Ability to delete a single membership
+    can_members_delete = can_members_update
+
+    can_invite_owners = [CommunityOwners(), SystemProcess()]
+
+    # Abilities for featured communities
+    can_featured_search = [AnyUser(), SystemProcess()]
+    can_featured_list = [Administration(), SystemProcess()]
+    can_featured_create = [Administration(), SystemProcess()]
+    can_featured_update = [Administration(), SystemProcess()]
+    can_featured_delete = [Administration(), SystemProcess()]
+
+    # Used to hide at the moment the `is_verified` field. It should be set to
+    # correct permissions based on which the field will be exposed only to moderators
+    can_moderate = [SystemProcess()]
+
+    # Permissions to crud community theming
+    can_set_theme = [SystemProcess()]
+    can_delete_theme = can_set_theme
+
+    # Permissions to set if communities can have children
+    can_manage_children = [SystemProcess()]
+
+    # Permission for assigning a parent community
+    can_manage_parent = [Administration(), SystemProcess()]
+
+    # request_membership permission is based on configuration, community settings and
+    # identity. Other factors (e.g., previous membership requests) are not under
+    # its purview and are dealt with elsewhere.
+    can_request_membership = [
+        IfConfig(
+            "COMMUNITIES_ALLOW_MEMBERSHIP_REQUESTS",
+            then_=[
+                IfMemberPolicyClosed(
+                    then_=[SystemProcess()],
+                    else_=[TUGrazAuthenticatedButNotCommunityMembers()],
+                ),
+            ],
+            else_=[SystemProcess()],
+        ),
+    ]

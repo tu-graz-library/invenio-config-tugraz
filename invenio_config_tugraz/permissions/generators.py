@@ -51,6 +51,9 @@ from typing import Any
 from flask import current_app, request
 from flask_principal import Need
 from invenio_access.permissions import any_user
+from invenio_communities.communities.records.api import Community
+from invenio_communities.generators import CommunityRoleNeed
+from invenio_communities.proxies import current_roles
 from invenio_records_permissions.generators import Generator
 from invenio_search.engine import dsl
 
@@ -147,7 +150,7 @@ class AllowedFromIPNetwork(Generator):
         # non of the above - return empty
         return []
 
-    def excludes(self, **kwargs: dict) -> Need:
+    def excludes(self, **kwargs: dict) -> list[Need]:
         """Set of Needs denying permission. Preventing Needs.
 
         If ANY of the Needs are matched, permission is revoked.
@@ -205,3 +208,24 @@ class TUGrazAuthenticatedUser(Generator):
     def needs(self, **__: dict) -> list[Need]:
         """Generate needs to be checked against current user identity."""
         return [tugraz_authenticated_user]
+
+
+class TUGrazAuthenticatedButNotCommunityMembers(Generator):
+    """Generates the need for `tugraz_authenticated_user`, but excludes community members."""
+
+    def needs(self, **__: dict) -> list[Need]:
+        """Generate needs to be checked against current user identity."""
+        return [tugraz_authenticated_user]
+
+    # NOTE: technically, `record`'s type is `current_communities.service.config.record_cls`
+    def excludes(self, record: Community | None = None, **__: dict) -> list[Need]:
+        """Generate needs that exclude user from corresponding permission.
+
+        Excludes identities with a role in the community. This assumes all roles at
+        this point mean valid memberships. This is the same assumption that
+        generators in `invenio_communities.generators` make.
+        """
+        if not record:
+            return []
+        community_id = str(record.id)
+        return [CommunityRoleNeed(community_id, r.name) for r in current_roles]
