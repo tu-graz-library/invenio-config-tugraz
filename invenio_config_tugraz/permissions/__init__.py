@@ -8,6 +8,6 @@
 
 """Permission-policies and roles, based on `flask-principal`."""
 
-from .policies import TUGrazRDMRecordPermissionPolicy
+from .policies import TUGrazCommunityPermissionPolicy, TUGrazRDMRecordPermissionPolicy
 
-__all__ = ("TUGrazRDMRecordPermissionPolicy",)
+__all__ = ("TUGrazCommunityPermissionPolicy", "TUGrazRDMRecordPermissionPolicy")
