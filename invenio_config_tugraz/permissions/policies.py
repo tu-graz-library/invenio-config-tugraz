@@ -176,7 +176,11 @@ class TUGrazRDMRecordPermissionPolicy(RecordPermissionPolicy):
     can_read_draft = can_preview
     can_draft_read_files = can_preview + [ResourceAccessToken("read")]
     can_update_draft = can_review
-    can_draft_create_files = can_review
+    can_draft_create_files = [
+        IfTransferType(LOCAL_TRANSFER_TYPE, can_review),
+        IfTransferType(MULTIPART_TRANSFER_TYPE, can_review),
+        SystemProcess(),
+    ]
     can_draft_set_content_files = [
         IfTransferType(LOCAL_TRANSFER_TYPE, can_review),
         IfTransferType(MULTIPART_TRANSFER_TYPE, can_review),
