@@ -36,6 +36,42 @@ ALLOWED_DIFFERENCES_RDM = {
 }
 
 
+def ensure_need_labels_synced(
+    tugraz_policy: type[BasePermissionPolicy],
+    invenio_policy: type[BasePermissionPolicy],
+    allowed_differences: Iterable,
+) -> None:
+    """Ensure given policies' "NEED_LABEL_TO_ACTION" attribute matches."""
+    tugraz_has_need_label = hasattr(tugraz_policy, "NEED_LABEL_TO_ACTION")
+    invenio_has_need_label = hasattr(invenio_policy, "NEED_LABEL_TO_ACTION")
+    if not tugraz_has_need_label and not invenio_has_need_label:
+        # policies are allowed to not have .NEED_LABEL_TO_ACTION
+        # if neither policy has it, the policies are considered synced in that regard
+        return
+
+    if not tugraz_has_need_label:
+        msg = f"{invenio_policy} has `NEED_LABEL_TO_ACTION`, but {tugraz_policy} hasn't"
+        raise AttributeError(msg)
+    if not invenio_has_need_label:
+        msg = f"{tugraz_policy} has `NEED_LABEL_TO_ACTION`, but {invenio_policy} hasn't"
+        raise AttributeError(msg)
+
+    tugraz_label_to_action = tugraz_policy.NEED_LABEL_TO_ACTION
+    invenio_label_to_action = invenio_policy.NEED_LABEL_TO_ACTION
+
+    for label in tugraz_label_to_action.keys() & invenio_label_to_action.keys():
+        if label in allowed_differences:
+            continue
+
+        if tugraz_label_to_action.get(label) != invenio_label_to_action.get(label):
+            msg = f"""
+            invenio's NEED_LABEL_TO_ACTION differs from TU Graz's in {label}
+            if this is intentional, add to corresponding ALLOWED_DIFFERENCES_... in test-file
+            otherwise fix .NEED_LABEL_TO_ACTION of {tugraz_policy}
+            """
+            raise ValueError(msg)
+
+
 def ensure_policies_synced(
     tugraz_policy: type[BasePermissionPolicy],
     invenio_policy: type[BasePermissionPolicy],
@@ -91,20 +127,7 @@ def ensure_policies_synced(
             raise ValueError(msg)
 
     # check whether same `NEED_LABEL_TO_ACTION`
-    tugraz_label_to_action = tugraz_policy.NEED_LABEL_TO_ACTION
-    invenio_label_to_action = invenio_policy.NEED_LABEL_TO_ACTION
-
-    for label in tugraz_label_to_action.keys() & invenio_label_to_action.keys():
-        if label in allowed_differences:
-            continue
-
-        if tugraz_label_to_action.get(label) != invenio_label_to_action.get(label):
-            msg = f"""
-            invenio's NEED_LABEL_TO_ACTION differs from TU Graz's in {label}
-            if this is intentional, add to corresponding ALLOWED_DIFFERENCES_... in test-file
-            otherwise fix .NEED_LABEL_TO_ACTION of {tugraz_policy}
-            """
-            raise ValueError(msg)
+    ensure_need_labels_synced(tugraz_policy, invenio_policy, allowed_differences)
 
 
 def test_community_policies_synced() -> None:
