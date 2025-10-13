@@ -27,6 +27,8 @@ One can define any action as long as it follows that pattern and
 is verified at the moment it is undertaken.
 """
 
+from typing import Final
+
 from invenio_administration.generators import Administration
 from invenio_communities.generators import (
     AllowedMemberTypes,
@@ -48,6 +50,15 @@ from invenio_communities.permissions import (
     # importing it from invenio-communities better guarantees that
     BasePermissionPolicy,
 )
+from invenio_curations.requests.curation import CurationRequest
+from invenio_curations.services.generators import (
+    CurationModerators,
+    IfCurationRequestAccepted,
+    IfCurationRequestExists,
+    IfRequestTypes,
+    TopicPermission,
+)
+from invenio_rdm_records.requests import CommunitySubmission
 from invenio_rdm_records.services.generators import (
     AccessGrant,
     CommunityInclusionReviewers,
@@ -64,6 +75,7 @@ from invenio_rdm_records.services.generators import (
     SecretLinks,
     SubmissionReviewer,
 )
+from invenio_rdm_records.services.permissions import RDMRequestsPermissionPolicy
 from invenio_records_permissions.generators import (
     AnyUser,
     AuthenticatedUser,
@@ -77,6 +89,7 @@ from invenio_records_resources.services.files.transfer import (
     LOCAL_TRANSFER_TYPE,
     MULTIPART_TRANSFER_TYPE,
 )
+from invenio_requests.services.generators import Creator, Receiver
 from invenio_users_resources.services.generators import GroupsEnabled
 from invenio_users_resources.services.permissions import UserManager
 
@@ -118,6 +131,7 @@ class TUGrazRDMRecordPermissionPolicy(RecordPermissionPolicy):
         SecretLinks("preview"),
         SubmissionReviewer(),
         UserManager,
+        IfCurationRequestExists(then_=[CurationModerators()], else_=[]),
     ]
     can_view = can_preview + [
         AccessGrant("view"),
@@ -513,3 +527,56 @@ class TUGrazCommunityPermissionPolicy(BasePermissionPolicy):
             else_=[SystemProcess()],
         ),
     ]
+
+
+class TUGrazRDMRequestsPermissionPolicy(RDMRequestsPermissionPolicy):
+    """Customized requests permission policy for TU Graz repository's needs.
+
+    Note: For now it is 100% percent copied from invenio-curations.
+    """
+
+    curation_request_record_review = IfRequestTypes(
+        [CurationRequest],
+        then_=[TopicPermission(permission_name="can_review")],
+        else_=[],
+    )
+
+    # Only allow community-submission requests to be accepted after the rdm-curation request has been accepted
+    can_action_accept: Final = [
+        IfRequestTypes(
+            request_types=[CommunitySubmission],
+            then_=[
+                IfCurationRequestAccepted(
+                    then_=RDMRequestsPermissionPolicy.can_action_accept,
+                    else_=[],
+                ),
+            ],
+            else_=RDMRequestsPermissionPolicy.can_action_accept,
+        ),
+    ]
+
+    # Update can read and can comment with new states
+    can_read: Final = [
+        # Have to explicitly check the request type and circumvent using status, as creator/receiver will add a query filter where one entity must be the user.
+        IfRequestTypes(
+            [CurationRequest],
+            then_=[
+                Creator(),
+                Receiver(),
+                TopicPermission(permission_name="can_review"),
+                SystemProcess(),
+            ],
+            else_=RDMRequestsPermissionPolicy.can_read,
+        ),
+    ]
+    can_create_comment = can_read
+
+    # Update submit to also allow record reviewers/managers for curation requests
+    can_action_submit = RDMRequestsPermissionPolicy.can_action_submit + [
+        curation_request_record_review,
+    ]
+
+    # Add new actions
+    can_action_review = RDMRequestsPermissionPolicy.can_action_accept
+    can_action_critique = RDMRequestsPermissionPolicy.can_action_accept
+    can_action_resubmit = can_action_submit
