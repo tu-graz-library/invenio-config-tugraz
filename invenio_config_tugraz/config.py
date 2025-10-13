@@ -375,3 +375,6 @@ OAISERVER_ADMIN_EMAILS = [
 
 It **must** include one or more instances.
 """
+
+CURATIONS_ENABLE_REQUEST_COMMENTS = False
+"""Enable/Disable curations automatic comments creation for the repository."""

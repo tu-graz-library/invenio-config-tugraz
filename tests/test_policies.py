@@ -29,8 +29,11 @@ ALLOWED_DIFFERENCES_RDM = {
     "can_authenticated",
     "can_create",
     "can_search",
+    "can_preview",
     "can_view",
     "can_all",
+    "can_read_draft",
+    "can_draft_read_files",
     "can_search_drafts",
     "can_tugraz_authenticated",
 }
