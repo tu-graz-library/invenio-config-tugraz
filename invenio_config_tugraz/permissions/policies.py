@@ -60,7 +60,6 @@ from invenio_rdm_records.services.generators import (
     IfRestricted,
     RecordCommunitiesAction,
     RecordOwners,
-    RequestReviewers,
     ResourceAccessToken,
     SecretLinks,
     SubmissionReviewer,
@@ -116,7 +115,6 @@ class TUGrazRDMRecordPermissionPolicy(RecordPermissionPolicy):
     can_review = can_curate + [SubmissionReviewer()]
     can_preview = can_curate + [
         AccessGrant("preview"),
-        RequestReviewers(),
         SecretLinks("preview"),
         SubmissionReviewer(),
         UserManager,
