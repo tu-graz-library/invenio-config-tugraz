@@ -1,5 +1,6 @@
 ..
     Copyright (C) 2020 - 2022 Graz University of Technology.
+    Copyright (C) 2025 Graz University of Technology.
 
     invenio-config-tugraz is free software; you can redistribute it and/or
     modify it under the terms of the MIT License; see LICENSE file for more
@@ -7,6 +8,16 @@
 
 Changes
 =======
+
+Version v0.13.1 (released 2025-10-21)
+
+- fix(setup): pin for v13 dependencies
+- Revert "fix: sync policies' can_preview"
+- fix: sync policies' can_preview
+- fix: sync .can_draft_create_files with invenio-rdm
+- fix: allow absence of `.NEED_LABEL_TO_ACTION` attr
+- permission: add permissions for communities
+- fix: ruff PLC0415
 
 Version v0.13.0 (release 2025-06-16)
 
