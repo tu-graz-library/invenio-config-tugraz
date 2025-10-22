@@ -9,6 +9,10 @@
 Changes
 =======
 
+Version v0.13.2 (released 2025-10-22)
+
+- curations: add needed configs for curations feature
+
 Version v0.13.1 (released 2025-10-21)
 
 - fix(setup): pin for v13 dependencies
