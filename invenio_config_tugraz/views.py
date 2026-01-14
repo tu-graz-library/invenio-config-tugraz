@@ -33,14 +33,7 @@ def ui_blueprint(app: Flask) -> Blueprint:
 
 def guide() -> BaseResponse:
     """TUGraz_Repository_Guide."""
-    locale = get_locale()
-    return redirect(
-        url_for(
-            "static",
-            filename=f"documents/TUGraz_Repository_Guide_02.1_{locale}.pdf",
-            _external=True,
-        ),
-    )
+    return redirect("https://doi.org/10.3217/dgpcz-td505")
 
 
 def terms() -> BaseResponse:
