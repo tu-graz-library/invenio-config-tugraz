@@ -9,6 +9,13 @@
 Changes
 =======
 
+Version v0.13.3 (released 2026-02-04)
+
+- fix: black formatting
+- fix: update curations policy * update TUGraz Request policy to handle the case where curation requests don't exist because a privileged user created the draft
+- config: enable curation comments
+- policy: update curation policy for new state
+
 Version v0.13.2 (released 2025-10-22)
 
 - curations: add needed configs for curations feature
