@@ -1,6 +1,6 @@
 ..
     Copyright (C) 2020 - 2022 Graz University of Technology.
-    Copyright (C) 2025 Graz University of Technology.
+    Copyright (C) 2025-2026 Graz University of Technology.
 
     invenio-config-tugraz is free software; you can redistribute it and/or
     modify it under the terms of the MIT License; see LICENSE file for more
@@ -8,6 +8,13 @@
 
 Changes
 =======
+
+Version v0.14.0 (released 2026-02-10)
+
+- setup: increase python version
+- fix: sync policies' can_preview
+- chore(setup): bump dependencies
+- fix: update TUG repository guide
 
 Version v0.13.3 (released 2026-02-04)
 
