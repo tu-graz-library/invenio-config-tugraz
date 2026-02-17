@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2020-2024 Graz University of Technology.
+# Copyright (C) 2020-2026 Graz University of Technology.
 #
 # invenio-config-tugraz is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
@@ -8,8 +8,7 @@
 
 """invenio module for TUGRAZ config."""
 
-from flask import Blueprint, Flask, redirect, url_for
-from invenio_i18n import get_locale
+from flask import Blueprint, Flask, redirect
 from werkzeug.wrappers import Response as BaseResponse
 
 
@@ -27,6 +26,9 @@ def ui_blueprint(app: Flask) -> Blueprint:
     blueprint.add_url_rule(routes["guide"], view_func=guide)
     blueprint.add_url_rule(routes["terms"], view_func=terms)
     blueprint.add_url_rule(routes["gdpr"], view_func=gdpr)
+    blueprint.add_url_rule(routes["accessibility"], view_func=accessibility)
+    blueprint.add_url_rule(routes["file-formats"], view_func=file_formats)
+    blueprint.add_url_rule(routes["curations"], view_func=curations)
 
     return blueprint
 
@@ -38,23 +40,24 @@ def guide() -> BaseResponse:
 
 def terms() -> BaseResponse:
     """Terms_And_Conditions."""
-    locale = get_locale()
-    return redirect(
-        url_for(
-            "static",
-            filename=f"documents/TUGraz_Repository_Terms_And_Conditions_{locale}.pdf",
-            _external=True,
-        ),
-    )
+    return redirect("https://doi.org/10.3217/k3dsw-rv326")
 
 
 def gdpr() -> BaseResponse:
     """General_Data_Protection_Rights."""
-    locale = get_locale()
-    return redirect(
-        url_for(
-            "static",
-            filename=f"documents/TUGraz_Repository_General_Data_Protection_Rights_{locale}.pdf",
-            _external=True,
-        ),
-    )
+    return redirect("https://doi.org/10.3217/xream-wzp39")
+
+
+def accessibility() -> BaseResponse:
+    """Accessibility_Statement."""
+    return redirect("https://doi.org/10.3217/psmeb-84429")
+
+
+def file_formats() -> BaseResponse:
+    """File_Formats."""
+    return redirect("https://doi.org/10.3217/3c0k5-zqh95")
+
+
+def curations() -> BaseResponse:
+    """Curation_Workflow."""
+    return redirect("https://doi.org/10.3217/h1zfa-4fb59")

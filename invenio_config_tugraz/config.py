@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2020-2024 Graz University of Technology.
+# Copyright (C) 2020-2026 Graz University of Technology.
 #
 # invenio-config-tugraz is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
@@ -35,6 +35,9 @@ CONFIG_TUGRAZ_ROUTES = {
     "guide": "/guide",
     "terms": "/terms",
     "gdpr": "/gdpr",
+    "accessibility": "/accessibility",
+    "file-formats": "/file-formats",
+    "curations": "/curations",
 }
 """Defined routes for TUG."""
 
