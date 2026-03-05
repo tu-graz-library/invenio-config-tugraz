@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2020-2025 Graz University of Technology.
+# Copyright (C) 2020-2026 Graz University of Technology.
 #
 # invenio-config-tugraz is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
@@ -41,9 +41,11 @@ from invenio_communities.generators import (
     IfCommunityDeleted,
     IfMemberPolicyClosed,
     IfRecordSubmissionPolicyClosed,
-    ReviewPolicy,
 )
 from invenio_communities.generators import IfRestricted as IfRestrictedCommunity
+from invenio_communities.generators import (
+    ReviewPolicy,
+)
 from invenio_communities.permissions import (  # at time of writing, BasePermissionPolicy is originally from `invenio_records_permissions`; however, this import should trace the base class of `CommunityPermissionPolicy`; importing it from invenio-communities better guarantees that
     BasePermissionPolicy,
 )
@@ -578,6 +580,7 @@ class TUGrazRDMRequestsPermissionPolicy(RDMRequestsPermissionPolicy):
         ),
     ]
     can_create_comment = can_read
+    can_reply_comment = can_create_comment
 
     # Update submit to also allow record reviewers/managers for curation requests
     can_action_submit = RDMRequestsPermissionPolicy.can_action_submit + [
