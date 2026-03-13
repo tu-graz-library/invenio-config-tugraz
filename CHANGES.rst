@@ -9,6 +9,13 @@
 Changes
 =======
 
+Version v0.14.1 (released 2026-03-13)
+
+- chore(setup): ignore ruff rule
+- feat(permission): new feature reply comment needs permission
+- feat(events): add TUG specific request events component
+- chore: update views
+
 Version v0.14.0 (released 2026-02-10)
 
 - setup: increase python version
