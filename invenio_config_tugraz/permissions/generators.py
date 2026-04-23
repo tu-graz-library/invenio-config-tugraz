@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2020-2024 Graz University of Technology.
+# Copyright (C) 2020-2026 Graz University of Technology.
 #
 # invenio-config-tugraz is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
@@ -110,12 +110,11 @@ class RecordSingleIP(Generator):
 
     def query_filter(self, *_: dict, **__: dict) -> Any:  # noqa: ANN401
         """Filter for singleip records."""
-        if not self.check_permission():
+        if self.check_permission():
             # If user ip is not on the list, and If the record contains 'singleip' will not be seen
             return ~dsl.Q("match", **{"custom_fields.single_ip": True})
 
-        # Lists all records
-        return dsl.Q("match_all")
+        return []
 
     def check_permission(self) -> bool:
         """Check for User IP address in config variable.
@@ -182,10 +181,10 @@ class AllowedFromIPNetwork(Generator):
 
     def query_filter(self, *_: dict, **__: dict) -> Any:  # noqa: ANN401
         """Filter for ip range records."""
-        if not self.check_permission():
+        if self.check_permission():
             return ~dsl.Q("match", **{"custom_fields.ip_network": True})
 
-        return dsl.Q("match_all")
+        return []
 
     def check_permission(self) -> bool:
         """Check for User IP address in the configured network."""
