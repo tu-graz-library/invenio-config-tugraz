@@ -46,7 +46,6 @@ method specifies those from the actor's point-of-view in search scenarios.
 """
 
 from ipaddress import ip_address, ip_network
-from typing import Any
 
 from flask import current_app, request
 from flask_principal import Need
@@ -108,14 +107,12 @@ class RecordSingleIP(Generator):
         else:
             return []
 
-    def query_filter(self, *_: dict, **__: dict) -> Any:  # noqa: ANN401
+    def query_filter(self, *_: dict, **__: dict) -> dsl.Query | None:
         """Filter for singleip records."""
-        if not self.check_permission():
-            # If user ip is not on the list, and If the record contains 'singleip' will not be seen
-            return ~dsl.Q("match", **{"custom_fields.single_ip": True})
+        if self.check_permission():
+            return dsl.Q("match", **{"custom_fields.single_ip": True})
 
-        # Lists all records
-        return dsl.Q("match_all")
+        return None
 
     def check_permission(self) -> bool:
         """Check for User IP address in config variable.
@@ -180,12 +177,12 @@ class AllowedFromIPNetwork(Generator):
         else:
             return []
 
-    def query_filter(self, *_: dict, **__: dict) -> Any:  # noqa: ANN401
+    def query_filter(self, *_: dict, **__: dict) -> dsl.Query | None:
         """Filter for ip range records."""
-        if not self.check_permission():
-            return ~dsl.Q("match", **{"custom_fields.ip_network": True})
+        if self.check_permission():
+            return dsl.Q("match", **{"custom_fields.ip_network": True})
 
-        return dsl.Q("match_all")
+        return None
 
     def check_permission(self) -> bool:
         """Check for User IP address in the configured network."""
