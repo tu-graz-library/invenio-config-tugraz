@@ -9,6 +9,14 @@
 Changes
 =======
 
+Version v0.14.2 (released 2026-04-27)
+
+- fix(types): python3.12 failes on dsl.Query
+- feat(setup): relax supported python version
+- fix(policy): hide restricted records
+- fix(setup): pin invenio-app-rdm
+- fix: events cfg comment
+
 Version v0.14.1 (released 2026-03-13)
 
 - chore(setup): ignore ruff rule
