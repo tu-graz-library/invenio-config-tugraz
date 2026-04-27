@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2020-2024 Graz University of Technology.
+# Copyright (C) 2020-2026 Graz University of Technology.
 #
 # invenio-config-tugraz is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
@@ -107,7 +107,7 @@ class RecordSingleIP(Generator):
         else:
             return []
 
-    def query_filter(self, *_: dict, **__: dict) -> dsl.Query | None:
+    def query_filter(self, *_: dict, **__: dict) -> dsl.query.Query | None:
         """Filter for singleip records."""
         if self.check_permission():
             return dsl.Q("match", **{"custom_fields.single_ip": True})
@@ -177,7 +177,7 @@ class AllowedFromIPNetwork(Generator):
         else:
             return []
 
-    def query_filter(self, *_: dict, **__: dict) -> dsl.Query | None:
+    def query_filter(self, *_: dict, **__: dict) -> dsl.query.Query | None:
         """Filter for ip range records."""
         if self.check_permission():
             return dsl.Q("match", **{"custom_fields.ip_network": True})
