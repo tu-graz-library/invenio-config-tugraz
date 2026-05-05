@@ -38,15 +38,11 @@ from .permissions import (
 from .requests import TUGRAZ_REQUESTS_REGISTERED_EVENT_TYPES
 from .requests.events import TUGRAZ_REQUESTS_EVENTS_SERVICE_COMPONENTS
 
-CONFIG_TUGRAZ_SHIBBOLETH = False
-"""Set True if SAML is configured"""
+# Config-Tugraz
+# =============
 
-CONFIG_TUGRAZ_SINGLE_IPS = []
-"""Allows access to users whose IP address is listed.
-
-INVENIO_CONFIG_TUGRAZ_SINGLE_IPS =
-    ["127.0.0.1", "127.0.0.2"]
-"""
+CONFIG_TUGRAZ_IP_NETWORK = ""
+"""Allows access to users who are in the IP network."""
 
 CONFIG_TUGRAZ_IP_RANGES = []
 """Allows access to users whose range of IP address is listed.
@@ -54,10 +50,6 @@ CONFIG_TUGRAZ_IP_RANGES = []
 INVENIO_CONFIG_TUGRAZ_IP_RANGES =
 [["127.0.0.2", "127.0.0.99"], ["127.0.1.3", "127.0.1.5"]]
 """
-
-CONFIG_TUGRAZ_IP_NETWORK = ""
-"""Allows access to users who are in the IP network."""
-
 
 CONFIG_TUGRAZ_ROUTES = {
     "guide": "/guide",
@@ -68,6 +60,16 @@ CONFIG_TUGRAZ_ROUTES = {
     "curations": "/curations",
 }
 """Defined routes for TUG."""
+
+CONFIG_TUGRAZ_SHIBBOLETH = False
+"""Set True if SAML is configured"""
+
+CONFIG_TUGRAZ_SINGLE_IPS = []
+"""Allows access to users whose IP address is listed.
+
+INVENIO_CONFIG_TUGRAZ_SINGLE_IPS =
+    ["127.0.0.1", "127.0.0.2"]
+"""
 
 # Invenio-App
 # ===========
@@ -101,437 +103,112 @@ APP_DEFAULT_SECURE_HEADERS = {
 # Invenio-I18N
 # ============
 # See https://invenio-i18n.readthedocs.io/en/latest/configuration.html
+
 BABEL_DEFAULT_LOCALE = "en"
-# Default time zone
 BABEL_DEFAULT_TIMEZONE = "Europe/Vienna"
-# Other supported languages (do not include BABEL_DEFAULT_LOCALE in list).
 I18N_LANGUAGES = [("de", _("German"))]
 
 # Invenio-Mail
-# ===========
+# ============
 # See https://invenio-mail.readthedocs.io/en/latest/configuration.html
 
 MAIL_SERVER = "localhost"
-"""Domain ip where mail server is running."""
-
-SECURITY_EMAIL_SENDER = "info@invenio-test.tugraz.at"
-"""Email address used as sender of account registration emails."""
-"""Domain name should match the domain used in web server."""
-
-SECURITY_EMAIL_SUBJECT_REGISTER = _("Welcome to TU Graz Repository!")
-"""Email subject for account registration emails."""
-
 MAIL_SUPPRESS_SEND = True
-"""Enable email sending by default.
+SECURITY_EMAIL_HTML = False
+SECURITY_EMAIL_PLAINTEXT = True
+SECURITY_EMAIL_SENDER = "info@invenio-test.tugraz.at"
+SECURITY_EMAIL_SUBJECT_REGISTER = _("Welcome to TU Graz Repository!")
 
-Set this to False when sending actual emails.
-"""
-
-# CORS - Cross-origin resource sharing
-# ===========
-# Uncomment to enable the CORS
-
-# CORS_RESOURCES = '*'
-# CORS_SEND_WILDCARD = True
-# CORS_EXPOSE_HEADERS = [
-#    'ETag',
-#    'Link',
-#    'X-RateLimit-Limit',
-#    'X-RateLimit-Remaining',
-#    'X-RateLimit-Reset',
-#    'Content-Type',
-# ]
-# REST_ENABLE_CORS = True
-
-# Invenio-userprofiles
-# ===========
+# Invenio-Userprofiles
+# ====================
 # See https://invenio-userprofiles.readthedocs.io/en/latest/configuration.html
 
-USERPROFILES_EXTEND_SECURITY_FORMS = True
-"""Set True in order to register user_profile.
-
-This also forces user to add username and fullname
-when register.
-"""
-
 USERPROFILES_EMAIL_ENABLED = True
-"""Exclude the user email in the profile form."""
-
+USERPROFILES_EXTEND_SECURITY_FORMS = True
 USERPROFILES_READ_ONLY = True
-"""Allow users to change profile info (name, email, etc...)."""
 
-# Invenio-saml
-# ===========
+# Invenio-SAML
+# ============
 # See https://invenio-saml.readthedocs.io/en/latest/configuration.html
 
-SSO_SAML_IDPS = {}
-"""Configuration of IDPS. Actual values can be find in to invenio.cfg file"""
-
-SSO_SAML_DEFAULT_BLUEPRINT_PREFIX = "/shibboleth"
-"""Base URL for the extensions endpoint."""
-
-SSO_SAML_DEFAULT_METADATA_ROUTE = "/metadata/<idp>"
-"""URL route for the metadata request."""
-"""This is also SP entityID https://domain/shibboleth/metadata/<idp>"""
-
-SSO_SAML_DEFAULT_SSO_ROUTE = "/login/<idp>"
-"""URL route for the SP login."""
-
 SSO_SAML_DEFAULT_ACS_ROUTE = "/authorized/<idp>"
-"""URL route to handle the IdP login request."""
-
+SSO_SAML_DEFAULT_BLUEPRINT_PREFIX = "/shibboleth"
+SSO_SAML_DEFAULT_METADATA_ROUTE = "/metadata/<idp>"
 SSO_SAML_DEFAULT_SLO_ROUTE = "/slo/<idp>"
-"""URL route for the SP logout."""
-
 SSO_SAML_DEFAULT_SLS_ROUTE = "/sls/<idp>"
-"""URL route to handle the IdP logout request."""
+SSO_SAML_DEFAULT_SSO_ROUTE = "/login/<idp>"
+SSO_SAML_IDPS = {}
 
-# Invenio-accounts
-# ===========
+# Invenio-Accounts
+# ================
 # See https://invenio-accounts.readthedocs.io/en/latest/configuration.html
 
-ACCOUNTS_LOCAL_LOGIN_ENABLED = True
-"""Allow local login."""
-
-SECURITY_CHANGEABLE = False
-"""Allow password change by users."""
-
-SECURITY_RECOVERABLE = False
-"""Allow password recovery by users."""
-
-SECURITY_REGISTERABLE = True
-""""Allow users to register.
-
-With this variable set to "False" users will not be
-able to register, or to navigate to /sigup page.
-"""
-
-SECURITY_CONFIRMABLE = False
-"""Allow user to confirm their email address.
-
-Instead user will get a welcome email.
-"""
-
-SECURITY_LOGIN_WITHOUT_CONFIRMATION = False
-"""Require users to confirm email before being able to login."""
-
-# Flask-Security
-# =============
-# See https://pythonhosted.org/Flask-Security/configuration.html
-SECURITY_EMAIL_PLAINTEXT = True
-"""Render email content as plaintext."""
-
-SECURITY_EMAIL_HTML = False
-"""Render email content as HTML."""
-
-
 ACCOUNTS = True
-"""Tells if the templates should use the accounts module.
-
-If False, you won't be able to login via the web UI.
-
-Instead if you have a overriden template somewhere in your config.py:
-like this:
-SECURITY_LOGIN_USER_TEMPLATE = 'invenio_theme_tugraz/accounts/login.html'
-then you can remove this condition from header_login.htm:
-{%- if config.ACCOUNTS %}
-to render your overriden login.html
-"""
-
-# Accounts
-# ========
-# Actual values can be find in to invenio.cfg file
-#: Recaptcha public key (change to enable).
-RECAPTCHA_PUBLIC_KEY = None
-#: Recaptcha private key (change to enable).
+ACCOUNTS_LOCAL_LOGIN_ENABLED = True
 RECAPTCHA_PRIVATE_KEY = None
+RECAPTCHA_PUBLIC_KEY = None
+SECURITY_CHANGEABLE = False
+SECURITY_CONFIRMABLE = False
+SECURITY_LOGIN_WITHOUT_CONFIRMATION = False
+SECURITY_PASSWORD_SINGLE_HASH = ["pbkdf2_sha512"]
+SECURITY_RECOVERABLE = False
+SECURITY_REGISTERABLE = True
 
-# invenio-records-permissions
-# =======
-# See:
-# https://invenio-records-permissions.readthedocs.io/en/latest/configuration.html
-# Uncomment these to enable overriding RDM permissions
-# from .rdm_permissions import TUGRAZRDMRecordServiceConfig
-# RDM_RECORDS_BIBLIOGRAPHIC_SERVICE_CONFIG = TUGRAZRDMRecordServiceConfig
-"""Access control configuration for records."""
+# Invenio-RDM-Records
+# ===================
+# See https://invenio-rdm-records.readthedocs.io/en/latest/configuration.html
 
-# invenio-rdm-records
-# =======
-# See:
-# https://invenio-rdm-records.readthedocs.io/en/latest/configuration.html
-#
-RDM_RECORDS_USER_FIXTURE_PASSWORDS = {"info@tugraz.at": None}
-"""Overrides for the user fixtures' passwords.
-The password set for a user fixture in this dictionary overrides the
-password set in the ``users.yaml`` file. This can be used to set custom
-passwords for the fixture users (of course, this has to be configured
-before the fixtures are installed, e.g. by setting up the services).
-If ``None`` or an empty string is configured in this dictionary, then the
-password from ``users.yaml`` will be used. If that is also absent, a password
-will be generated randomly.
-"""
-
-DATACITE_FORMAT = "{prefix}/{id}"
-"""Customize the generated DOI string."""
-
-DATACITE_DATACENTER_SYMBOL = ""
-""""The OAI-PMH server's metadata format oai_datacite
-that allows you to harvest record from InvenioRDM in DataCite XML needs
-to be configured with your DataCite data center symbol.
-This is only required if you want your records to be harvestable in DataCite XML format.
-"""
-
-# Invenio-app-rdm
-# =========================
-# See https://github.com/inveniosoftware/invenio-app-rdm/blob/master/invenio_app_rdm/config.py
+APP_RDM_DEPOSIT_FORM_AUTOCOMPLETE_NAMES = "off"
 APP_RDM_DEPOSIT_FORM_DEFAULTS = {
     "publisher": "Graz University of Technology",
 }
-"""Default values for new records in the deposit UI.
-
-The keys denote the dot-separated path, where in the record's metadata
-the values should be set (see invenio-records.dictutils).
-If the value is callable, its return value will be used for the field
-(e.g. lambda/function for dynamic calculation of values).
-"""
-
-APP_RDM_DEPOSIT_FORM_AUTOCOMPLETE_NAMES = "off"
-"""Behavior for autocomplete names search field for creators/contributors.
-
-Available options:
-
-- ``search`` (default): Show search field and form always.
-- ``search_only``: Only show search field. Form displayed after selection or
-  explicit "manual" entry.
-- ``off``: Only show person form (no search field).
-"""
-
 APP_RDM_DEPOSIT_FORM_QUOTA = {
     "maxFiles": 100,
-    # Easiest way to set this to a certain amount is to start from 1 Gb
-    # and go from there:
-    #   1 Gb: 10 ** 9
-    #  50 Gb: 10 ** 9 * 50
-    # 100 Mb: 10 ** 9 * 0.1
     "maxStorage": 10**9 * 10,
 }
-"""Deposit file upload quota """
+APP_RDM_SUBCOMMUNITIES_LABEL = "Projects"
+DATACITE_DATACENTER_SYMBOL = ""
+DATACITE_FORMAT = "{prefix}/{id}"
+RDM_RECORDS_USER_FIXTURE_PASSWORDS = {"info@tugraz.at": None}
+
+# SQLAlchemy
+# ==========
 
 SQLALCHEMY_ECHO = False
-"""Enable to see all SQL queries."""
-
 SQLALCHEMY_ENGINE_OPTIONS = {
     "pool_pre_ping": False,
     "pool_recycle": 3600,
-    # set a more agressive timeout to ensure http requests don't wait for long
     "pool_timeout": 10,
 }
-"""SQLAlchemy engine options.
-
-This is used to configure for instance the database connection pool.
-Specifically for connection pooling the following options below are relevant.
-Note, that the connection pool settings have to be aligned with:
-
-1. your database server's max allowed connections settings, and
-2. your application deployment (number of processes/threads)
-
-**Disconnect handling**
-
-Note, it's possible that a connection you get from the connection pool is no
-longer open. This happens if e.g. the database server was restarted or the
-server has a timeout that closes the connection. In these case you'll see an
-error similar to::
-
-    psycopg2.OperationalError: server closed the connection unexpectedly
-        This probably means the server terminated abnormally
-        before or while processing the request.
-
-The errors can be avoided by using the ``pool_pre_ping`` option, which will
-ensure the connection is open first by issuing a ``SELECT 1``. The pre-ping
-feature however, comes with a performance penalty, and thus it may be better
-to first try adjusting the ``pool_recyle`` to ensure connections are closed and
-reopened regularly.
-
-... code-block:: python
-
-    SQLALCHEMY_ENGINE_OPTIONS = dict(
-        # enable the connection pool “pre-ping” feature that tests connections
-        # for liveness upon each checkout.
-        pool_pre_ping=True,
-
-        # the number of connections to allow in connection pool “overflow”,
-        # that is connections that can be opened above and beyond the
-        # pool_size setting
-        max_overflow=10,
-
-        # the number of connections to keep open inside the connection
-        pool_size=5,
-
-        # recycle connections after the given number of seconds has passed.
-        pool_recycle=3600,
-
-        # number of seconds to wait before giving up on getting a connection
-        # from the pool
-        pool_timeout=30,
-
-    )
-
-See https://docs.sqlalchemy.org/en/latest/core/engines.html.
-"""
 
 # Redis (cache)
-# ========
-# Cache or Redis configurations
+# =============
+
 RATELIMIT_AUTHENTICATED_USER = "25000 per hour;1000 per minute"
-"""Increase defaults for authenticated users."""
-
 RATELIMIT_GUEST_USER = "5000 per hour;500 per minute"
-"""Increase defaults for guest users."""
-
 SESSION_COOKIE_SAMESITE = "Strict"
-"""Sets cookie with the samesite flag to 'Strict' by default."""
-
 
 # OAI-PMH
 # =======
-# See https://github.com/inveniosoftware/invenio-oaiserver/blob/master/invenio_oaiserver/config.py
-
-OAISERVER_ID_PREFIX = "repository.tugraz.at"
-"""The prefix that will be applied to the generated OAI-PMH ids."""
+# See https://github.com/inveniosoftware/invenio-oaiserver
 
 OAISERVER_ADMIN_EMAILS = [
     "oai@repository.tugraz.at",
 ]
-"""The e-mail addresses of administrators of the repository.
+OAISERVER_ID_PREFIX = "repository.tugraz.at"
 
-It **must** include one or more instances.
-"""
+# Invenio-Curations
+# =================
+# See https://github.com/tu-graz-library/invenio-curations
 
 CURATIONS_ENABLE_REQUEST_COMMENTS = True
-"""Enable/Disable curations automatic comments creation for the repository."""
-
-CURATIONS_MODERATION_ROLE = "administration-rdm-records-curation"
-"""Role required to moderate curations."""
-
 CURATIONS_PRIVILEGED_ROLES = ["administration", "bypass-curation"]
-"""Roles that bypass the curation workflow."""
-
-CURATIONS_COMMENT_TEMPLATE_FILE = "comment-template.html"
-"""Template file used for automatic curation comments."""
 
 # Invenio-Override
 # ================
 # See https://github.com/tu-graz-library/invenio-override
 
-OVERRIDE_LOGO = "images/TUG.png"
-"""Logo displayed in the header."""
-
-OVERRIDE_FAVICON = "tug.ico"
-"""Favicon for the browser tab."""
-
-OVERRIDE_PRODUCTION = True
-"""Marks this as a production instance."""
-
-OVERRIDE_ICON = "images/icon_use.png"
-"""Icon displayed on the login page."""
-
 OVERRIDE_CONTACT_FORM = False
-"""Enable or disable the contact form."""
-
-OVERRIDE_SHIBBOLETH = False
-"""Enable or disable Shibboleth/SAML authentication."""
-
-OVERRIDE_FRONTPAGE_RIGHT = False
-"""Enable or disable the right column on the frontpage."""
-
-OVERRIDE_FRONTPAGE_SHOW_RECENT_UPLOADS = True
-"""Show the recent uploads section on the frontpage."""
-
-# Invenio-Override — search
-# =========================
-
-OVERRIDE_SHOW_PUBLICATIONS_SEARCH = True
-"""Enable the Publications search page."""
-
-OVERRIDE_SHOW_EDUCATIONAL_RESOURCES = True
-"""Enable the Educational Resources search page."""
-
-OVERRIDE_SHOW_PUBLICATIONS_CARD = True
-"""Show the Publications card on the frontpage."""
-
-OVERRIDE_SHOW_EDUCATIONAL_RESOURCES_CARD = True
-"""Show the Educational Resources card on the frontpage."""
-
-OVERRIDE_SHOW_RDM_SEARCH = True
-"""Enable the Research Results search page."""
-
-# Invenio-Override — header
-# =========================
-
-OVERRIDE_HEADER_LOGO_LEFT = "images/library_logo.png"
-"""Logo displayed on the left side of the header."""
-
-OVERRIDE_HEADER_TEXT_LINE1 = "TU GRAZ"
-"""First line of the institutional header text."""
-
-OVERRIDE_HEADER_TEXT_LINE2 = "REPOSITORY"
-"""Second line of the institutional header text."""
-
-OVERRIDE_HEADER_TEXT_LINE3 = "LIBRARY & ARCHIVES"
-"""Third line of the institutional header text."""
-
-OVERRIDE_HEADER_LOGO_SVG = "images/tu_graz_logo.svg"
-"""SVG version of the institutional logo."""
-
-OVERRIDE_HEADER_LOGO_LINK = "https://www.tugraz.at"
-"""URL the header logo links to."""
-
-OVERRIDE_HEADER_CLAIM_WORDS = ["SCIENCE", "TECHNOLOGY", "PASSION"]
-"""Words displayed in the animated hero claim."""
-
-# Invenio-Override — frontpage
-# ============================
-
-THEME_SITENAME = "TU Graz Repository"
-"""Name of the site shown in the browser tab and header."""
-
-THEME_FRONTPAGE_TITLE = "TUGraz Repository"
-"""Title displayed in the frontpage hero section."""
-
-OVERRIDE_FRONTPAGE_SUBTITLE = (
-    "Publish and share your research data — citable, visible, and FAIR."
-)
-"""Subtitle displayed below the frontpage title."""
-
-OVERRIDE_FRONTPAGE_FEATURES = [
-    {"icon": "check circle", "text": "FAIR Data"},
-    {"icon": "quote left", "text": "Citable with DOI"},
-    {"icon": "lock open", "text": "Open Access"},
-    {"icon": "shield alternate", "text": "Long-term Preservation"},
-]
-"""Feature highlights shown on the frontpage."""
-
-OVERRIDE_REASONS_PARTNER = "TU Graz & CERN"
-"""Partner name shown in the reasons section."""
-
-# Invenio-Override — footer
-# =========================
-
-THEME_FOOTER_TEMPLATE = "invenio_override/footer.html"
-"""Template used to render the footer."""
-
-OVERRIDE_FOOTER_BACKGROUND = "#4a4a4a"
-"""Background color of the footer."""
-
-OVERRIDE_FOOTER_FG_COLOR = "#ffffff"
-"""Text color of the footer."""
-
-OVERRIDE_FOOTER_LOGO_FILTER = "brightness(0) invert(1)"
-"""CSS filter applied to the footer logo."""
-
-OVERRIDE_FOOTER_DIVIDER_COLOR = "rgba(255,255,255,0.1)"
-"""Color of the divider line in the footer."""
-
 OVERRIDE_DOC_REDIRECTS = {
     "/guide": "https://doi.org/10.3217/dgpcz-td505",
     "/terms": "https://doi.org/10.3217/k3dsw-rv326",
@@ -540,8 +217,10 @@ OVERRIDE_DOC_REDIRECTS = {
     "/file-formats": "https://doi.org/10.3217/3c0k5-zqh95",
     "/curations": "https://doi.org/10.3217/h1zfa-4fb59",
 }
-"""Mapping of short documentation routes to their canonical DOI URLs."""
-
+OVERRIDE_FAVICON = "tug.ico"
+OVERRIDE_FOOTER_BACKGROUND = "#4a4a4a"
+OVERRIDE_FOOTER_DIVIDER_COLOR = "rgba(255,255,255,0.1)"
+OVERRIDE_FOOTER_FG_COLOR = "#ffffff"
 OVERRIDE_FOOTER_LINKS = {
     "Repository": [
         {
@@ -587,123 +266,54 @@ OVERRIDE_FOOTER_LINKS = {
         {"label": "to change the font size."},
     ],
 }
-"""Link sections displayed in the footer."""
-
-# Invenio-Global-Search
-# =====================
-# See https://github.com/tu-graz-library/invenio-global-search
-
-GLOBAL_SEARCH_SCHEMAS = {
-    "rdm": {
-        "schema": "rdm",
-        "name_l10n": "Research Result",
-    },
-    "marc21": {
-        "schema": "marc21",
-        "name_l10n": "Publication",
-    },
-    "lom": {
-        "schema": "lom",
-        "name_l10n": "OER",
-    },
-}
-"""Search schemas registered for the global search index."""
-
-# Invenio-Records-LOM
-# ===================
-# See https://github.com/tu-graz-library/invenio-records-lom
-
-LOM_CREATOR_ROLE = "oer_curator"
-"""Role required to create OER records."""
+OVERRIDE_FOOTER_LOGO_FILTER = "brightness(0) invert(1)"
+OVERRIDE_FRONTPAGE_FEATURES = [
+    {"icon": "check circle", "text": "FAIR Data"},
+    {"icon": "quote left", "text": "Citable with DOI"},
+    {"icon": "lock open", "text": "Open Access"},
+    {"icon": "shield alternate", "text": "Long-term Preservation"},
+]
+OVERRIDE_FRONTPAGE_RIGHT = False
+OVERRIDE_FRONTPAGE_SHOW_RECENT_UPLOADS = True
+OVERRIDE_FRONTPAGE_SUBTITLE = (
+    "Publish and share your research data — citable, visible, and FAIR."
+)
+OVERRIDE_HEADER_CLAIM_WORDS = ["SCIENCE", "TECHNOLOGY", "PASSION"]
+OVERRIDE_HEADER_LOGO_LEFT = "images/library_logo.png"
+OVERRIDE_HEADER_LOGO_LINK = "https://www.tugraz.at"
+OVERRIDE_HEADER_LOGO_SVG = "images/tu_graz_logo.svg"
+OVERRIDE_HEADER_TEXT_LINE1 = "TU GRAZ"
+OVERRIDE_HEADER_TEXT_LINE2 = "REPOSITORY"
+OVERRIDE_HEADER_TEXT_LINE3 = "LIBRARY & ARCHIVES"
+OVERRIDE_ICON = "images/icon_use.png"
+OVERRIDE_LOGO = "images/TUG.png"
+OVERRIDE_PRODUCTION = True
+OVERRIDE_REASONS_BG = None
+OVERRIDE_REASONS_PARTNER = "TU Graz & CERN"
+OVERRIDE_RESOURCE_OVERVIEW = False
+OVERRIDE_SHIBBOLETH = False
+OVERRIDE_SHOW_CONTACT = True
+OVERRIDE_SHOW_EDUCATIONAL_RESOURCES = True
+OVERRIDE_SHOW_EDUCATIONAL_RESOURCES_CARD = True
+OVERRIDE_SHOW_PUBLICATIONS_CARD = True
+OVERRIDE_SHOW_PUBLICATIONS_SEARCH = True
+OVERRIDE_SHOW_RDM_SEARCH = True
+THEME_FOOTER_TEMPLATE = "invenio_override/footer.html"
+THEME_FRONTPAGE_TITLE = "TUGraz Repository"
+THEME_SITENAME = "TU Graz Repository"
 
 # Invenio-App-RDM
 # ===============
 # See https://github.com/inveniosoftware/invenio-app-rdm
 
-THEME_SHOW_FRONTPAGE_INTRO_SECTION = False
-"""Hide the default frontpage intro section."""
-
-RDM_USER_MODERATION_ENABLED = True
-"""Enable user moderation."""
-
-RDM_SEARCH_SORT_BY_VERIFIED = True
-"""Sort records by verified status in search results."""
-
-APP_RDM_SUBCOMMUNITIES_LABEL = "Projects"
-"""Label for subcommunities in the communities browse page."""
-
-COMMUNITIES_SHOW_BROWSE_MENU_ENTRY = True
-"""Show the Browse menu entry for communities."""
-
-COMMUNITIES_ADMINISTRATION_DISABLED = False
-"""Enable the communities administration panel."""
-
-# Invenio-Users-Resources
-# =======================
-# See https://github.com/inveniosoftware/invenio-users-resources
-
-USERS_RESOURCES_ADMINISTRATION_ENABLED = True
-"""Enable the user administration panel."""
-
-USERS_RESOURCES_GROUPS_ENABLED = True
-"""Enable group-related features."""
-
-# Invenio-Jobs
-# ============
-# See https://github.com/inveniosoftware/invenio-jobs
-
-JOBS_ADMINISTRATION_ENABLED = True
-"""Enable the jobs administration view."""
-
-# Invenio-Accounts
-# ================
-# See https://github.com/inveniosoftware/invenio-accounts
-
-SECURITY_PASSWORD_SINGLE_HASH = ["pbkdf2_sha512"]
-"""Password hashing algorithm — needed for backwards compatibility."""
-
-# Invenio-App-RDM — v14 features
-# ================================
-# See https://github.com/inveniosoftware/invenio-app-rdm
-
-REQUESTS_REVIEWERS_ENABLED = False
-"""Disable the reviewers feature."""
-
-RDM_RECORDS_REQUIRE_SECRET_LINKS_EXPIRATION = False
-"""Do not require expiration on secret links."""
-
-RDM_REQUEST_RECORD_DELETION_ENABLED = False
-"""Disable record deletion via requests."""
-
-RDM_IMMEDIATE_RECORD_DELETION_ENABLED = False
-"""Disable immediate record deletion."""
-
 AUDIT_LOGS_ENABLED = True
-"""Enable audit logging."""
-
-# Invenio-Override — additional
-# =============================
-
-OVERRIDE_SHOW_CONTACT = True
-"""Show the contact link."""
-
-OVERRIDE_REASONS_BG = None
-"""Background for the reasons strip. None uses the Less variable."""
-
-OVERRIDE_RESOURCE_OVERVIEW = False
-"""Disable the resource overview section."""
-
-# Invenio-Records-Marc21
-# ======================
-# See https://github.com/tu-graz-library/invenio-records-marc21
-
-MARC21_RECORD_LANDING_PAGE_TEMPLATE = (
-    "invenio_catalogue_marc21/landing_page/record.html"
-)
-"""Landing page template for Marc21 records."""
-
-MARC21_DATACITE_DEFAULT_PUBLISHER = "Graz University of Technology"
-"""Default publisher used in DataCite metadata for Marc21 records."""
+COMMUNITIES_ADMINISTRATION_DISABLED = False
+COMMUNITIES_SHOW_BROWSE_MENU_ENTRY = True
+JOBS_ADMINISTRATION_ENABLED = True
+RDM_SEARCH_SORT_BY_VERIFIED = True
+RDM_USER_MODERATION_ENABLED = True
+THEME_SHOW_FRONTPAGE_INTRO_SECTION = False
+USERS_RESOURCES_ADMINISTRATION_ENABLED = True
 
 # Invenio-Global-Search
 # =====================
@@ -723,29 +333,40 @@ GLOBAL_SEARCH_ORIGINAL_SCHEMAS = {
         "name_l10n": _("Publication"),
     },
 }
-"""Original schema definitions used by the global search index."""
+GLOBAL_SEARCH_SCHEMAS = {
+    "rdm": {
+        "schema": "rdm",
+        "name_l10n": "Research Result",
+    },
+    "marc21": {
+        "schema": "marc21",
+        "name_l10n": "Publication",
+    },
+    "lom": {
+        "schema": "lom",
+        "name_l10n": "OER",
+    },
+}
+
+# Invenio-Records-Marc21
+# ======================
+# See https://github.com/tu-graz-library/invenio-records-marc21
+
+MARC21_DATACITE_DEFAULT_PUBLISHER = "Graz University of Technology"
+MARC21_RECORD_LANDING_PAGE_TEMPLATE = (
+    "invenio_catalogue_marc21/landing_page/record.html"
+)
 
 # Invenio-Curations — permissions and requests
 # =============================================
 # See https://github.com/tu-graz-library/invenio-curations
 
-RDM_PERMISSION_POLICY = TUGrazRDMRecordPermissionPolicy
-"""TU Graz RDM record permission policy."""
-
-REQUESTS_PERMISSION_POLICY = TUGrazRDMRequestsPermissionPolicy
-"""TU Graz requests permission policy."""
-
-REQUESTS_FACETS = TUGRAZ_REQUESTS_FACETS
-"""Facets for the requests search."""
-
 NOTIFICATIONS_BUILDERS = TUGRAZ_NOTIFICATIONS_BUILDERS
-"""Notification builders for TU Graz."""
-
-REQUESTS_REGISTERED_EVENT_TYPES = TUGRAZ_REQUESTS_REGISTERED_EVENT_TYPES
-"""Registered request event types."""
-
+RDM_PERMISSION_POLICY = TUGrazRDMRecordPermissionPolicy
 REQUESTS_EVENTS_SERVICE_COMPONENTS = TUGRAZ_REQUESTS_EVENTS_SERVICE_COMPONENTS
-"""Service components for request events."""
+REQUESTS_FACETS = TUGRAZ_REQUESTS_FACETS
+REQUESTS_PERMISSION_POLICY = TUGrazRDMRequestsPermissionPolicy
+REQUESTS_REGISTERED_EVENT_TYPES = TUGRAZ_REQUESTS_REGISTERED_EVENT_TYPES
 
 # Stats — LOM and Marc21
 # ======================
@@ -753,11 +374,11 @@ REQUESTS_EVENTS_SERVICE_COMPONENTS = TUGRAZ_REQUESTS_EVENTS_SERVICE_COMPONENTS
 CELERY_BEAT_SCHEDULE.update(LOM_STATS_CELERY_TASKS)
 CELERY_BEAT_SCHEDULE.update(MARC21_STATS_CELERY_TASKS)
 
-STATS_EVENTS.update(LOM_STATS_EVENTS)
-STATS_EVENTS.update(MARC21_STATS_EVENTS)
-
 STATS_AGGREGATIONS.update(LOM_STATS_AGGREGATIONS)
 STATS_AGGREGATIONS.update(MARC21_STATS_AGGREGATIONS)
+
+STATS_EVENTS.update(LOM_STATS_EVENTS)
+STATS_EVENTS.update(MARC21_STATS_EVENTS)
 
 STATS_QUERIES.update(LOM_STATS_QUERIES)
 STATS_QUERIES.update(MARC21_STATS_QUERIES)

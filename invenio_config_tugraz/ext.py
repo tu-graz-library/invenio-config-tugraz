@@ -9,9 +9,43 @@
 """invenio module that adds tugraz configs."""
 
 from flask import Flask
+from flask_login import login_required
 
 from . import config
 from .custom_fields import ip_network, single_ip
+from .views import (
+    require_tugraz_authenticated_else_redirect,
+    require_tugraz_authenticated_else_render,
+)
+
+_OVERRIDE_PREFIXES = (
+    "APP_DEFAULT_SECURE_HEADERS",
+    "APP_RDM_",
+    "AUDIT_",
+    "CELERY_",
+    "COMMUNITIES_",
+    "CURATIONS_",
+    "DATACITE_",
+    "GLOBAL_SEARCH_",
+    "JOBS_",
+    "MAIL_",
+    "MARC21_",
+    "NOTIFICATIONS_",
+    "OAISERVER_",
+    "OVERRIDE_",
+    "RATELIMIT_",
+    "RDM_",
+    "RECAPTCHA_",
+    "REQUESTS_",
+    "SECURITY_",
+    "SESSION_",
+    "SQLALCHEMY_",
+    "SSO_SAML_",
+    "STATS_",
+    "THEME_",
+    "USERPROFILES_",
+    "USERS_RESOURCES_",
+)
 
 
 class InvenioConfigTugraz:
@@ -31,8 +65,10 @@ class InvenioConfigTugraz:
     def init_config(self, app: Flask) -> None:
         """Initialize configuration."""
         for k in dir(config):
-            if k.startswith("INVENIO_CONFIG_TUGRAZ_"):
+            if k.startswith("CONFIG_TUGRAZ_"):
                 app.config.setdefault(k, getattr(config, k))
+            elif k.isupper() and k.startswith(_OVERRIDE_PREFIXES):
+                app.config[k] = getattr(config, k)
 
     def add_custom_fields(self, app: Flask) -> None:
         """Add custom fields."""
@@ -44,19 +80,35 @@ class InvenioConfigTugraz:
 def finalize_app(app: Flask) -> None:
     """Finalize app."""
     rank_blueprint_higher(app)
-    apply_tug_config(app)
+    guard_view_functions(app)
 
 
-def apply_tug_config(app: Flask) -> None:
-    """Apply TUG-specific config after all extensions and modules are loaded.
+def guard_view_functions(app: Flask) -> None:
+    """Guard view-functions against unauthenticated access."""
+    endpoint_guards = {
+        "invenio_app_rdm_users.communities": [
+            login_required,
+            require_tugraz_authenticated_else_redirect,
+        ],
+        "invenio_app_rdm_users.requests": [
+            login_required,
+            require_tugraz_authenticated_else_redirect,
+        ],
+        "invenio_app_rdm_users.uploads": [
+            login_required,
+            require_tugraz_authenticated_else_render,
+        ],
+    }
 
-    This runs after invenio_config.module entry points (including
-    invenio-override) so that TUG values are not overwritten by
-    generic package defaults.
-    """
-    for key in dir(config):
-        if key.isupper() and not key.startswith("INVENIO_CONFIG_TUGRAZ_"):
-            app.config[key] = getattr(config, key)
+    for endpoint, guarding_decorators in endpoint_guards.items():
+        view_func = app.view_functions.get(endpoint)
+        if not view_func:
+            continue
+
+        for guarding_decorator in reversed(guarding_decorators):
+            view_func = guarding_decorator(view_func)
+
+        app.view_functions[endpoint] = view_func
 
 
 def rank_blueprint_higher(app: Flask) -> None:

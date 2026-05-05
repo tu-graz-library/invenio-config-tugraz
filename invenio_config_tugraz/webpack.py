@@ -15,13 +15,13 @@ theme = WebpackThemeBundle(
     "assets",
     default="semantic-ui",
     themes={
-        "semantic-ui": dict(
-            entry={
+        "semantic-ui": {
+            "entry": {
                 "invenio-config-tugraz-unlock": "./js/invenio_config_tugraz/unlock.js",
             },
-            dependencies={
+            "dependencies": {
                 "jquery": "^3.2.1",
             },
-        )
+        },
     },
 )
