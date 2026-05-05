@@ -44,6 +44,19 @@ class InvenioConfigTugraz:
 def finalize_app(app: Flask) -> None:
     """Finalize app."""
     rank_blueprint_higher(app)
+    apply_tug_config(app)
+
+
+def apply_tug_config(app: Flask) -> None:
+    """Apply TUG-specific config after all extensions and modules are loaded.
+
+    This runs after invenio_config.module entry points (including
+    invenio-override) so that TUG values are not overwritten by
+    generic package defaults.
+    """
+    for key in dir(config):
+        if key.isupper() and not key.startswith("INVENIO_CONFIG_TUGRAZ_"):
+            app.config[key] = getattr(config, key)
 
 
 def rank_blueprint_higher(app: Flask) -> None:
