@@ -381,3 +381,12 @@ It **must** include one or more instances.
 
 CURATIONS_ENABLE_REQUEST_COMMENTS = True
 """Enable/Disable curations automatic comments creation for the repository."""
+
+CONFIG_TUGRAZ_OAUTH_USERNAME_ATTRIBUTE = ""
+"""Set this config to choose a custom attribute from the OAuth provider token for the username."""
+
+CONFIG_TUGRAZ_OAUTH_EXTERNAL_ID_ATTRIBUTE = ""
+"""Set this config to choose a custom attribute from the OAuth provider token for the external id."""
+
+CONFIG_TUGRAZ_OAUTH_USERNAME_PREFIX = "idp"
+"""Prefix the username with this value if CONFIG_TUGRAZ_OAUTH_USERNAME_ATTRIBUTE is set."""
