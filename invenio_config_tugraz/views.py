@@ -8,8 +8,49 @@
 
 """invenio module for TUGRAZ config."""
 
-from flask import Blueprint, Flask, redirect
+from functools import wraps
+
+from flask import Blueprint, Flask, g, redirect, render_template, url_for
+from flask_login import current_user
+from invenio_rdm_records.proxies import current_rdm_records
+from invenio_users_resources.proxies import current_user_resources
 from werkzeug.wrappers import Response as BaseResponse
+
+
+def current_identity_is_tugraz_authenticated() -> bool:
+    """Check whether the current identity has TU Graz authentication."""
+    rdm_service = current_rdm_records.records_service
+    return rdm_service.check_permission(g.identity, "tugraz_authenticated")
+
+
+def require_tugraz_authenticated_else_redirect(view_func):
+    """Redirect unauthenticated users to the uploads page."""
+
+    @wraps(view_func)
+    def decorated_view(*args, **kwargs):
+        if not current_identity_is_tugraz_authenticated():
+            return redirect(url_for("invenio_app_rdm_users.uploads"))
+        return view_func(*args, **kwargs)
+
+    return decorated_view
+
+
+def require_tugraz_authenticated_else_render(view_func):
+    """Render the unlock page for unauthenticated users."""
+
+    @wraps(view_func)
+    def decorated_view(*args, **kwargs):
+        if not current_identity_is_tugraz_authenticated():
+            url = current_user_resources.users_service.links_item_tpl.expand(
+                identity=g.identity, obj=current_user
+            )["avatar"]
+            return render_template(
+                "invenio_config_tugraz/not_authenticated.html",
+                user_avatar=url,
+            )
+        return view_func(*args, **kwargs)
+
+    return decorated_view
 
 
 def ui_blueprint(app: Flask) -> Blueprint:
