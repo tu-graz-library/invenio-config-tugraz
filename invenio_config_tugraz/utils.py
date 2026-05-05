@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2022-2024 Graz University of Technology.
+# Copyright (C) 2022-2026 Graz University of Technology.
 #
 # invenio-config-tugraz is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
@@ -10,11 +10,13 @@
 
 import warnings
 
+from flask import current_app
 from flask_principal import Identity
 from invenio_access import any_user
 from invenio_access.utils import get_identity
 from invenio_accounts import current_accounts
 from invenio_oauthclient.contrib.keycloak import setup_handler
+from invenio_oauthclient.contrib.keycloak.handlers import info_serializer_handler
 from invenio_oauthclient.contrib.keycloak.helpers import get_user_info
 
 
@@ -109,3 +111,63 @@ def tugraz_setup_handler(remote, token, resp) -> None:  # noqa: ANN001
     current_accounts.datastore.add_role_to_user(user_email, "tugraz_authenticated")
 
     return setup_handler(remote, token, resp)
+
+
+def tugraz_info_serializer(
+    remote,  # noqa: ANN001
+    resp,  # noqa: ANN001
+    token_user_info,  # noqa: ANN001
+    user_info,  # noqa: ANN001
+) -> dict:
+    """Serialize the account info response object.
+
+    Override the core OAuth serializer to support configuring user information fields
+    different than the default implementation.
+
+    For now, 2 fields are of interest: username & external_id.
+
+    To use this override, modify invenio.cfg:
+    .. code-block:: python
+           _keycloak_helper = KeycloakSettingsHelper(
+              title="Example",
+              description="Example",
+              base_url="http://127.0.0.1:8087/",
+              realm="testrealm",
+              app_key="KEYCLOAK_APP_CREDENTIALS",
+            )
+            _keycloak_helper.remote_app["signup_handler"]["info_serializer"] = "invenio_config_tugraz.config:tugraz_info_serializer"
+
+            CONFIG_TUGRAZ_OAUTH_USERNAME_ATTRIBUTE = "sub"
+            CONFIG_TUGRAZ_OAUTH_EXTERNAL_ID_ATTRIBUTE = "sub"
+    """
+    username_attr = current_app.config.get("CONFIG_TUGRAZ_OAUTH_USERNAME_ATTRIBUTE")
+    if not username_attr:
+        return info_serializer_handler(remote, resp, token_user_info, user_info)
+
+    user_info_tugraz = info_serializer_handler(remote, resp, token_user_info, user_info)
+    token_value_username = token_user_info.get(username_attr)
+
+    if not token_value_username:
+        msg = f"{username_attr} not present in Keycloak token"
+        raise ValueError(msg)
+
+    username_prefix = current_app.config.get("CONFIG_TUGRAZ_OAUTH_USERNAME_PREFIX")
+    user_info_tugraz["user"]["profile"]["username"] = (
+        f"{username_prefix}-{token_value_username}"
+        if username_prefix
+        else token_value_username
+    )
+
+    external_id_attr = current_app.config.get(
+        "CONFIG_TUGRAZ_OAUTH_EXTERNAL_ID_ATTRIBUTE",
+    )
+    if not external_id_attr:
+        return user_info_tugraz
+
+    token_value_externalid = token_user_info.get(external_id_attr)
+    if not token_value_externalid:
+        msg = f"{external_id_attr} not present in Keycloak token"
+        raise ValueError(msg)
+
+    user_info_tugraz["external_id"] = token_value_externalid
+    return user_info_tugraz
