@@ -383,6 +383,229 @@ It **must** include one or more instances.
 CURATIONS_ENABLE_REQUEST_COMMENTS = True
 """Enable/Disable curations automatic comments creation for the repository."""
 
+CURATIONS_MODERATION_ROLE = "administration-rdm-records-curation"
+"""Role required to moderate curations."""
+
+CURATIONS_PRIVILEGED_ROLES = ["administration", "bypass-curation"]
+"""Roles that bypass the curation workflow."""
+
+CURATIONS_COMMENT_TEMPLATE_FILE = "comment-template.html"
+"""Template file used for automatic curation comments."""
+
+# Invenio-Override
+# ================
+# See https://github.com/tu-graz-library/invenio-override
+
+OVERRIDE_LOGO = "images/TUG.png"
+"""Logo displayed in the header."""
+
+OVERRIDE_FAVICON = "tug.ico"
+"""Favicon for the browser tab."""
+
+OVERRIDE_PRODUCTION = True
+"""Marks this as a production instance."""
+
+OVERRIDE_ICON = "images/icon_use.png"
+"""Icon displayed on the login page."""
+
+OVERRIDE_CONTACT_FORM = False
+"""Enable or disable the contact form."""
+
+OVERRIDE_SHIBBOLETH = False
+"""Enable or disable Shibboleth/SAML authentication."""
+
+OVERRIDE_FRONTPAGE_RIGHT = False
+"""Enable or disable the right column on the frontpage."""
+
+OVERRIDE_FRONTPAGE_SHOW_RECENT_UPLOADS = True
+"""Show the recent uploads section on the frontpage."""
+
+# Invenio-Override — search
+# =========================
+
+OVERRIDE_SHOW_PUBLICATIONS_SEARCH = True
+"""Enable the Publications search page."""
+
+OVERRIDE_SHOW_EDUCATIONAL_RESOURCES = True
+"""Enable the Educational Resources search page."""
+
+OVERRIDE_SHOW_PUBLICATIONS_CARD = True
+"""Show the Publications card on the frontpage."""
+
+OVERRIDE_SHOW_EDUCATIONAL_RESOURCES_CARD = True
+"""Show the Educational Resources card on the frontpage."""
+
+OVERRIDE_SHOW_RDM_SEARCH = True
+"""Enable the Research Results search page."""
+
+# Invenio-Override — header
+# =========================
+
+OVERRIDE_HEADER_LOGO_LEFT = "images/library_logo.png"
+"""Logo displayed on the left side of the header."""
+
+OVERRIDE_HEADER_TEXT_LINE1 = "TU GRAZ"
+"""First line of the institutional header text."""
+
+OVERRIDE_HEADER_TEXT_LINE2 = "REPOSITORY"
+"""Second line of the institutional header text."""
+
+OVERRIDE_HEADER_TEXT_LINE3 = "LIBRARY & ARCHIVES"
+"""Third line of the institutional header text."""
+
+OVERRIDE_HEADER_LOGO_SVG = "images/tu_graz_logo.svg"
+"""SVG version of the institutional logo."""
+
+OVERRIDE_HEADER_LOGO_LINK = "https://www.tugraz.at"
+"""URL the header logo links to."""
+
+OVERRIDE_HEADER_CLAIM_WORDS = ["SCIENCE", "TECHNOLOGY", "PASSION"]
+"""Words displayed in the animated hero claim."""
+
+# Invenio-Override — frontpage
+# ============================
+
+THEME_SITENAME = "TU Graz Repository"
+"""Name of the site shown in the browser tab and header."""
+
+THEME_FRONTPAGE_TITLE = "TUGraz Repository"
+"""Title displayed in the frontpage hero section."""
+
+OVERRIDE_FRONTPAGE_SUBTITLE = "Publish and share your research data — citable, visible, and FAIR."
+"""Subtitle displayed below the frontpage title."""
+
+OVERRIDE_FRONTPAGE_FEATURES = [
+    {"icon": "check circle", "text": "FAIR Data"},
+    {"icon": "quote left", "text": "Citable with DOI"},
+    {"icon": "lock open", "text": "Open Access"},
+    {"icon": "shield alternate", "text": "Long-term Preservation"},
+]
+"""Feature highlights shown on the frontpage."""
+
+OVERRIDE_REASONS_PARTNER = "TU Graz & CERN"
+"""Partner name shown in the reasons section."""
+
+# Invenio-Override — footer
+# =========================
+
+THEME_FOOTER_TEMPLATE = "invenio_override/footer.html"
+"""Template used to render the footer."""
+
+OVERRIDE_FOOTER_BACKGROUND = "#4a4a4a"
+"""Background color of the footer."""
+
+OVERRIDE_FOOTER_FG_COLOR = "#ffffff"
+"""Text color of the footer."""
+
+OVERRIDE_FOOTER_LOGO_FILTER = "brightness(0) invert(1)"
+"""CSS filter applied to the footer logo."""
+
+OVERRIDE_FOOTER_DIVIDER_COLOR = "rgba(255,255,255,0.1)"
+"""Color of the divider line in the footer."""
+
+OVERRIDE_DOC_REDIRECTS = {
+    "/guide": "https://doi.org/10.3217/dgpcz-td505",
+    "/terms": "https://doi.org/10.3217/k3dsw-rv326",
+    "/gdpr": "https://doi.org/10.3217/xream-wzp39",
+    "/accessibility": "https://doi.org/10.3217/psmeb-84429",
+    "/file-formats": "https://doi.org/10.3217/3c0k5-zqh95",
+    "/curations": "https://doi.org/10.3217/h1zfa-4fb59",
+}
+"""Mapping of short documentation routes to their canonical DOI URLs."""
+
+OVERRIDE_FOOTER_LINKS = {
+    "Repository": [
+        {"label": "Documentation", "url": "https://tu-graz-library.github.io/docs-repository", "external": True},
+        {"label": "Reference Guide", "url": "/guide", "external": True},
+        {"label": "Search Guide", "url": "/help/search"},
+        {"label": "Data Protection", "url": "/gdpr", "external": True},
+        {"label": "Terms and Conditions", "url": "/terms", "external": True},
+        {"label": "Accessibility Statement", "url": "/accessibility", "external": True},
+        {"label": "List of preferred file formats", "url": "/file-formats", "external": True},
+        {"label": "Curation Workflow", "url": "/curations", "external": True},
+    ],
+    "Features": [
+        {"label": "Scalability"},
+        {"label": "Institutional integration"},
+        {"label": "Next Generation Repository"},
+        {"label": "Repository Profiles"},
+        {"label": "Resilient"},
+    ],
+    "Connected Services": [
+        {"label": "PURE", "url": "https://pure.tugraz.at", "external": True},
+        {"label": "CampusOnline", "url": "http://campusonline.tugraz.at", "external": True},
+        {"label": "Research Data Management", "url": "https://rdm.tugraz.at", "external": True},
+    ],
+    "Accessibility": [
+        {"label": "Tipp:"},
+        {"label": "Use Ctrl + and Ctrl -"},
+        {"label": "to change the font size."},
+    ],
+}
+"""Link sections displayed in the footer."""
+
+GLOBAL_SEARCH_SCHEMAS = {
+    "rdm": {
+        "schema": "rdm",
+        "name_l10n": "Research Result",
+    },
+    "marc21": {
+        "schema": "marc21",
+        "name_l10n": "Publication",
+    },
+    "lom": {
+        "schema": "lom",
+        "name_l10n": "OER",
+    },
+}
+"""Search schemas registered for the global search index."""
+
+# Invenio-Records-LOM
+# ===================
+# See https://github.com/tu-graz-library/invenio-records-lom
+
+LOM_CREATOR_ROLE = "oer_curator"
+"""Role required to create OER records."""
+
+# Invenio-App-RDM
+# ===============
+# See https://github.com/inveniosoftware/invenio-app-rdm
+
+THEME_SHOW_FRONTPAGE_INTRO_SECTION = False
+"""Hide the default frontpage intro section."""
+
+RDM_USER_MODERATION_ENABLED = True
+"""Enable user moderation."""
+
+RDM_SEARCH_SORT_BY_VERIFIED = True
+"""Sort records by verified status in search results."""
+
+APP_RDM_SUBCOMMUNITIES_LABEL = "Projects"
+"""Label for subcommunities in the communities browse page."""
+
+COMMUNITIES_SHOW_BROWSE_MENU_ENTRY = True
+"""Show the Browse menu entry for communities."""
+
+COMMUNITIES_ADMINISTRATION_DISABLED = False
+"""Enable the communities administration panel."""
+
+# Invenio-Users-Resources
+# =======================
+# See https://github.com/inveniosoftware/invenio-users-resources
+
+USERS_RESOURCES_ADMINISTRATION_ENABLED = True
+"""Enable the user administration panel."""
+
+USERS_RESOURCES_GROUPS_ENABLED = True
+"""Enable group-related features."""
+
+# Invenio-Jobs
+# ============
+# See https://github.com/inveniosoftware/invenio-jobs
+
+JOBS_ADMINISTRATION_ENABLED = True
+"""Enable the jobs administration view."""
+
 CONFIG_TUGRAZ_OAUTH_USERNAME_ATTRIBUTE = ""
 """Set this config to choose a custom attribute from the OAuth provider token for the username."""
 
