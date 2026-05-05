@@ -8,8 +8,35 @@
 
 """invenio module that adds tugraz configs."""
 
+from invenio_app_rdm.config import (
+    CELERY_BEAT_SCHEDULE,
+    STATS_AGGREGATIONS,
+    STATS_EVENTS,
+    STATS_QUERIES,
+)
 from invenio_global_search.oai import OAIGlobalSearch
 from invenio_i18n import gettext as _
+from invenio_records_lom.config import (
+    LOM_STATS_AGGREGATIONS,
+    LOM_STATS_CELERY_TASKS,
+    LOM_STATS_EVENTS,
+    LOM_STATS_QUERIES,
+)
+from invenio_records_marc21.config import (
+    MARC21_STATS_AGGREGATIONS,
+    MARC21_STATS_CELERY_TASKS,
+    MARC21_STATS_EVENTS,
+    MARC21_STATS_QUERIES,
+)
+
+from .facets import TUGRAZ_REQUESTS_FACETS
+from .notifications import TUGRAZ_NOTIFICATIONS_BUILDERS
+from .permissions import (
+    TUGrazRDMRecordPermissionPolicy,
+    TUGrazRDMRequestsPermissionPolicy,
+)
+from .requests import TUGRAZ_REQUESTS_REGISTERED_EVENT_TYPES
+from .requests.events import TUGRAZ_REQUESTS_EVENTS_SERVICE_COMPONENTS
 
 CONFIG_TUGRAZ_SHIBBOLETH = False
 """Set True if SAML is configured"""
@@ -544,6 +571,10 @@ OVERRIDE_FOOTER_LINKS = {
 }
 """Link sections displayed in the footer."""
 
+# Invenio-Global-Search
+# =====================
+# See https://github.com/tu-graz-library/invenio-global-search
+
 GLOBAL_SEARCH_SCHEMAS = {
     "rdm": {
         "schema": "rdm",
@@ -605,6 +636,111 @@ USERS_RESOURCES_GROUPS_ENABLED = True
 
 JOBS_ADMINISTRATION_ENABLED = True
 """Enable the jobs administration view."""
+
+# Invenio-Accounts
+# ================
+# See https://github.com/inveniosoftware/invenio-accounts
+
+SECURITY_PASSWORD_SINGLE_HASH = ["pbkdf2_sha512"]
+"""Password hashing algorithm — needed for backwards compatibility."""
+
+# Invenio-App-RDM — v14 features
+# ================================
+# See https://github.com/inveniosoftware/invenio-app-rdm
+
+REQUESTS_REVIEWERS_ENABLED = False
+"""Disable the reviewers feature."""
+
+RDM_RECORDS_REQUIRE_SECRET_LINKS_EXPIRATION = False
+"""Do not require expiration on secret links."""
+
+RDM_REQUEST_RECORD_DELETION_ENABLED = False
+"""Disable record deletion via requests."""
+
+RDM_IMMEDIATE_RECORD_DELETION_ENABLED = False
+"""Disable immediate record deletion."""
+
+AUDIT_LOGS_ENABLED = True
+"""Enable audit logging."""
+
+# Invenio-Override — additional
+# =============================
+
+OVERRIDE_SHOW_CONTACT = True
+"""Show the contact link."""
+
+OVERRIDE_REASONS_BG = None
+"""Background for the reasons strip. None uses the Less variable."""
+
+OVERRIDE_RESOURCE_OVERVIEW = False
+"""Disable the resource overview section."""
+
+# Invenio-Records-Marc21
+# ======================
+# See https://github.com/tu-graz-library/invenio-records-marc21
+
+MARC21_RECORD_LANDING_PAGE_TEMPLATE = "invenio_catalogue_marc21/landing_page/record.html"
+"""Landing page template for Marc21 records."""
+
+MARC21_DATACITE_DEFAULT_PUBLISHER = "Graz University of Technology"
+"""Default publisher used in DataCite metadata for Marc21 records."""
+
+# Invenio-Global-Search
+# =====================
+# See https://github.com/tu-graz-library/invenio-global-search
+
+GLOBAL_SEARCH_ORIGINAL_SCHEMAS = {
+    "lom": {
+        "schema": "lom",
+        "name_l10n": _("OER"),
+    },
+    "rdm": {
+        "schema": "rdm",
+        "name_l10n": _("Research Result"),
+    },
+    "marc21": {
+        "schema": "marc21",
+        "name_l10n": _("Publication"),
+    },
+}
+"""Original schema definitions used by the global search index."""
+
+# Invenio-Curations — permissions and requests
+# =============================================
+# See https://github.com/tu-graz-library/invenio-curations
+
+RDM_PERMISSION_POLICY = TUGrazRDMRecordPermissionPolicy
+"""TU Graz RDM record permission policy."""
+
+REQUESTS_PERMISSION_POLICY = TUGrazRDMRequestsPermissionPolicy
+"""TU Graz requests permission policy."""
+
+REQUESTS_FACETS = TUGRAZ_REQUESTS_FACETS
+"""Facets for the requests search."""
+
+NOTIFICATIONS_BUILDERS = TUGRAZ_NOTIFICATIONS_BUILDERS
+"""Notification builders for TU Graz."""
+
+REQUESTS_REGISTERED_EVENT_TYPES = TUGRAZ_REQUESTS_REGISTERED_EVENT_TYPES
+"""Registered request event types."""
+
+REQUESTS_EVENTS_SERVICE_COMPONENTS = TUGRAZ_REQUESTS_EVENTS_SERVICE_COMPONENTS
+"""Service components for request events."""
+
+# Stats — LOM and Marc21
+# ======================
+
+CELERY_BEAT_SCHEDULE.update(LOM_STATS_CELERY_TASKS)
+CELERY_BEAT_SCHEDULE.update(MARC21_STATS_CELERY_TASKS)
+
+STATS_EVENTS.update(LOM_STATS_EVENTS)
+STATS_EVENTS.update(MARC21_STATS_EVENTS)
+
+STATS_AGGREGATIONS.update(LOM_STATS_AGGREGATIONS)
+STATS_AGGREGATIONS.update(MARC21_STATS_AGGREGATIONS)
+
+STATS_QUERIES.update(LOM_STATS_QUERIES)
+STATS_QUERIES.update(MARC21_STATS_QUERIES)
 
 CONFIG_TUGRAZ_OAUTH_USERNAME_ATTRIBUTE = ""
 """Set this config to choose a custom attribute from the OAuth provider token for the username."""
