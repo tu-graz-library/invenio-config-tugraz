@@ -14,6 +14,8 @@ from flask_principal import Identity
 from invenio_access import any_user
 from invenio_access.utils import get_identity
 from invenio_accounts import current_accounts
+from invenio_oauthclient.contrib.keycloak import setup_handler
+from invenio_oauthclient.contrib.keycloak.helpers import get_user_info
 
 
 def get_identity_from_user_by_email(email: str | None = None) -> Identity:
@@ -71,3 +73,39 @@ def tugraz_account_setup_extension(user, account_info) -> None:  # noqa: ANN001,
     # NOTE: `datastore.commit`ing will be done by acs_handler that calls this func
     # NOTE: this is a No-Op when user_email already has role tugraz_authenticated
     current_accounts.datastore.add_role_to_user(user_email, "tugraz_authenticated")
+
+
+def tugraz_setup_handler(remote, token, resp) -> None:  # noqa: ANN001
+    """Perform additional setup after the user has been logged in.
+
+    Overrides the handler from invenio_oauthclient.contrib.keycloak by adding the TUG
+    specific role to the user.
+
+    To use this, one would need to override the remote app helper in invenio.cfg, e.g.:
+
+    .. code-block:: python
+        from invenio_oauthclient.contrib.keycloak import KeycloakSettingsHelper
+
+        _keycloak_helper = KeycloakSettingsHelper(
+          title="Example",
+          description="Example",
+          base_url="http://127.0.0.1:8087/",
+          realm="testrealm",
+          app_key="KEYCLOAK_APP_CREDENTIALS",
+        )
+
+
+        _keycloak_helper.remote_app["signup_handler"]["setup"] = "invenio_config_tugraz.config:tugraz_setup_handler"
+        OAUTHCLIENT_REMOTE_APPS = {
+            "keycloak": _keycloak_helper.remote_app,
+        }
+
+    For this to work, the role tugraz_authenticated must have been created
+    (e.g. via `invenio roles create tugraz_authenticated`).
+    """
+    token_user_info, _ = get_user_info(remote, resp, from_token_only=True)
+
+    user_email = token_user_info["email"]
+    current_accounts.datastore.add_role_to_user(user_email, "tugraz_authenticated")
+
+    return setup_handler(remote, token, resp)
