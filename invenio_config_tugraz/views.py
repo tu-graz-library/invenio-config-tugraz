@@ -8,6 +8,7 @@
 
 """invenio module for TUGRAZ config."""
 
+from collections.abc import Callable
 from functools import wraps
 
 from flask import Blueprint, Flask, g, redirect, render_template, url_for
@@ -23,11 +24,13 @@ def current_identity_is_tugraz_authenticated() -> bool:
     return rdm_service.check_permission(g.identity, "tugraz_authenticated")
 
 
-def require_tugraz_authenticated_else_redirect(view_func):
+def require_tugraz_authenticated_else_redirect[**P, R](
+    view_func: Callable[P, R],
+) -> Callable[P, R]:
     """Redirect unauthenticated users to the uploads page."""
 
     @wraps(view_func)
-    def decorated_view(*args, **kwargs):
+    def decorated_view(*args: P.args, **kwargs: P.kwargs) -> R:
         if not current_identity_is_tugraz_authenticated():
             return redirect(url_for("invenio_app_rdm_users.uploads"))
         return view_func(*args, **kwargs)
@@ -35,14 +38,17 @@ def require_tugraz_authenticated_else_redirect(view_func):
     return decorated_view
 
 
-def require_tugraz_authenticated_else_render(view_func):
+def require_tugraz_authenticated_else_render[**P, R](
+    view_func: Callable[P, R],
+) -> Callable[P, R]:
     """Render the unlock page for unauthenticated users."""
 
     @wraps(view_func)
-    def decorated_view(*args, **kwargs):
+    def decorated_view(*args: P.args, **kwargs: P.kwargs) -> R:
         if not current_identity_is_tugraz_authenticated():
             url = current_user_resources.users_service.links_item_tpl.expand(
-                identity=g.identity, obj=current_user
+                identity=g.identity,
+                obj=current_user,
             )["avatar"]
             return render_template(
                 "invenio_config_tugraz/not_authenticated.html",
