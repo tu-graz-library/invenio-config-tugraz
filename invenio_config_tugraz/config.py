@@ -498,7 +498,9 @@ THEME_SITENAME = "TU Graz Repository"
 THEME_FRONTPAGE_TITLE = "TUGraz Repository"
 """Title displayed in the frontpage hero section."""
 
-OVERRIDE_FRONTPAGE_SUBTITLE = "Publish and share your research data — citable, visible, and FAIR."
+OVERRIDE_FRONTPAGE_SUBTITLE = (
+    "Publish and share your research data — citable, visible, and FAIR."
+)
 """Subtitle displayed below the frontpage title."""
 
 OVERRIDE_FRONTPAGE_FEATURES = [
@@ -542,13 +544,21 @@ OVERRIDE_DOC_REDIRECTS = {
 
 OVERRIDE_FOOTER_LINKS = {
     "Repository": [
-        {"label": "Documentation", "url": "https://tu-graz-library.github.io/docs-repository", "external": True},
+        {
+            "label": "Documentation",
+            "url": "https://tu-graz-library.github.io/docs-repository",
+            "external": True,
+        },
         {"label": "Reference Guide", "url": "/guide", "external": True},
         {"label": "Search Guide", "url": "/help/search"},
         {"label": "Data Protection", "url": "/gdpr", "external": True},
         {"label": "Terms and Conditions", "url": "/terms", "external": True},
         {"label": "Accessibility Statement", "url": "/accessibility", "external": True},
-        {"label": "List of preferred file formats", "url": "/file-formats", "external": True},
+        {
+            "label": "List of preferred file formats",
+            "url": "/file-formats",
+            "external": True,
+        },
         {"label": "Curation Workflow", "url": "/curations", "external": True},
     ],
     "Features": [
@@ -560,8 +570,16 @@ OVERRIDE_FOOTER_LINKS = {
     ],
     "Connected Services": [
         {"label": "PURE", "url": "https://pure.tugraz.at", "external": True},
-        {"label": "CampusOnline", "url": "http://campusonline.tugraz.at", "external": True},
-        {"label": "Research Data Management", "url": "https://rdm.tugraz.at", "external": True},
+        {
+            "label": "CampusOnline",
+            "url": "http://campusonline.tugraz.at",
+            "external": True,
+        },
+        {
+            "label": "Research Data Management",
+            "url": "https://rdm.tugraz.at",
+            "external": True,
+        },
     ],
     "Accessibility": [
         {"label": "Tipp:"},
@@ -679,7 +697,9 @@ OVERRIDE_RESOURCE_OVERVIEW = False
 # ======================
 # See https://github.com/tu-graz-library/invenio-records-marc21
 
-MARC21_RECORD_LANDING_PAGE_TEMPLATE = "invenio_catalogue_marc21/landing_page/record.html"
+MARC21_RECORD_LANDING_PAGE_TEMPLATE = (
+    "invenio_catalogue_marc21/landing_page/record.html"
+)
 """Landing page template for Marc21 records."""
 
 MARC21_DATACITE_DEFAULT_PUBLISHER = "Graz University of Technology"
