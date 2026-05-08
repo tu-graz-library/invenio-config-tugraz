@@ -19,14 +19,17 @@ from .views import (
 )
 
 _OVERRIDE_PREFIXES = (
+    "ACCOUNTS",
     "APP_DEFAULT_SECURE_HEADERS",
     "APP_RDM_",
     "AUDIT_",
+    "BABEL_",
     "CELERY_",
     "COMMUNITIES_",
     "CURATIONS_",
     "DATACITE_",
     "GLOBAL_SEARCH_",
+    "I18N_",
     "JOBS_",
     "MAIL_",
     "MARC21_",
@@ -65,7 +68,7 @@ class InvenioConfigTugraz:
     def init_config(self, app: Flask) -> None:
         """Initialize configuration."""
         for k in dir(config):
-            if k.startswith("CONFIG_TUGRAZ_"):
+            if k.startswith("CONFIG_TUGRAZ_") or k == "OVERRIDE_INSTANCE_TYPE":
                 app.config.setdefault(k, getattr(config, k))
             elif k.isupper() and k.startswith(_OVERRIDE_PREFIXES):
                 app.config[k] = getattr(config, k)
@@ -97,6 +100,16 @@ def guard_view_functions(app: Flask) -> None:
         "invenio_app_rdm_users.uploads": [
             login_required,
             require_tugraz_authenticated_else_render,
+        ],
+        "invenio_records_lom.uploads": [
+            login_required,
+            # No tugraz_authenticated check here — LOM's own view handles it:
+            # users with oer_certified_user see the dashboard,
+            # everyone else (incl. edugain) sees not_licensed_text.html
+        ],
+        "invenio_records_marc21.uploads_marc21": [
+            login_required,
+            require_tugraz_authenticated_else_redirect,
         ],
     }
 

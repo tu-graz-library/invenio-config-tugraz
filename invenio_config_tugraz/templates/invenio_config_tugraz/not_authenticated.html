@@ -9,26 +9,21 @@
 #}
 {%- set title = _("Uploads") %}
 {%- extends "invenio_app_rdm/users/base.html" %}
-
 {% set active_dashboard_menu_item = "uploads" %}
-
 {%- block javascript %}
     {{ super() }}
     {{ webpack['invenio-config-tugraz-unlock.js'] }}
 {%- endblock javascript %}
-
 {%- block user_dashboard_body %}
     <div class="ui container rel-mt-2">
         <div class="ui center aligned grid">
             <div class="eight wide computer fourteen wide mobile ten wide tablet column">
                 <h1>{{ _("Permission required") }}</h1>
-
                 <p>
                     {{ _("To ensure a well-curated repository, new users need to get unlocked
                                         before being allowed to upload. Once unlocked, you can upload your research,
                                         request its inclusion in a community, generate a DOI for it, and publish it.") }}
                 </p>
-
                 <div class="ui center aligned grid rel-mt-1">
                     <div class="twelve wide computer sixteen wide mobile sixteen wide tablet column">
                         <div class="ui left aligned grid">
