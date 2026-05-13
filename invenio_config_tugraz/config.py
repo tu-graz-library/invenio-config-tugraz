@@ -8,6 +8,7 @@
 
 """invenio module that adds tugraz configs."""
 
+from invenio_global_search.oai import OAIGlobalSearch
 from invenio_i18n import gettext as _
 
 CONFIG_TUGRAZ_SHIBBOLETH = False
@@ -390,3 +391,37 @@ CONFIG_TUGRAZ_OAUTH_EXTERNAL_ID_ATTRIBUTE = ""
 
 CONFIG_TUGRAZ_OAUTH_USERNAME_PREFIX = "idp"
 """Prefix the username with this value if CONFIG_TUGRAZ_OAUTH_USERNAME_ATTRIBUTE is set."""
+
+OAISERVER_METADATA_FORMATS = {
+    "oai_dc": {
+        "serializer": "invenio_global_search.oai:gs_oai_dc_etree",
+        "schema": "http://www.openarchives.org/OAI/2.0/oai_dc.xsd",
+        "namespace": "http://www.openarchives.org/OAI/2.0/oai_dc/",
+    },
+    "lom": {
+        "serializer": "invenio_global_search.oai:gs_lom_etree",
+        "schema": "https://w3id.org/oerbase/profiles/lomuibk/latest/lom-uibk.xsd",
+        "namespace": "https://w3id.org/oerbase/profiles/lomuibk/latest/",
+    },
+    "marc21": {
+        "serializer": "invenio_global_search.oai:gs_marc21_etree",
+        "schema": "https://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd",
+        "namespace": "https://www.loc.gov/standards/marcxml/",
+    },
+}
+"""TU Graz supported OAI metadata formats with their serializer, schema and namespace."""
+
+OAISERVER_GETRECORD_FETCHER = "invenio_global_search.oai:getrecord_fetcher"
+"""Record fetcher based on global-search for OAI serialization."""
+
+OAISERVER_RECORD_SETS_FETCHER = "invenio_global_search.oai:getrecord_sets_fetcher"
+"""Record sets fetcher based on global-search for OAI serialization."""
+
+OAISERVER_RECORD_INDEX = "global-search-records-record-v1.0.0"
+"""Configured index to retrieve the records for OAI functions like ListRecords."""
+
+OAISERVER_ID_FETCHER = "invenio_global_search.oai:oaiid_fetcher"
+"""TU Graz custom OAI ID fetcher."""
+
+OAISERVER_SEARCH_CLS = OAIGlobalSearch
+"""TU Graz custom search class for OAI records retrieval based on global-search."""
