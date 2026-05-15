@@ -390,3 +390,6 @@ CONFIG_TUGRAZ_OAUTH_EXTERNAL_ID_ATTRIBUTE = ""
 
 CONFIG_TUGRAZ_OAUTH_USERNAME_PREFIX = "idp"
 """Prefix the username with this value if CONFIG_TUGRAZ_OAUTH_USERNAME_ATTRIBUTE is set."""
+
+CONFIG_TUGRAZ_ROR_FUNDERS_NAME_CONTAINS = ["austrian", "european"]
+"""List of strings that should be included in the ROR funder name for TU Graz custom vocabulary transformer."""
