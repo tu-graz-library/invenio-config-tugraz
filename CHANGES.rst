@@ -9,6 +9,12 @@
 Changes
 =======
 
+Version v0.14.3 (released 2026-05-19)
+
+- feat: add OAISERVER configs
+- feat(auth): Keycloak custom user info serializer
+- feat(auth): Keycloak custom setup handler
+
 Version v0.14.2 (released 2026-04-27)
 
 - fix(types): python3.12 failes on dsl.Query
