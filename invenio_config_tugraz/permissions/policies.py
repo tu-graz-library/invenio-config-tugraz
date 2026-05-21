@@ -39,7 +39,6 @@ from invenio_communities.generators import (
     CommunityOwners,
     CommunitySelfMember,
     IfCommunityDeleted,
-    IfMemberPolicyClosed,
     IfRecordSubmissionPolicyClosed,
 )
 from invenio_communities.generators import IfRestricted as IfRestrictedCommunity
@@ -96,6 +95,7 @@ from invenio_users_resources.services.permissions import UserManager
 
 from .generators import (
     AllowedFromIPNetwork,
+    IfMemberPolicyClosed,
     RecordSingleIP,
     TUGrazAuthenticatedButNotCommunityMembers,
     TUGrazAuthenticatedUser,

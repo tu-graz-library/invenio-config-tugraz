@@ -45,13 +45,14 @@ method specifies those from the actor's point-of-view in search scenarios.
 
 """
 
+from collections.abc import Callable
 from ipaddress import ip_address, ip_network
 
 from flask import current_app, request
 from flask_principal import Need
 from invenio_access.permissions import any_user
 from invenio_communities.communities.records.api import Community
-from invenio_communities.generators import CommunityRoleNeed
+from invenio_communities.generators import CommunityRoleNeed, IfRestrictedBase
 from invenio_communities.proxies import current_roles
 from invenio_records_permissions.generators import Generator
 from invenio_search.engine import dsl
@@ -226,3 +227,23 @@ class TUGrazAuthenticatedButNotCommunityMembers(Generator):
             return []
         community_id = str(record.id)
         return [CommunityRoleNeed(community_id, r.name) for r in current_roles]
+
+
+class IfMemberPolicyClosed(IfRestrictedBase):
+    """If member policy is closed."""
+
+    def __init__(self, then_: Callable, else_: Callable) -> None:
+        """Initialize."""
+        field = "member_policy"
+        super().__init__(
+            field_getter=lambda r: (
+                getattr(r.access, field, None)
+                if hasattr(r, "access")
+                else r.get("access", {}).get(field)
+            ),  # needed for running permission check at serialization time and avoid db query
+            field_name=f"access.{field}",
+            then_value="closed",
+            else_value="open",
+            then_=then_,
+            else_=else_,
+        )
