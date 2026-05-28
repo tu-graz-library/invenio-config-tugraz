@@ -357,6 +357,9 @@ MARC21_DATACITE_DEFAULT_PUBLISHER = "Graz University of Technology"
 MARC21_RECORD_LANDING_PAGE_TEMPLATE = (
     "invenio_catalogue_marc21/landing_page/record.html"
 )
+MARC21_SEARCH_NAV_TEMPLATE = "invenio_override/search_nav.html"
+LOM_SEARCH_NAV_TEMPLATE = "invenio_override/search_nav.html"
+GLOBAL_SEARCH_NAV_TEMPLATE = "invenio_override/search_nav.html"
 
 # Invenio-Curations — permissions and requests
 # =============================================
