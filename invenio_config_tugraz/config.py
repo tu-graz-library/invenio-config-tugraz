@@ -360,6 +360,8 @@ MARC21_RECORD_LANDING_PAGE_TEMPLATE = (
 MARC21_SEARCH_NAV_TEMPLATE = "invenio_override/search_nav.html"
 LOM_SEARCH_NAV_TEMPLATE = "invenio_override/search_nav.html"
 GLOBAL_SEARCH_NAV_TEMPLATE = "invenio_override/search_nav.html"
+MARC21_UPLOADS_TEMPLATE = "invenio_override/datamodels/marc21_uploads.html"
+LOM_UPLOADS_TEMPLATE = "invenio_override/datamodels/lom_uploads.html"
 
 # Invenio-Curations — permissions and requests
 # =============================================
