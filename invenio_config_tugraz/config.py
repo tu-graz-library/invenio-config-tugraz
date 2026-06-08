@@ -112,10 +112,6 @@ I18N_LANGUAGES = [("de", _("German"))]
 # ============
 # See https://invenio-mail.readthedocs.io/en/latest/configuration.html
 
-MAIL_SERVER = "localhost"
-MAIL_SUPPRESS_SEND = True
-SECURITY_EMAIL_HTML = False
-SECURITY_EMAIL_PLAINTEXT = True
 SECURITY_EMAIL_SENDER = "info@invenio-test.tugraz.at"
 SECURITY_EMAIL_SUBJECT_REGISTER = _("Welcome to TU Graz Repository!")
 
@@ -143,7 +139,6 @@ SSO_SAML_IDPS = {}
 # ================
 # See https://invenio-accounts.readthedocs.io/en/latest/configuration.html
 
-ACCOUNTS = True
 ACCOUNTS_LOCAL_LOGIN_ENABLED = True
 RECAPTCHA_PRIVATE_KEY = None
 RECAPTCHA_PUBLIC_KEY = None
@@ -151,8 +146,6 @@ SECURITY_CHANGEABLE = False
 SECURITY_CONFIRMABLE = False
 SECURITY_LOGIN_WITHOUT_CONFIRMATION = False
 SECURITY_PASSWORD_SINGLE_HASH = ["pbkdf2_sha512"]
-SECURITY_RECOVERABLE = False
-SECURITY_REGISTERABLE = False
 
 # Invenio-RDM-Records
 # ===================
@@ -195,6 +188,9 @@ SESSION_COOKIE_SAMESITE = "Strict"
 OAISERVER_ADMIN_EMAILS = [
     "oai@repository.tugraz.at",
 ]
+# Same prefix on every instance; ideally per-environment (e.g. test should
+# advertise invenio-test.tugraz.at). Override per env via
+# INVENIO_OAISERVER_ID_PREFIX or per-env invenio.cfg.
 OAISERVER_ID_PREFIX = "repository.tugraz.at"
 
 # Invenio-Curations
@@ -289,8 +285,6 @@ OVERRIDE_ICON = "images/icon_use.png"
 OVERRIDE_LOGO = "images/TUG.png"
 OVERRIDE_INSTANCE_TYPE = "production"
 OVERRIDE_PRODUCTION = True
-OVERRIDE_OER_UPLOAD_ROLES = ["oer_certified_user", "oer_curator"]
-OVERRIDE_PUBLICATIONS_UPLOAD_ROLES = ["Marc21Manager", "Marc21Creator"]
 OVERRIDE_REASONS_BG = None
 OVERRIDE_REASONS_PARTNER = "TU Graz & CERN"
 OVERRIDE_RESOURCE_OVERVIEW = False
