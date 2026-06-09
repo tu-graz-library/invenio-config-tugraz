@@ -18,38 +18,6 @@ from .views import (
     require_tugraz_authenticated_else_render,
 )
 
-_OVERRIDE_PREFIXES = (
-    "ACCOUNTS",
-    "APP_DEFAULT_SECURE_HEADERS",
-    "APP_RDM_",
-    "AUDIT_",
-    "BABEL_",
-    "CELERY_",
-    "COMMUNITIES_",
-    "CURATIONS_",
-    "DATACITE_",
-    "GLOBAL_SEARCH_",
-    "I18N_",
-    "JOBS_",
-    "MAIL_",
-    "MARC21_",
-    "NOTIFICATIONS_",
-    "OAISERVER_",
-    "OVERRIDE_",
-    "RATELIMIT_",
-    "RDM_",
-    "RECAPTCHA_",
-    "REQUESTS_",
-    "SECURITY_",
-    "SESSION_",
-    "SQLALCHEMY_",
-    "SSO_SAML_",
-    "STATS_",
-    "THEME_",
-    "USERPROFILES_",
-    "USERS_RESOURCES_",
-)
-
 
 class InvenioConfigTugraz:
     """invenio-config-tugraz extension."""
@@ -70,8 +38,6 @@ class InvenioConfigTugraz:
         for k in dir(config):
             if k.startswith("CONFIG_TUGRAZ_") or k == "OVERRIDE_INSTANCE_TYPE":
                 app.config.setdefault(k, getattr(config, k))
-            elif k.isupper() and k.startswith(_OVERRIDE_PREFIXES):
-                app.config[k] = getattr(config, k)
 
     def add_custom_fields(self, app: Flask) -> None:
         """Add custom fields."""
