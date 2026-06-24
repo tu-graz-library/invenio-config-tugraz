@@ -18,6 +18,7 @@ theme = WebpackThemeBundle(
         "semantic-ui": {
             "entry": {
                 "invenio-config-tugraz-unlock": "./js/invenio_config_tugraz/unlock.js",
+                "invenio-config-tugraz-contact": "./js/invenio_config_tugraz/contact.js",
             },
             "dependencies": {
                 "jquery": "^3.2.1",

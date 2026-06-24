@@ -204,7 +204,8 @@ CURATIONS_PRIVILEGED_ROLES = ["administration", "bypass-curation"]
 # ================
 # See https://github.com/tu-graz-library/invenio-override
 
-OVERRIDE_CONTACT_FORM = False
+OVERRIDE_CONTACT_FORM = True
+OVERRIDE_CONTACT_FORM_BUNDLE = "invenio-config-tugraz-contact.js"
 OVERRIDE_DOC_REDIRECTS = {
     "/guide": "https://doi.org/10.3217/dgpcz-td505",
     "/terms": "https://doi.org/10.3217/k3dsw-rv326",
