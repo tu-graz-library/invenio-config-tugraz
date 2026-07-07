@@ -9,6 +9,10 @@
 Changes
 =======
 
+Version v0.14.4 (released 2026-06-12)
+
+- fix(compat): add generator
+
 Version v0.14.3 (released 2026-05-19)
 
 - feat: add OAISERVER configs
