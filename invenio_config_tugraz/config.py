@@ -52,7 +52,7 @@ INVENIO_CONFIG_TUGRAZ_IP_RANGES =
 """
 
 CONFIG_TUGRAZ_ROUTES = {
-    "guide": "/guide",
+    "manual": "/manual",
     "terms": "/terms",
     "gdpr": "/gdpr",
     "accessibility": "/accessibility",
@@ -204,10 +204,11 @@ CURATIONS_PRIVILEGED_ROLES = ["administration", "bypass-curation"]
 # ================
 # See https://github.com/tu-graz-library/invenio-override
 
+OVERRIDE_AUTHENTICATED_ROLE = "tugraz_authenticated"
 OVERRIDE_CONTACT_FORM = True
 OVERRIDE_CONTACT_FORM_BUNDLE = "invenio-config-tugraz-contact.js"
 OVERRIDE_DOC_REDIRECTS = {
-    "/guide": "https://doi.org/10.3217/dgpcz-td505",
+    "/manual": "https://doi.org/10.3217/dgpcz-td505",
     "/terms": "https://doi.org/10.3217/k3dsw-rv326",
     "/gdpr": "https://doi.org/10.3217/xream-wzp39",
     "/accessibility": "https://doi.org/10.3217/psmeb-84429",
@@ -225,7 +226,7 @@ OVERRIDE_FOOTER_LINKS = {
             "url": "https://tu-graz-library.github.io/docs-repository",
             "external": True,
         },
-        {"label": "Reference Guide", "url": "/guide", "external": True},
+        {"label": "Manual", "url": "/manual", "external": True},
         {"label": "Search Guide", "url": "/help/search"},
         {"label": "Data Protection", "url": "/gdpr", "external": True},
         {"label": "Terms and Conditions", "url": "/terms", "external": True},
@@ -283,6 +284,7 @@ OVERRIDE_HEADER_TEXT_LINE1 = "TU GRAZ"
 OVERRIDE_HEADER_TEXT_LINE2 = "REPOSITORY"
 OVERRIDE_HEADER_TEXT_LINE3 = "LIBRARY & ARCHIVES"
 OVERRIDE_ICON = "images/icon_use.png"
+OVERRIDE_LOGIN_OAUTH_PROVIDERS = ["keycloak"]
 OVERRIDE_LOGO = "images/TUG.png"
 OVERRIDE_INSTANCE_TYPE = "production"
 OVERRIDE_PRODUCTION = True

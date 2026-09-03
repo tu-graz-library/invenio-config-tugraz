@@ -70,7 +70,7 @@ def ui_blueprint(app: Flask) -> Blueprint:
         static_folder="static",
     )
 
-    blueprint.add_url_rule(routes["guide"], view_func=guide)
+    blueprint.add_url_rule(routes["manual"], view_func=manual)
     blueprint.add_url_rule(routes["terms"], view_func=terms)
     blueprint.add_url_rule(routes["gdpr"], view_func=gdpr)
     blueprint.add_url_rule(routes["accessibility"], view_func=accessibility)
@@ -80,8 +80,8 @@ def ui_blueprint(app: Flask) -> Blueprint:
     return blueprint
 
 
-def guide() -> BaseResponse:
-    """TUGraz_Repository_Guide."""
+def manual() -> BaseResponse:
+    """TUGraz_Repository_Manual."""
     return redirect("https://doi.org/10.3217/dgpcz-td505")
 
 
