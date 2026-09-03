@@ -1,0 +1,60 @@
+{#
+  Copyright (C) 2020-2026 Graz University of Technology.
+
+  invenio-config-tugraz is free software; you can redistribute it and/or
+  modify it under the terms of the MIT License; see LICENSE file for more
+  details.
+
+  Overrides: invenio_records_lom/not_licensed_text.html
+  Changes:
+    - Use "Educational Resources" as title (consistent with uploads page)
+    - Add page_description for the inner banner
+    - Remove duplicate <h1> from body (title is shown in the banner)
+#}
+{%- extends config.LOM_BASE_TEMPLATE %}
+{%- set active_dashboard_menu_item = "OER" %}
+{%- set title = _("Educational Resources") %}
+{%- block javascript %}
+    {{ super() }}
+{%- endblock javascript %}
+{%- block page_body %}
+    {%- block user_dashboard_header %}
+        {% include "invenio_app_rdm/users/header.html" %}
+    {%- endblock user_dashboard_header %}
+    <div class="ui container rel-mt-2">
+        <div class="ui center aligned grid">
+            <div class="center eight wide computer fourteen wide mobile ten wide tablet column">
+                <p>
+                    {{ _('"Open Educational Resources (OER) are open educational materials, i.e. teaching and learning materials that
+                                        are freely accessible and, thanks to appropriate licensing (or because they are in the public domain), may be
+                                        edited, further developed and distributed without additional permission."') }}
+                </p>
+                <p>{{ _("Bündnis Freie Bildung, 2015") }}</p>
+                <h3>{{ _("Permission required!") }}</h3>
+                <p>
+                    {{ _('Here you can upload your openly licensed teaching and learning materials (Open Educational Resources, OER for
+                                        short). By doing this, you can archive them sustainably and make them publicly accessible and usable to others.
+                                        Furthermore, all open educational resources uploaded here are automatically transferred to <a href="oerhub.at">OERhub.at</a> - a
+                                        national search engine for OER - in order to reach an even greater audience reach.') }}
+                </p>
+                <p style="font-weight: bold">
+                    {{ _('To use the upload feature, have your account activated by sending your OER certificate issued by the national
+                                        certification body to <a href="mailto:telucation@tugraz.at">telucation@tugraz.at</a>.') }}
+                </p>
+                <p>
+                    {{ _('Not yet certified? Members of Graz University of Technology are required to obtain the OER certificate from
+                                        fnma at Graz University of Technology, which you can obtain as part of the in-house training. Please register
+                                        via your business card in <a href="online.tugraz.at">TUGRAZonline</a>.') }}
+                </p>
+                <p>
+                    {{ _('As a member of another university, visit the information page on OER certification to find a corresponding
+                                        offer at your university and submit your certificate to <a href="mailto:telucation@tugraz.at">telucation@tugraz.at</a>,
+                                        after which an upload is possible.') }}
+                </p>
+                <p>
+                    {{ _("For further information, please contact the OU Educational Technology directly at +43(316)873-8577 or write an email to <a href=\"mailto:telucation@tugraz.at\">telucation@tugraz.at</a>.") }}
+                </p>
+            </div>
+        </div>
+    </div>
+{%- endblock page_body %}
