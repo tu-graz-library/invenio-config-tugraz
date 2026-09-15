@@ -76,3 +76,67 @@ msgstr ""
 msgid "TU Graz Repository Team"
 msgstr ""
 
+#: invenio_config_tugraz/config.py:453
+msgid "Welcome to the updated interface"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:455
+msgid "A few quick pointers so you know where things are now. This shows only once."
+msgstr ""
+
+#: invenio_config_tugraz/config.py:460
+msgid "Search across all resource types with the dropdown on the homepage."
+msgstr ""
+
+#: invenio_config_tugraz/config.py:463
+msgid "Upload research data from Dashboard."
+msgstr ""
+
+#: invenio_config_tugraz/config.py:467
+msgid "Upload publications from Dashboard."
+msgstr ""
+
+#: invenio_config_tugraz/config.py:471
+msgid "Upload educational resources from Dashboard."
+msgstr ""
+
+#: invenio_config_tugraz/config.py:476
+msgid "Requests, open requests and curation are under Dashboard too."
+msgstr ""
+
+#: invenio_config_tugraz/config.py:480
+msgid "Browse or create communities in the Communities menu."
+msgstr ""
+
+#: invenio_config_tugraz/config.py:481
+msgid "The manual, file formats and contact are under Help."
+msgstr ""
+
+#: invenio_config_tugraz/config.py:487
+msgid "Welcome to the Repository"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:489
+msgid "A few things you can do here. Log in for the rest. This shows only once."
+msgstr ""
+
+#: invenio_config_tugraz/config.py:492
+msgid "Search research results with the dropdown on the homepage."
+msgstr ""
+
+#: invenio_config_tugraz/config.py:493
+msgid "Browse communities in the Communities menu."
+msgstr ""
+
+#: invenio_config_tugraz/config.py:494
+msgid "Find help and guides under Help."
+msgstr ""
+
+#: invenio_config_tugraz/config.py:496
+msgid "Log in to upload and to see publications, educational resources and your dashboard."
+msgstr ""
+
+#: invenio_config_tugraz/config.py:504
+msgid "Acknowledged"
+msgstr ""
+

@@ -11,6 +11,27 @@ import { http } from "react-invenio-forms";
 
 import "./notices.less";
 
+const STORAGE_KEY = "tug-notices-acknowledged";
+
+function acknowledgedLocally() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function rememberLocally(key) {
+  try {
+    const keys = acknowledgedLocally();
+    if (!keys.includes(key)) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify([...keys, key]));
+    }
+  } catch (e) {
+    // storage disabled
+  }
+}
+
 function Notices({ notices, ackLabel, onAcknowledge }) {
   return (
     <>
@@ -44,19 +65,30 @@ function Notices({ notices, ackLabel, onAcknowledge }) {
   );
 }
 
-function App({ initial, ackLabel }) {
-  const [notices, setNotices] = useState(initial);
+function App({ initial, ackLabel, authenticated }) {
+  const seen = authenticated ? [] : acknowledgedLocally();
+  const [notices, setNotices] = useState(initial.filter((n) => !seen.includes(n.key)));
+
   const onAcknowledge = (key) => {
     setNotices((current) => current.filter((n) => n.key !== key));
-    http.post(`/api/notices/${key}/acknowledge`);
+    if (authenticated) {
+      http.post(`/api/notices/${key}/acknowledge`);
+    } else {
+      rememberLocally(key);
+    }
   };
+
   return <Notices notices={notices} ackLabel={ackLabel} onAcknowledge={onAcknowledge} />;
 }
 
 const el = document.getElementById("notices");
 if (el) {
   ReactDOM.render(
-    <App initial={JSON.parse(el.dataset.notices || "[]")} ackLabel={el.dataset.ackLabel} />,
+    <App
+      initial={JSON.parse(el.dataset.notices || "[]")}
+      ackLabel={el.dataset.ackLabel}
+      authenticated={el.dataset.authenticated === "true"}
+    />,
     el
   );
 }
