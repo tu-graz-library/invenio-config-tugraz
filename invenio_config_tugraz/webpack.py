@@ -19,9 +19,14 @@ theme = WebpackThemeBundle(
             "entry": {
                 "invenio-config-tugraz-unlock": "./js/invenio_config_tugraz/unlock.js",
                 "invenio-config-tugraz-contact": "./js/invenio_config_tugraz/contact.js",
+                # notices bundle name; extract to invenio-notices later
+                "invenio-config-tugraz-notices": "./js/invenio_config_tugraz/notices.js",
             },
             "dependencies": {
                 "jquery": "^3.2.1",
+                "react": "^16.13.0",
+                "react-dom": "^16.13.0",
+                "react-invenio-forms": "^4.11.0",
             },
         },
     },
