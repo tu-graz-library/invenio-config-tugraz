@@ -16,6 +16,7 @@ from invenio_app_rdm.config import (
 )
 from invenio_global_search.oai import OAIGlobalSearch
 from invenio_i18n import gettext as _
+from invenio_i18n import lazy_gettext
 from invenio_records_lom.config import (
     LOM_STATS_AGGREGATIONS,
     LOM_STATS_CELERY_TASKS,
@@ -430,3 +431,31 @@ OAISERVER_ID_FETCHER = "invenio_global_search.oai:oaiid_fetcher"
 
 OAISERVER_SEARCH_CLS = OAIGlobalSearch
 """TU Graz custom search class for OAI records retrieval based on global-search."""
+
+# notices: extract to invenio-notices later
+CONFIG_TUGRAZ_NOTICES = [
+    {
+        "key": "onboarding-2026",
+        "title": lazy_gettext("Welcome to the updated interface"),
+        "intro": lazy_gettext(
+            "A few quick pointers so you know where things are now. "
+            "This shows only once."
+        ),
+        "items": [
+            lazy_gettext(
+                "Search across all resource types with the dropdown on the homepage."
+            ),
+            lazy_gettext(
+                "Your uploads and new uploads are under Dashboard: research data, "
+                "publications and educational resources."
+            ),
+            lazy_gettext("Requests, open requests and curation are under Dashboard too."),
+            lazy_gettext("Browse or create communities in the Communities menu."),
+            lazy_gettext("The manual, file formats and contact are under Help."),
+        ],
+    },
+]
+"""Notices shown once to logged-in users; acknowledged per user by key."""
+
+CONFIG_TUGRAZ_NOTICES_ACK_LABEL = lazy_gettext("Acknowledged")
+"""Label for the notice dismiss button."""
