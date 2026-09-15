@@ -8,7 +8,8 @@
 {%- if tugraz_notices %}
   <div id="notices"
        data-notices="{{ tugraz_notices | tojson | forceescape }}"
-       data-ack-label="{{ config.CONFIG_TUGRAZ_NOTICES_ACK_LABEL }}"></div>
+       data-ack-label="{{ config.CONFIG_TUGRAZ_NOTICES_ACK_LABEL }}"
+       data-authenticated="{{ 'true' if current_user.is_authenticated else 'false' }}"></div>
   {{ webpack['invenio-config-tugraz-notices.css'] }}
   {{ webpack['invenio-config-tugraz-notices.js'] }}
 {%- endif %}

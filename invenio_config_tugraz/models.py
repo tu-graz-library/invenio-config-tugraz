@@ -15,7 +15,7 @@ from invenio_db import db
 class NoticeAcknowledgment(db.Model, db.Timestamp):
     """Records that a user acknowledged a notice."""
 
-    __tablename__ = "tugraz_notice_acknowledgment"
+    __tablename__ = "notice_acknowledgment"
     __table_args__ = (db.UniqueConstraint("user_id", "notice_key"),)
 
     id = db.Column(db.Integer, primary_key=True)
