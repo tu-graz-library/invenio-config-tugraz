@@ -53,6 +53,8 @@ def finalize_app(app: Flask) -> None:
     """Finalize app."""
     rank_blueprint_higher(app)
     guard_view_functions(app)
+    if not app.config.get("OVERRIDE_NOTICES_TEMPLATE"):
+        app.config["OVERRIDE_NOTICES_TEMPLATE"] = "invenio_config_tugraz/notices.html"
 
 
 def guard_view_functions(app: Flask) -> None:
