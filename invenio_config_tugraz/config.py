@@ -435,6 +435,7 @@ OAISERVER_ID_FETCHER = "invenio_global_search.oai:oaiid_fetcher"
 OAISERVER_SEARCH_CLS = OAIGlobalSearch
 """TU Graz custom search class for OAI records retrieval based on global-search."""
 
+
 def can_publish() -> bool:
     """Whether the current user may add publications."""
     return current_records_marc21.records_service.check_permission(g.identity, "create")
@@ -442,7 +443,10 @@ def can_publish() -> bool:
 
 def can_handle_oer() -> bool:
     """Whether the current user may add educational resources."""
-    return current_records_lom.records_service.check_permission(g.identity, "handle_oer")
+    return current_records_lom.records_service.check_permission(
+        g.identity,
+        "handle_oer",
+    )
 
 
 # notices: extract to invenio-notices later
@@ -453,11 +457,11 @@ CONFIG_TUGRAZ_NOTICES = [
         "title": lazy_gettext("Welcome to the updated interface"),
         "intro": lazy_gettext(
             "A few quick pointers so you know where things are now. "
-            "This shows only once."
+            "This shows only once.",
         ),
         "items": [
             lazy_gettext(
-                "Search across all resource types with the dropdown on the homepage."
+                "Search across all resource types with the dropdown on the homepage.",
             ),
             {
                 "text": lazy_gettext("Upload research data from Dashboard."),
@@ -473,7 +477,7 @@ CONFIG_TUGRAZ_NOTICES = [
             },
             {
                 "text": lazy_gettext(
-                    "Requests, open requests and curation are under Dashboard too."
+                    "Requests, open requests and curation are under Dashboard too.",
                 ),
                 "roles": ["tugraz_authenticated"],
             },
@@ -486,7 +490,7 @@ CONFIG_TUGRAZ_NOTICES = [
         "show_to": "guests",
         "title": lazy_gettext("Welcome to the Repository"),
         "intro": lazy_gettext(
-            "A few things you can do here. Log in for the rest. This shows only once."
+            "A few things you can do here. Log in for the rest. This shows only once.",
         ),
         "items": [
             lazy_gettext("Search research results with the dropdown on the homepage."),
@@ -494,7 +498,7 @@ CONFIG_TUGRAZ_NOTICES = [
             lazy_gettext("Find help and guides under Help."),
             lazy_gettext(
                 "Log in to upload and to see publications, educational resources "
-                "and your dashboard."
+                "and your dashboard.",
             ),
         ],
     },
