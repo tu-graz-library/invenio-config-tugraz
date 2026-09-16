@@ -20,6 +20,8 @@ class NoticeAcknowledgment(db.Model, db.Timestamp):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(
-        db.Integer, db.ForeignKey(User.id, ondelete="CASCADE"), nullable=False
+        db.Integer,
+        db.ForeignKey(User.id, ondelete="CASCADE"),
+        nullable=False,
     )
     notice_key = db.Column(db.String(128), nullable=False)

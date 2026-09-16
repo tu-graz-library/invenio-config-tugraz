@@ -21,7 +21,7 @@ def current_roles() -> set[str]:
     return {need.value for need in g.identity.provides if need.method == "role"}
 
 
-def is_shown_to(notice: dict, authenticated: bool) -> bool:
+def is_shown_to(notice: dict, *, authenticated: bool) -> bool:
     """Check whether the notice should be shown to this visitor."""
     show_to = notice.get("show_to", "users")
     if show_to == "guests":
@@ -64,7 +64,7 @@ def pending_notices() -> list[dict]:
         }
     notices = []
     for notice in current_app.config.get("CONFIG_TUGRAZ_NOTICES", []):
-        if not is_shown_to(notice, authenticated):
+        if not is_shown_to(notice, authenticated=authenticated):
             continue
         if authenticated and not roles_match(notice.get("roles"), roles):
             continue
@@ -76,12 +76,12 @@ def pending_notices() -> list[dict]:
                 "title": str(notice["title"]),
                 "intro": str(notice["intro"]),
                 "items": visible_items(notice, roles),
-            }
+            },
         )
     return notices
 
 
-def api_blueprint(app: Flask) -> Blueprint:
+def api_blueprint(_app: Flask) -> Blueprint:
     """Blueprint for the notices API."""
     blueprint = Blueprint("tugraz_notices", __name__, url_prefix="/notices")
 
@@ -90,11 +90,12 @@ def api_blueprint(app: Flask) -> Blueprint:
     def acknowledge(key: str) -> BaseResponse:
         """Record that the current user acknowledged a notice."""
         already = NoticeAcknowledgment.query.filter_by(
-            user_id=current_user.id, notice_key=key
+            user_id=current_user.id,
+            notice_key=key,
         ).count()
         if not already:
             db.session.add(
-                NoticeAcknowledgment(user_id=current_user.id, notice_key=key)
+                NoticeAcknowledgment(user_id=current_user.id, notice_key=key),
             )
             db.session.commit()
         return jsonify({"acknowledged": key})
