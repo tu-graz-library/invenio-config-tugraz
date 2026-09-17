@@ -42,7 +42,7 @@ msgid "Guidelines:"
 msgstr "Leitfaden:"
 
 #: invenio_config_tugraz/templates/security/email/welcome.txt:7
-msgid "Repository Guide"
+msgid "Repository Manual"
 msgstr "Handbuch"
 
 #: invenio_config_tugraz/templates/security/email/welcome.txt:7
