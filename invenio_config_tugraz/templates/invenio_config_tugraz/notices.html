@@ -1,0 +1,15 @@
+{#
+  Copyright (C) 2026 Graz University of Technology.
+
+  invenio-config-tugraz is free software; you can redistribute it and/or
+  modify it under the terms of the MIT License; see LICENSE file for more
+  details.
+#}
+{%- if tugraz_notices %}
+  <div id="notices"
+       data-notices="{{ tugraz_notices | tojson | forceescape }}"
+       data-ack-label="{{ config.CONFIG_TUGRAZ_NOTICES_ACK_LABEL }}"
+       data-authenticated="{{ 'true' if current_user.is_authenticated else 'false' }}"></div>
+  {{ webpack['invenio-config-tugraz-notices.css'] }}
+  {{ webpack['invenio-config-tugraz-notices.js'] }}
+{%- endif %}

@@ -13,6 +13,7 @@ from flask_login import login_required
 
 from . import config
 from .custom_fields import ip_network, single_ip
+from .notices import pending_notices
 from .views import (
     require_tugraz_authenticated_else_redirect,
     require_tugraz_authenticated_else_render,
@@ -31,6 +32,8 @@ class InvenioConfigTugraz:
         """Flask application initialization."""
         self.init_config(app)
         self.add_custom_fields(app)
+        # notices: extract to invenio-notices later
+        app.context_processor(lambda: {"tugraz_notices": pending_notices()})
         app.extensions["invenio-config-tugraz"] = self
 
     def init_config(self, app: Flask) -> None:
@@ -50,6 +53,8 @@ def finalize_app(app: Flask) -> None:
     """Finalize app."""
     rank_blueprint_higher(app)
     guard_view_functions(app)
+    if not app.config.get("OVERRIDE_NOTICES_TEMPLATE"):
+        app.config["OVERRIDE_NOTICES_TEMPLATE"] = "invenio_config_tugraz/notices.html"
 
 
 def guard_view_functions(app: Flask) -> None:

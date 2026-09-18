@@ -8,6 +8,7 @@
 
 """invenio module that adds tugraz configs."""
 
+from flask import g
 from invenio_app_rdm.config import (
     CELERY_BEAT_SCHEDULE,
     STATS_AGGREGATIONS,
@@ -16,18 +17,21 @@ from invenio_app_rdm.config import (
 )
 from invenio_global_search.oai import OAIGlobalSearch
 from invenio_i18n import gettext as _
+from invenio_i18n import lazy_gettext
 from invenio_records_lom.config import (
     LOM_STATS_AGGREGATIONS,
     LOM_STATS_CELERY_TASKS,
     LOM_STATS_EVENTS,
     LOM_STATS_QUERIES,
 )
+from invenio_records_lom.proxies import current_records_lom
 from invenio_records_marc21.config import (
     MARC21_STATS_AGGREGATIONS,
     MARC21_STATS_CELERY_TASKS,
     MARC21_STATS_EVENTS,
     MARC21_STATS_QUERIES,
 )
+from invenio_records_marc21.proxies import current_records_marc21
 
 from .facets import TUGRAZ_REQUESTS_FACETS
 from .notifications import TUGRAZ_NOTIFICATIONS_BUILDERS
@@ -430,3 +434,72 @@ OAISERVER_ID_FETCHER = "invenio_global_search.oai:oaiid_fetcher"
 
 OAISERVER_SEARCH_CLS = OAIGlobalSearch
 """TU Graz custom search class for OAI records retrieval based on global-search."""
+
+def can_publish() -> bool:
+    """Whether the current user may add publications."""
+    return current_records_marc21.records_service.check_permission(g.identity, "create")
+
+
+def can_handle_oer() -> bool:
+    """Whether the current user may add educational resources."""
+    return current_records_lom.records_service.check_permission(g.identity, "handle_oer")
+
+
+# notices: extract to invenio-notices later
+CONFIG_TUGRAZ_NOTICES = [
+    {
+        "key": "onboarding-2026",
+        "show_to": "users",
+        "title": lazy_gettext("Welcome to the updated interface"),
+        "intro": lazy_gettext(
+            "A few quick pointers so you know where things are now. "
+            "This shows only once."
+        ),
+        "items": [
+            lazy_gettext(
+                "Search across all resource types with the dropdown on the homepage."
+            ),
+            {
+                "text": lazy_gettext("Upload research data from Dashboard."),
+                "roles": ["tugraz_authenticated"],
+            },
+            {
+                "text": lazy_gettext("Upload publications from Dashboard."),
+                "visible": can_publish,
+            },
+            {
+                "text": lazy_gettext("Upload educational resources from Dashboard."),
+                "visible": can_handle_oer,
+            },
+            {
+                "text": lazy_gettext(
+                    "Requests, open requests and curation are under Dashboard too."
+                ),
+                "roles": ["tugraz_authenticated"],
+            },
+            lazy_gettext("Browse or create communities in the Communities menu."),
+            lazy_gettext("The manual, file formats and contact are under Help."),
+        ],
+    },
+    {
+        "key": "guest-2026",
+        "show_to": "guests",
+        "title": lazy_gettext("Welcome to the Repository"),
+        "intro": lazy_gettext(
+            "A few things you can do here. Log in for the rest. This shows only once."
+        ),
+        "items": [
+            lazy_gettext("Search research results with the dropdown on the homepage."),
+            lazy_gettext("Browse communities in the Communities menu."),
+            lazy_gettext("Find help and guides under Help."),
+            lazy_gettext(
+                "Log in to upload and to see publications, educational resources "
+                "and your dashboard."
+            ),
+        ],
+    },
+]
+"""Notices shown once per user (logged in) or per browser (anonymous)."""
+
+CONFIG_TUGRAZ_NOTICES_ACK_LABEL = lazy_gettext("Acknowledged")
+"""Label for the notice dismiss button."""
