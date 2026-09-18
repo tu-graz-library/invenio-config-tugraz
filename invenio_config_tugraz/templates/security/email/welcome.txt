@@ -4,7 +4,7 @@
 
 {{ _('To help you get started, here are some useful links:') }}
 
-    - {{ _('Guidelines:')}} {{ _('Repository Guide')}} ({{ _('how to upload files')}}) ({{ config.SITE_UI_URL }}{{ url_for('invenio_config_tugraz.guide') }})
+    - {{ _('Guidelines:')}} {{ _('Repository Manual')}} ({{ _('how to upload files')}}) ({{ config.SITE_UI_URL }}{{ url_for('invenio_config_tugraz.manual') }})
     - {{ _('Search Guide')}} ({{ config.SITE_UI_URL }}{{url_for('invenio_app_rdm.help_search')}})
     - {{ _('Terms And Conditions') }} ({{ config.SITE_UI_URL }}{{ url_for('invenio_config_tugraz.terms') }})
     - {{ _('Data Protection Rights')}} ({{ config.SITE_UI_URL }}{{ url_for('invenio_config_tugraz.gdpr') }})

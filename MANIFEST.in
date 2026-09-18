@@ -18,6 +18,7 @@ include .dockerignore
 include .editorconfig
 include .tx/config
 prune docs/_build
+recursive-include invenio_config_tugraz/templates *
 recursive-include invenio_config_tugraz/translations *.po *.pot *.mo
 
 # added by check_manifest.py
@@ -52,4 +53,5 @@ recursive-include invenio_config_tugraz *.csv
 
 # added by check-manifest
 recursive-include invenio_config_tugraz *.pdf
+recursive-include invenio_config_tugraz *.js
 include .git-blame-ignore-revs
