@@ -9,6 +9,34 @@
 Changes
 =======
 
+Version v0.14.5 (released 2026-09-22)
+
+- fix(translation): mark strings as translatable
+- feat(setup): keep configuration of override here
+- feat(notices): reword items, add acknowledge line
+- notices: add notice acknowledgment migration
+- notices: activate override notices hook
+- feat(notices): audience, roles and per-item targeting
+- feat(notices): render notices as a react component
+- feat(notices): add per-user notices backend
+- fix: welcome email manual
+- fix(override): sync doc redirects, footer and auth settings with the instance
+- feat(assets): add zammad contact form bundle
+- fix(config): make config values overridable
+- config: remove settings duplicated by invenio-override
+- config: set upload roles for marc21
+- feat(uploads): set marc21, lom upload templates
+- feat: set search nav templates for marc21, lom and global search
+- feat: disable user self-registration
+- feat: add OER not-licensed page template override
+- feat: add LOM guard fix, OVERRIDE_INSTANCE_TYPE and extended prefix list2
+- fix: add type hints to decorators and include JS assets
+- chore: apply black, djlint and prettier formatting
+- feat: add unlock flow template and authentication helpers
+- fix: apply TUG config after all modules load via finalize app
+- feat: add administration, curations and search config defaults
+- feat: add OVERRIDE_ theme config defaults
+
 Version v0.14.4 (released 2026-06-12)
 
 - fix(compat): add generator
