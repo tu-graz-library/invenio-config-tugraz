@@ -1,25 +1,325 @@
-# Translations template for invenio-config-tugraz.
-# Copyright (C) 2021 Graz University of Technology
-# This file is distributed under the same license as the
-# invenio-config-tugraz project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+# Translations template for PROJECT.
+# Copyright (C) 2026 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: invenio-config-tugraz 0.5.5\n"
-"Report-Msgid-Bugs-To: mojib.wali@tugraz.at\n"
-"POT-Creation-Date: 2021-04-27 15:30+0200\n"
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-09-22 21:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.0\n"
+"Generated-By: Babel 2.18.0\n"
 
-#: invenio_config_tugraz/config.py:87
+#: invenio_config_tugraz/config.py:113
+msgid "German"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:120
 msgid "Welcome to TU Graz Repository!"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:229
+msgid "Documentation"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:233
+msgid "Manual"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:234
+#: invenio_config_tugraz/templates/security/email/welcome.txt:8
+msgid "Search Guide"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:235
+msgid "Data Protection"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:236
+msgid "Terms and Conditions"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:238
+msgid "Accessibility Statement"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:243
+msgid "List of preferred file formats"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:247
+msgid "Curation Workflow"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:250
+msgid "Scalability"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:251
+msgid "Institutional integration"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:252
+msgid "Next Generation Repository"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:253
+msgid "Repository Profiles"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:254
+msgid "Resilient"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:257
+msgid "PURE"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:259
+msgid "CampusOnline"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:264
+msgid "Research Data Management"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:270
+msgid "Tipp:"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:271
+msgid "Use Ctrl + and Ctrl -"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:272
+msgid "to change the font size."
+msgstr ""
+
+#: invenio_config_tugraz/config.py:279
+msgid "Publish and share your research data — citable, visible, and FAIR."
+msgstr ""
+
+#: invenio_config_tugraz/config.py:281
+msgid "SCIENCE"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:281
+msgid "TECHNOLOGY"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:281
+msgid "PASSION"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:285
+msgid "TU GRAZ"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:286
+msgid "REPOSITORY"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:287
+msgid "LIBRARY & ARCHIVES"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:294
+msgid "TU Graz & CERN"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:304
+msgid "TUGraz Repository"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:305
+msgid "TU Graz Repository"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:327
+msgid "OER"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:331
+msgid "Research Result"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:335
+msgid "Publication"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:456 invenio_config_tugraz/config.py:508
+msgid "Welcome to our updated user interface"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:458 invenio_config_tugraz/config.py:510
+msgid ""
+"A few quick pointers to help you find your way around. You will see this "
+"message only once."
+msgstr ""
+
+#: invenio_config_tugraz/config.py:463
+msgid ""
+"Search: Use the dropdown on the homepage to search across all resource "
+"types"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:468
+msgid "Research data: Upload and manage research data from the Dashboard"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:475
+msgid "Publications: Upload and manage publications from the Dashboard"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:482
+msgid ""
+"Educational resources: Upload and manage educational resources from the "
+"Dashboard"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:489
+msgid ""
+"Requests & curation: Find requests, open requests and curation activities"
+" in the Dashboard"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:495
+msgid ""
+"Communities: Browse existing communities or create a new one from the "
+"Communities menu"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:499
+msgid ""
+"Help: Find the user manual, supported file formats and contact "
+"information under Help"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:503 invenio_config_tugraz/config.py:527
+msgid "Please acknowledge this message to continue."
+msgstr ""
+
+#: invenio_config_tugraz/config.py:515
+msgid "Search: Use the dropdown on the homepage to search research results"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:519
+msgid "Communities: Browse existing communities from the Communities menu"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:521
+msgid "Help: Find help and guides under Help"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:523
+msgid ""
+"Log in: Sign in to upload and to see publications, educational resources "
+"and your dashboard"
+msgstr ""
+
+#: invenio_config_tugraz/config.py:532
+msgid "Acknowledged"
+msgstr ""
+
+#: invenio_config_tugraz/templates/invenio_config_tugraz/not_authenticated.html:10
+msgid "Uploads"
+msgstr ""
+
+#: invenio_config_tugraz/templates/invenio_config_tugraz/not_authenticated.html:21
+msgid "Permission required"
+msgstr ""
+
+#: invenio_config_tugraz/templates/invenio_config_tugraz/not_authenticated.html:23
+msgid ""
+"To ensure a well-curated repository, new users need to get unlocked\n"
+"                                        before being allowed to upload. "
+"Once unlocked, you can upload your research,\n"
+"                                        request its inclusion in a "
+"community, generate a DOI for it, and publish it."
+msgstr ""
+
+#: invenio_config_tugraz/templates/invenio_config_tugraz/not_authenticated.html:32
+msgid "Request permissions"
+msgstr ""
+
+#: invenio_config_tugraz/templates/invenio_records_lom/not_licensed_text.html:16
+msgid "Educational Resources"
+msgstr ""
+
+#: invenio_config_tugraz/templates/invenio_records_lom/not_licensed_text.html:28
+msgid ""
+"\"Open Educational Resources (OER) are open educational materials, i.e. "
+"teaching and learning materials that\n"
+"                                        are freely accessible and, thanks"
+" to appropriate licensing (or because they are in the public domain), may"
+" be\n"
+"                                        edited, further developed and "
+"distributed without additional permission.\""
+msgstr ""
+
+#: invenio_config_tugraz/templates/invenio_records_lom/not_licensed_text.html:32
+msgid "Bündnis Freie Bildung, 2015"
+msgstr ""
+
+#: invenio_config_tugraz/templates/invenio_records_lom/not_licensed_text.html:33
+msgid "Permission required!"
+msgstr ""
+
+#: invenio_config_tugraz/templates/invenio_records_lom/not_licensed_text.html:35
+msgid ""
+"Here you can upload your openly licensed teaching and learning materials "
+"(Open Educational Resources, OER for\n"
+"                                        short). By doing this, you can "
+"archive them sustainably and make them publicly accessible and usable to "
+"others.\n"
+"                                        Furthermore, all open educational"
+" resources uploaded here are automatically transferred to <a "
+"href=\"oerhub.at\">OERhub.at</a> - a\n"
+"                                        national search engine for OER - "
+"in order to reach an even greater audience reach."
+msgstr ""
+
+#: invenio_config_tugraz/templates/invenio_records_lom/not_licensed_text.html:41
+msgid ""
+"To use the upload feature, have your account activated by sending your "
+"OER certificate issued by the national\n"
+"                                        certification body to <a "
+"href=\"mailto:telucation@tugraz.at\">telucation@tugraz.at</a>."
+msgstr ""
+
+#: invenio_config_tugraz/templates/invenio_records_lom/not_licensed_text.html:45
+msgid ""
+"Not yet certified? Members of Graz University of Technology are required "
+"to obtain the OER certificate from\n"
+"                                        fnma at Graz University of "
+"Technology, which you can obtain as part of the in-house training. Please"
+" register\n"
+"                                        via your business card in <a "
+"href=\"online.tugraz.at\">TUGRAZonline</a>."
+msgstr ""
+
+#: invenio_config_tugraz/templates/invenio_records_lom/not_licensed_text.html:50
+msgid ""
+"As a member of another university, visit the information page on OER "
+"certification to find a corresponding\n"
+"                                        offer at your university and "
+"submit your certificate to <a "
+"href=\"mailto:telucation@tugraz.at\">telucation@tugraz.at</a>,\n"
+"                                        after which an upload is possible."
+msgstr ""
+
+#: invenio_config_tugraz/templates/invenio_records_lom/not_licensed_text.html:55
+msgid ""
+"For further information, please contact the OU Educational Technology "
+"directly at +43(316)873-8577 or write an email to <a "
+"href=\"mailto:telucation@tugraz.at\">telucation@tugraz.at</a>."
 msgstr ""
 
 #: invenio_config_tugraz/templates/security/email/welcome.txt:1
@@ -46,10 +346,6 @@ msgstr ""
 msgid "how to upload files"
 msgstr ""
 
-#: invenio_config_tugraz/templates/security/email/welcome.txt:8
-msgid "Search Guide"
-msgstr ""
-
 #: invenio_config_tugraz/templates/security/email/welcome.txt:9
 msgid "Terms And Conditions"
 msgstr ""
@@ -58,81 +354,21 @@ msgstr ""
 msgid "Data Protection Rights"
 msgstr ""
 
-#: invenio_config_tugraz/templates/security/email/welcome.txt:13
+#: invenio_config_tugraz/templates/security/email/welcome.txt:12
 msgid "You can confirm your email through the link below:"
 msgstr ""
 
-#: invenio_config_tugraz/templates/security/email/welcome.txt:16
+#: invenio_config_tugraz/templates/security/email/welcome.txt:15
 msgid ""
 "If you require any assistance please do not hesitate to contact us at "
 "repository-support@tugraz.at."
 msgstr ""
 
-#: invenio_config_tugraz/templates/security/email/welcome.txt:18
+#: invenio_config_tugraz/templates/security/email/welcome.txt:17
 msgid "Best regards,"
 msgstr ""
 
-#: invenio_config_tugraz/templates/security/email/welcome.txt:19
+#: invenio_config_tugraz/templates/security/email/welcome.txt:18
 msgid "TU Graz Repository Team"
-msgstr ""
-
-#: invenio_config_tugraz/config.py:457
-msgid "Welcome to our updated user interface"
-msgstr ""
-
-#: invenio_config_tugraz/config.py:459
-msgid "A few quick pointers to help you find your way around. You will see this message only once."
-msgstr ""
-
-#: invenio_config_tugraz/config.py:464
-msgid "Search: Use the dropdown on the homepage to search across all resource types"
-msgstr ""
-
-#: invenio_config_tugraz/config.py:469
-msgid "Research data: Upload and manage research data from the Dashboard"
-msgstr ""
-
-#: invenio_config_tugraz/config.py:476
-msgid "Publications: Upload and manage publications from the Dashboard"
-msgstr ""
-
-#: invenio_config_tugraz/config.py:483
-msgid "Educational resources: Upload and manage educational resources from the Dashboard"
-msgstr ""
-
-#: invenio_config_tugraz/config.py:490
-msgid "Requests & curation: Find requests, open requests and curation activities in the Dashboard"
-msgstr ""
-
-#: invenio_config_tugraz/config.py:482
-msgid "Communities: Browse existing communities or create a new one from the Communities menu"
-msgstr ""
-
-#: invenio_config_tugraz/config.py:486
-msgid "Help: Find the user manual, supported file formats and contact information under Help"
-msgstr ""
-
-#: invenio_config_tugraz/config.py:490
-msgid "Please acknowledge this message to continue."
-msgstr ""
-
-#: invenio_config_tugraz/config.py:492
-msgid "Search: Use the dropdown on the homepage to search research results"
-msgstr ""
-
-#: invenio_config_tugraz/config.py:493
-msgid "Communities: Browse existing communities from the Communities menu"
-msgstr ""
-
-#: invenio_config_tugraz/config.py:494
-msgid "Help: Find help and guides under Help"
-msgstr ""
-
-#: invenio_config_tugraz/config.py:496
-msgid "Log in: Sign in to upload and to see publications, educational resources and your dashboard"
-msgstr ""
-
-#: invenio_config_tugraz/config.py:504
-msgid "Acknowledged"
 msgstr ""
 
