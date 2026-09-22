@@ -9,6 +9,10 @@
 Changes
 =======
 
+Version v0.14.6 (released 2026-09-22)
+
+- fix(CHANGES): syntax problem with _
+
 Version v0.14.5 (released 2026-09-22)
 
 - fix(translation): mark strings as translatable
