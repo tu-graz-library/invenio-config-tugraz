@@ -29,13 +29,12 @@ Version v0.14.5 (released 2026-09-22)
 - feat: set search nav templates for marc21, lom and global search
 - feat: disable user self-registration
 - feat: add OER not-licensed page template override
-- feat: add LOM guard fix, OVERRIDE_INSTANCE_TYPE and extended prefix list2
 - fix: add type hints to decorators and include JS assets
 - chore: apply black, djlint and prettier formatting
 - feat: add unlock flow template and authentication helpers
 - fix: apply TUG config after all modules load via finalize app
 - feat: add administration, curations and search config defaults
-- feat: add OVERRIDE_ theme config defaults
+- feat: add OVERRIDE theme config defaults
 
 Version v0.14.4 (released 2026-06-12)
 
