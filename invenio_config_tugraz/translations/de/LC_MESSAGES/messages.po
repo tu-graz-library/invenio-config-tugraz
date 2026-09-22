@@ -81,75 +81,61 @@ msgstr "Mit freundlichen Grüßen,"
 msgid "TU Graz Repository Team"
 msgstr "TU Graz Repository Team"
 
-#: invenio_config_tugraz/config.py:453
-msgid "Welcome to the updated interface"
-msgstr "Willkommen in der aktualisierten Oberfläche"
+#: invenio_config_tugraz/config.py:457
+msgid "Welcome to our updated user interface"
+msgstr "Willkommen in unserer aktualisierten Benutzeroberfläche"
 
-#: invenio_config_tugraz/config.py:455
-msgid "A few quick pointers so you know where things are now. This shows only once."
-msgstr ""
-"Ein paar kurze Hinweise, damit Sie sich zurechtfinden. Wird nur einmal "
-"angezeigt."
+#: invenio_config_tugraz/config.py:459
+msgid "A few quick pointers to help you find your way around. You will see this message only once."
+msgstr "Ein paar kurze Hinweise, damit Sie sich zurechtfinden. Diese Meldung wird nur einmal angezeigt."
 
-#: invenio_config_tugraz/config.py:460
-msgid "Search across all resource types with the dropdown on the homepage."
-msgstr ""
-"Über das Dropdown auf der Startseite durchsuchen Sie alle Ressourcentypen."
+#: invenio_config_tugraz/config.py:464
+msgid "Search: Use the dropdown on the homepage to search across all resource types"
+msgstr "Suche: Verwenden Sie das Dropdown-Menü auf der Startseite, um alle Ressourcentypen zu durchsuchen"
 
-#: invenio_config_tugraz/config.py:463
-msgid "Upload research data from Dashboard."
-msgstr "Forschungsdaten laden Sie über das Dashboard hoch."
-
-#: invenio_config_tugraz/config.py:467
-msgid "Upload publications from Dashboard."
-msgstr "Publikationen laden Sie über das Dashboard hoch."
-
-#: invenio_config_tugraz/config.py:471
-msgid "Upload educational resources from Dashboard."
-msgstr "Bildungsressourcen laden Sie über das Dashboard hoch."
+#: invenio_config_tugraz/config.py:469
+msgid "Research data: Upload and manage research data from the Dashboard"
+msgstr "Forschungsdaten: Laden Sie Forschungsdaten über das Dashboard hoch und verwalten Sie sie"
 
 #: invenio_config_tugraz/config.py:476
-msgid "Requests, open requests and curation are under Dashboard too."
-msgstr ""
-"Anfragen, offene Anfragen und Kuratierung finden Sie ebenfalls unter "
-"„Dashboard“."
+msgid "Publications: Upload and manage publications from the Dashboard"
+msgstr "Publikationen: Laden Sie Publikationen über das Dashboard hoch und verwalten Sie sie"
 
-#: invenio_config_tugraz/config.py:480
-msgid "Browse or create communities in the Communities menu."
-msgstr "Communities durchsuchen oder erstellen Sie im Menü „Communities“."
+#: invenio_config_tugraz/config.py:483
+msgid "Educational resources: Upload and manage educational resources from the Dashboard"
+msgstr "Bildungsressourcen: Laden Sie Bildungsressourcen über das Dashboard hoch und verwalten Sie sie"
 
-#: invenio_config_tugraz/config.py:481
-msgid "The manual, file formats and contact are under Help."
-msgstr "Handbuch, Dateiformate und Kontakt finden Sie unter „Hilfe“."
+#: invenio_config_tugraz/config.py:490
+msgid "Requests & curation: Find requests, open requests and curation activities in the Dashboard"
+msgstr "Anfragen & Kuratierung: Anfragen, offene Anfragen und Kuratierungsaktivitäten finden Sie im Dashboard"
 
-#: invenio_config_tugraz/config.py:487
-msgid "Welcome to the Repository"
-msgstr "Willkommen im Repository"
+#: invenio_config_tugraz/config.py:482
+msgid "Communities: Browse existing communities or create a new one from the Communities menu"
+msgstr "Communities: Durchsuchen Sie bestehende Communities oder erstellen Sie eine neue über das Menü „Communities“"
 
-#: invenio_config_tugraz/config.py:489
-msgid "A few things you can do here. Log in for the rest. This shows only once."
-msgstr ""
-"Ein paar Dinge, die Sie hier tun können. Für alles Weitere melden Sie sich "
-"an. Wird nur einmal angezeigt."
+#: invenio_config_tugraz/config.py:486
+msgid "Help: Find the user manual, supported file formats and contact information under Help"
+msgstr "Hilfe: Benutzerhandbuch, unterstützte Dateiformate und Kontaktinformationen finden Sie unter „Hilfe“"
 
-#: invenio_config_tugraz/config.py:492
-msgid "Search research results with the dropdown on the homepage."
-msgstr ""
-"Über das Dropdown auf der Startseite durchsuchen Sie Forschungsergebnisse."
+#: invenio_config_tugraz/config.py:490
+msgid "Please acknowledge this message to continue."
+msgstr "Bitte bestätigen Sie diese Meldung, um fortzufahren."
 
-#: invenio_config_tugraz/config.py:493
-msgid "Browse communities in the Communities menu."
-msgstr "Communities durchsuchen Sie im Menü „Communities“."
+#: invenio_config_tugraz/config.py:514
+msgid "Search: Use the dropdown on the homepage to search research results"
+msgstr "Suche: Verwenden Sie das Dropdown-Menü auf der Startseite, um Forschungsergebnisse zu durchsuchen"
 
-#: invenio_config_tugraz/config.py:494
-msgid "Find help and guides under Help."
-msgstr "Hilfe und Anleitungen finden Sie unter „Hilfe“."
+#: invenio_config_tugraz/config.py:518
+msgid "Communities: Browse existing communities from the Communities menu"
+msgstr "Communities: Durchsuchen Sie bestehende Communities über das Menü „Communities“"
 
-#: invenio_config_tugraz/config.py:496
-msgid "Log in to upload and to see publications, educational resources and your dashboard."
-msgstr ""
-"Melden Sie sich an, um hochzuladen und Publikationen, Bildungsressourcen und "
-"Ihr Dashboard zu sehen."
+#: invenio_config_tugraz/config.py:522
+msgid "Help: Find help and guides under Help"
+msgstr "Hilfe: Hilfe und Anleitungen finden Sie unter „Hilfe“"
+
+#: invenio_config_tugraz/config.py:523
+msgid "Log in: Sign in to upload and to see publications, educational resources and your dashboard"
+msgstr "Anmelden: Melden Sie sich an, um hochzuladen und Publikationen, Bildungsressourcen und Ihr Dashboard zu sehen"
 
 #: invenio_config_tugraz/config.py:504
 msgid "Acknowledged"

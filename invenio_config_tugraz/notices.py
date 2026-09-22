@@ -76,6 +76,8 @@ def pending_notices() -> list[dict]:
                 "title": str(notice["title"]),
                 "intro": str(notice["intro"]),
                 "items": visible_items(notice, roles),
+                "outro": str(notice["outro"]) if notice.get("outro") else "",
+                "accent": bool(notice.get("accent")),
             },
         )
     return notices

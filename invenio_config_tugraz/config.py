@@ -454,53 +454,79 @@ CONFIG_TUGRAZ_NOTICES = [
     {
         "key": "onboarding-2026",
         "show_to": "users",
-        "title": lazy_gettext("Welcome to the updated interface"),
+        "accent": True,
+        "title": lazy_gettext("Welcome to our updated user interface"),
         "intro": lazy_gettext(
-            "A few quick pointers so you know where things are now. "
-            "This shows only once.",
+            "A few quick pointers to help you find your way around. "
+            "You will see this message only once.",
         ),
         "items": [
             lazy_gettext(
-                "Search across all resource types with the dropdown on the homepage.",
+                "Search: Use the dropdown on the homepage to search across all "
+                "resource types",
             ),
             {
-                "text": lazy_gettext("Upload research data from Dashboard."),
+                "text": lazy_gettext(
+                    "Research data: Upload and manage research data from the "
+                    "Dashboard",
+                ),
                 "roles": ["tugraz_authenticated"],
             },
             {
-                "text": lazy_gettext("Upload publications from Dashboard."),
+                "text": lazy_gettext(
+                    "Publications: Upload and manage publications from the "
+                    "Dashboard",
+                ),
                 "visible": can_publish,
             },
             {
-                "text": lazy_gettext("Upload educational resources from Dashboard."),
+                "text": lazy_gettext(
+                    "Educational resources: Upload and manage educational "
+                    "resources from the Dashboard",
+                ),
                 "visible": can_handle_oer,
             },
             {
                 "text": lazy_gettext(
-                    "Requests, open requests and curation are under Dashboard too.",
+                    "Requests & curation: Find requests, open requests and "
+                    "curation activities in the Dashboard",
                 ),
                 "roles": ["tugraz_authenticated"],
             },
-            lazy_gettext("Browse or create communities in the Communities menu."),
-            lazy_gettext("The manual, file formats and contact are under Help."),
+            lazy_gettext(
+                "Communities: Browse existing communities or create a new one "
+                "from the Communities menu",
+            ),
+            lazy_gettext(
+                "Help: Find the user manual, supported file formats and contact "
+                "information under Help",
+            ),
         ],
+        "outro": lazy_gettext("Please acknowledge this message to continue."),
     },
     {
         "key": "guest-2026",
         "show_to": "guests",
-        "title": lazy_gettext("Welcome to the Repository"),
+        "title": lazy_gettext("Welcome to our updated user interface"),
         "intro": lazy_gettext(
-            "A few things you can do here. Log in for the rest. This shows only once.",
+            "A few quick pointers to help you find your way around. "
+            "You will see this message only once.",
         ),
         "items": [
-            lazy_gettext("Search research results with the dropdown on the homepage."),
-            lazy_gettext("Browse communities in the Communities menu."),
-            lazy_gettext("Find help and guides under Help."),
             lazy_gettext(
-                "Log in to upload and to see publications, educational resources "
-                "and your dashboard.",
+                "Search: Use the dropdown on the homepage to search research "
+                "results",
+            ),
+            lazy_gettext(
+                "Communities: Browse existing communities from the Communities menu",
+            ),
+            lazy_gettext("Help: Find help and guides under Help"),
+            lazy_gettext(
+                "Log in: Sign in to upload and to see publications, educational "
+                "resources and your dashboard",
             ),
         ],
+        "outro": lazy_gettext("Please acknowledge this message to continue."),
     },
 ]
 """Notices shown once per user (logged in) or per browser (anonymous)."""

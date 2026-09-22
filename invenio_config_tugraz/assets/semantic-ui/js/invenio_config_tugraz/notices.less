@@ -8,6 +8,7 @@
   padding: 1.5rem 1.5rem 1.25rem;
   background: #ffffff;
   border: 1px solid rgba(34, 36, 38, 0.08);
+  border-left: 4px solid #048622;
   border-radius: 8px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
 
@@ -44,6 +45,20 @@
     height: 6px;
     border-radius: 50%;
     background: #048622;
+  }
+}
+
+/* logged-in notice: mark it as additional info, distinct from the guest card */
+.notice--accent {
+  border-left: 4px solid #2185d0;
+  background: #eef6fc;
+
+  li::before {
+    background: #2185d0;
+  }
+
+  .notice-dismiss {
+    background: #2185d0;
   }
 }
 
