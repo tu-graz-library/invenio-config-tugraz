@@ -36,7 +36,10 @@ function Notices({ notices, ackLabel, onAcknowledge }) {
   return (
     <>
       {notices.map((notice) => (
-        <div key={notice.key} className="notice">
+        <div
+          key={notice.key}
+          className={notice.accent ? "notice notice--accent" : "notice"}
+        >
           <button
             type="button"
             className="notice-close"
@@ -52,6 +55,7 @@ function Notices({ notices, ackLabel, onAcknowledge }) {
               <li key={i}>{item}</li>
             ))}
           </ul>
+          {notice.outro && <p className="notice-outro">{notice.outro}</p>}
           <button
             type="button"
             className="notice-dismiss"
