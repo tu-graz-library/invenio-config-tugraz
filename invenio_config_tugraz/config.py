@@ -16,8 +16,8 @@ from invenio_app_rdm.config import (
     STATS_QUERIES,
 )
 from invenio_global_search.oai import OAIGlobalSearch
-from invenio_i18n import gettext as _
-from invenio_i18n import lazy_gettext
+from invenio_i18n import gettext
+from invenio_i18n import lazy_gettext as _
 from invenio_records_lom.config import (
     LOM_STATS_AGGREGATIONS,
     LOM_STATS_CELERY_TASKS,
@@ -110,14 +110,14 @@ APP_DEFAULT_SECURE_HEADERS = {
 
 BABEL_DEFAULT_LOCALE = "en"
 BABEL_DEFAULT_TIMEZONE = "Europe/Vienna"
-I18N_LANGUAGES = [("de", _("German"))]
+I18N_LANGUAGES = [("de", gettext("German"))]
 
 # Invenio-Mail
 # ============
 # See https://invenio-mail.readthedocs.io/en/latest/configuration.html
 
 SECURITY_EMAIL_SENDER = "info@invenio-test.tugraz.at"
-SECURITY_EMAIL_SUBJECT_REGISTER = _("Welcome to TU Graz Repository!")
+SECURITY_EMAIL_SUBJECT_REGISTER = gettext("Welcome to TU Graz Repository!")
 
 # Invenio-Userprofiles
 # ====================
@@ -226,74 +226,72 @@ OVERRIDE_FOOTER_FG_COLOR = "#ffffff"
 OVERRIDE_FOOTER_LINKS = {
     "Repository": [
         {
-            "label": "Documentation",
+            "label": _("Documentation"),
             "url": "https://tu-graz-library.github.io/docs-repository",
             "external": True,
         },
-        {"label": "Manual", "url": "/manual", "external": True},
-        {"label": "Search Guide", "url": "/help/search"},
-        {"label": "Data Protection", "url": "/gdpr", "external": True},
-        {"label": "Terms and Conditions", "url": "/terms", "external": True},
-        {"label": "Accessibility Statement", "url": "/accessibility", "external": True},
+        {"label": _("Manual"), "url": "/manual", "external": True},
+        {"label": _("Search Guide"), "url": "/help/search"},
+        {"label": _("Data Protection"), "url": "/gdpr", "external": True},
+        {"label": _("Terms and Conditions"), "url": "/terms", "external": True},
         {
-            "label": "List of preferred file formats",
+            "label": _("Accessibility Statement"),
+            "url": "/accessibility",
+            "external": True,
+        },
+        {
+            "label": _("List of preferred file formats"),
             "url": "/file-formats",
             "external": True,
         },
-        {"label": "Curation Workflow", "url": "/curations", "external": True},
+        {"label": _("Curation Workflow"), "url": "/curations", "external": True},
     ],
     "Features": [
-        {"label": "Scalability"},
-        {"label": "Institutional integration"},
-        {"label": "Next Generation Repository"},
-        {"label": "Repository Profiles"},
-        {"label": "Resilient"},
+        {"label": _("Scalability")},
+        {"label": _("Institutional integration")},
+        {"label": _("Next Generation Repository")},
+        {"label": _("Repository Profiles")},
+        {"label": _("Resilient")},
     ],
     "Connected Services": [
-        {"label": "PURE", "url": "https://pure.tugraz.at", "external": True},
+        {"label": _("PURE"), "url": "https://pure.tugraz.at", "external": True},
         {
-            "label": "CampusOnline",
+            "label": _("CampusOnline"),
             "url": "http://campusonline.tugraz.at",
             "external": True,
         },
         {
-            "label": "Research Data Management",
+            "label": _("Research Data Management"),
             "url": "https://rdm.tugraz.at",
             "external": True,
         },
     ],
     "Accessibility": [
-        {"label": "Tipp:"},
-        {"label": "Use Ctrl + and Ctrl -"},
-        {"label": "to change the font size."},
+        {"label": _("Tipp:")},
+        {"label": _("Use Ctrl + and Ctrl -")},
+        {"label": _("to change the font size.")},
     ],
 }
 OVERRIDE_FOOTER_LOGO_FILTER = "brightness(0) invert(1)"
-OVERRIDE_FRONTPAGE_FEATURES = [
-    {"icon": "check circle", "text": "FAIR Data"},
-    {"icon": "quote left", "text": "Citable with DOI"},
-    {"icon": "lock open", "text": "Open Access"},
-    {"icon": "shield alternate", "text": "Long-term Preservation"},
-]
 OVERRIDE_FRONTPAGE_RIGHT = False
 OVERRIDE_FRONTPAGE_SHOW_RECENT_UPLOADS = True
-OVERRIDE_FRONTPAGE_SUBTITLE = (
-    "Publish and share your research data — citable, visible, and FAIR."
+OVERRIDE_FRONTPAGE_SUBTITLE = _(
+    "Publish and share your research data — citable, visible, and FAIR.",
 )
-OVERRIDE_HEADER_CLAIM_WORDS = ["SCIENCE", "TECHNOLOGY", "PASSION"]
+OVERRIDE_HEADER_CLAIM_WORDS = [_("SCIENCE"), _("TECHNOLOGY"), _("PASSION")]
 OVERRIDE_HEADER_LOGO_LEFT = "images/library_logo.png"
 OVERRIDE_HEADER_LOGO_LINK = "https://www.tugraz.at"
 OVERRIDE_HEADER_LOGO_SVG = "images/tu_graz_logo.svg"
-OVERRIDE_HEADER_TEXT_LINE1 = "TU GRAZ"
-OVERRIDE_HEADER_TEXT_LINE2 = "REPOSITORY"
-OVERRIDE_HEADER_TEXT_LINE3 = "LIBRARY & ARCHIVES"
+OVERRIDE_HEADER_TEXT_LINE1 = _("TU GRAZ")
+OVERRIDE_HEADER_TEXT_LINE2 = _("REPOSITORY")
+OVERRIDE_HEADER_TEXT_LINE3 = _("LIBRARY & ARCHIVES")
 OVERRIDE_ICON = "images/icon_use.png"
 OVERRIDE_LOGIN_OAUTH_PROVIDERS = ["keycloak"]
 OVERRIDE_LOGO = "images/TUG.png"
 OVERRIDE_INSTANCE_TYPE = "production"
 OVERRIDE_PRODUCTION = True
 OVERRIDE_REASONS_BG = None
-OVERRIDE_REASONS_PARTNER = "TU Graz & CERN"
+OVERRIDE_REASONS_PARTNER = _("TU Graz & CERN")
 OVERRIDE_RESOURCE_OVERVIEW = False
 OVERRIDE_SHIBBOLETH = False
 OVERRIDE_SHOW_CONTACT = True
@@ -303,8 +301,8 @@ OVERRIDE_SHOW_PUBLICATIONS_CARD = True
 OVERRIDE_SHOW_PUBLICATIONS_SEARCH = True
 OVERRIDE_SHOW_RDM_SEARCH = True
 THEME_FOOTER_TEMPLATE = "invenio_override/footer.html"
-THEME_FRONTPAGE_TITLE = "TUGraz Repository"
-THEME_SITENAME = "TU Graz Repository"
+THEME_FRONTPAGE_TITLE = _("TUGraz Repository")
+THEME_SITENAME = _("TU Graz Repository")
 
 # Invenio-App-RDM
 # ===============
@@ -326,15 +324,15 @@ USERS_RESOURCES_ADMINISTRATION_ENABLED = True
 GLOBAL_SEARCH_ORIGINAL_SCHEMAS = {
     "lom": {
         "schema": "lom",
-        "name_l10n": _("OER"),
+        "name_l10n": gettext("OER"),
     },
     "rdm": {
         "schema": "rdm",
-        "name_l10n": _("Research Result"),
+        "name_l10n": gettext("Research Result"),
     },
     "marc21": {
         "schema": "marc21",
-        "name_l10n": _("Publication"),
+        "name_l10n": gettext("Publication"),
     },
 }
 GLOBAL_SEARCH_SCHEMAS = {
@@ -455,81 +453,81 @@ CONFIG_TUGRAZ_NOTICES = [
         "key": "onboarding-2026",
         "show_to": "users",
         "accent": True,
-        "title": lazy_gettext("Welcome to our updated user interface"),
-        "intro": lazy_gettext(
+        "title": _("Welcome to our updated user interface"),
+        "intro": _(
             "A few quick pointers to help you find your way around. "
             "You will see this message only once.",
         ),
         "items": [
-            lazy_gettext(
+            _(
                 "Search: Use the dropdown on the homepage to search across all "
                 "resource types",
             ),
             {
-                "text": lazy_gettext(
+                "text": _(
                     "Research data: Upload and manage research data from the "
                     "Dashboard",
                 ),
                 "roles": ["tugraz_authenticated"],
             },
             {
-                "text": lazy_gettext(
+                "text": _(
                     "Publications: Upload and manage publications from the "
                     "Dashboard",
                 ),
                 "visible": can_publish,
             },
             {
-                "text": lazy_gettext(
+                "text": _(
                     "Educational resources: Upload and manage educational "
                     "resources from the Dashboard",
                 ),
                 "visible": can_handle_oer,
             },
             {
-                "text": lazy_gettext(
+                "text": _(
                     "Requests & curation: Find requests, open requests and "
                     "curation activities in the Dashboard",
                 ),
                 "roles": ["tugraz_authenticated"],
             },
-            lazy_gettext(
+            _(
                 "Communities: Browse existing communities or create a new one "
                 "from the Communities menu",
             ),
-            lazy_gettext(
+            _(
                 "Help: Find the user manual, supported file formats and contact "
                 "information under Help",
             ),
         ],
-        "outro": lazy_gettext("Please acknowledge this message to continue."),
+        "outro": _("Please acknowledge this message to continue."),
     },
     {
         "key": "guest-2026",
         "show_to": "guests",
-        "title": lazy_gettext("Welcome to our updated user interface"),
-        "intro": lazy_gettext(
+        "title": _("Welcome to our updated user interface"),
+        "intro": _(
             "A few quick pointers to help you find your way around. "
             "You will see this message only once.",
         ),
         "items": [
-            lazy_gettext(
+            _(
                 "Search: Use the dropdown on the homepage to search research "
                 "results",
             ),
-            lazy_gettext(
+            _(
                 "Communities: Browse existing communities from the Communities menu",
             ),
-            lazy_gettext("Help: Find help and guides under Help"),
-            lazy_gettext(
+            _("Help: Find help and guides under Help"),
+            _(
                 "Log in: Sign in to upload and to see publications, educational "
                 "resources and your dashboard",
             ),
         ],
-        "outro": lazy_gettext("Please acknowledge this message to continue."),
+        "outro": _("Please acknowledge this message to continue."),
     },
 ]
 """Notices shown once per user (logged in) or per browser (anonymous)."""
 
-CONFIG_TUGRAZ_NOTICES_ACK_LABEL = lazy_gettext("Acknowledged")
+CONFIG_TUGRAZ_NOTICES_ACK_LABEL = _("Acknowledged")
 """Label for the notice dismiss button."""
