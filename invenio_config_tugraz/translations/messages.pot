@@ -134,11 +134,7 @@ msgstr ""
 msgid "TU Graz & CERN"
 msgstr ""
 
-#: invenio_config_tugraz/config.py:304
-msgid "TUGraz Repository"
-msgstr ""
-
-#: invenio_config_tugraz/config.py:305
+#: invenio_config_tugraz/config.py:304 invenio_config_tugraz/config.py:305
 msgid "TU Graz Repository"
 msgstr ""
 
