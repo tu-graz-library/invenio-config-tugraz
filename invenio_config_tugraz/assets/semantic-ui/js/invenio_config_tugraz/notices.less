@@ -11,6 +11,9 @@
   border-left: 4px solid #048622;
   border-radius: 8px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+  max-height: calc(100vh - 2rem);
+  display: flex;
+  flex-direction: column;
 
   h2 {
     margin: 0 0 0.35rem;
@@ -27,6 +30,8 @@
     list-style: none;
     margin: 0 0 1.25rem;
     padding: 0;
+    overflow-y: auto;
+    min-height: 0;
   }
 
   li {
@@ -93,4 +98,14 @@
 
 .notice-dismiss:hover {
   filter: brightness(0.94);
+}
+
+@media screen and (max-width: 480px) {
+  .notice {
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    width: auto;
+    max-width: none;
+  }
 }

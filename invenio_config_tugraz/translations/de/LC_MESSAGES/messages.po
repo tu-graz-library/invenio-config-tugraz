@@ -139,11 +139,7 @@ msgstr "Bibliothek und Archiv"
 msgid "TU Graz & CERN"
 msgstr "TU Graz & CERN"
 
-#: invenio_config_tugraz/config.py:304
-msgid "TUGraz Repository"
-msgstr "TUGraz Repository"
-
-#: invenio_config_tugraz/config.py:305
+#: invenio_config_tugraz/config.py:304 invenio_config_tugraz/config.py:305
 msgid "TU Graz Repository"
 msgstr "TU Graz Repository"
 
