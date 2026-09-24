@@ -9,6 +9,11 @@
 Changes
 =======
 
+Version v0.14.7 (released 2026-09-24)
+
+- fix(notices): make the notice card responsive
+- fix(config): add space to frontpage title
+
 Version v0.14.6 (released 2026-09-22)
 
 - fix(CHANGES): syntax problem with _
