@@ -211,6 +211,8 @@ CURATIONS_PRIVILEGED_ROLES = ["administration", "bypass-curation"]
 OVERRIDE_AUTHENTICATED_ROLE = "tugraz_authenticated"
 OVERRIDE_CONTACT_FORM = True
 OVERRIDE_CONTACT_FORM_BUNDLE = "invenio-config-tugraz-contact.js"
+
+OVERRIDE_SHOW_RIGHT_CONTACT_EMAIL = False
 OVERRIDE_DOC_REDIRECTS = {
     "/manual": "https://doi.org/10.3217/dgpcz-td505",
     "/terms": "https://doi.org/10.3217/k3dsw-rv326",

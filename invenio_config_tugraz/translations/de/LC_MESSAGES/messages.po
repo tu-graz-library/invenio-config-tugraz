@@ -441,6 +441,10 @@ msgstr "Mit freundlichen Grüßen,"
 msgid "TU Graz Repository Team"
 msgstr "TU Graz Repository Team"
 
+# Keep "Administration" instead of core's "Verwaltung".
+msgid "Administration"
+msgstr "Administration"
+
 #~ msgid "Welcome to the updated interface"
 #~ msgstr "Willkommen in der aktualisierten Oberfläche"
 
