@@ -9,6 +9,10 @@
 Changes
 =======
 
+Version v0.14.8 (released 2026-09-24)
+
+- fix(config): German admin label, Zammad-only contact
+
 Version v0.14.7 (released 2026-09-24)
 
 - fix(notices): make the notice card responsive
