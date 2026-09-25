@@ -26,5 +26,11 @@ function importZammadScript() {
         "Thank you for your message, (#%s). We will get back to you as quickly as possible!",
       modal: true,
     });
+
+    // The button sits inside the Semantic UI "Need help?" modal (#contact-modal);
+    // hide it when opening the Zammad form so its dimmer does not grey the form.
+    $("#feedback-form").on("click", () => {
+      $("#contact-modal").modal("hide");
+    });
   });
 }
