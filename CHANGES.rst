@@ -9,6 +9,10 @@
 Changes
 =======
 
+Version v0.14.9 (released 2026-09-28)
+
+- fix(contact): close the help modal when opening the form
+
 Version v0.14.8 (released 2026-09-24)
 
 - fix(config): German admin label, Zammad-only contact
