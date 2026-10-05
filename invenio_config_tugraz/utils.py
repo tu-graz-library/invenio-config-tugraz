@@ -113,6 +113,41 @@ def tugraz_setup_handler(remote, token, resp) -> None:  # noqa: ANN001
     return setup_handler(remote, token, resp)
 
 
+def _update_oauth_info_username(user_info_tugraz: dict, token_user_info: dict) -> None:
+    username_attr = current_app.config.get("CONFIG_TUGRAZ_OAUTH_USERNAME_ATTRIBUTE")
+
+    set_username = user_info_tugraz["user"]["profile"]["username"]
+    if username_attr:
+        set_username = token_user_info.get(username_attr)
+
+        if not set_username:
+            msg = f"{username_attr} attribute not present in Keycloak token"
+            raise ValueError(msg)
+
+    username_prefix = current_app.config.get("CONFIG_TUGRAZ_OAUTH_USERNAME_PREFIX")
+    user_info_tugraz["user"]["profile"]["username"] = (
+        f"{username_prefix}-{set_username}" if username_prefix else set_username
+    )
+
+
+def _update_oauth_info_external_id(
+    user_info_tugraz: dict,
+    token_user_info: dict,
+) -> None:
+    external_id_attr = current_app.config.get(
+        "CONFIG_TUGRAZ_OAUTH_EXTERNAL_ID_ATTRIBUTE",
+    )
+    if not external_id_attr:
+        return
+
+    token_value_externalid = token_user_info.get(external_id_attr)
+    if not token_value_externalid:
+        msg = f"{external_id_attr} attribute not present in Keycloak token"
+        raise ValueError(msg)
+
+    user_info_tugraz["external_id"] = token_value_externalid
+
+
 def tugraz_info_serializer(
     remote,  # noqa: ANN001
     resp,  # noqa: ANN001
@@ -124,7 +159,7 @@ def tugraz_info_serializer(
     Override the core OAuth serializer to support configuring user information fields
     different than the default implementation.
 
-    For now, 2 fields are of interest: username & external_id.
+    For now, 2 fields are of interest: username, external_id.
 
     To use this override, modify invenio.cfg:
     .. code-block:: python
@@ -140,34 +175,12 @@ def tugraz_info_serializer(
             CONFIG_TUGRAZ_OAUTH_USERNAME_ATTRIBUTE = "sub"
             CONFIG_TUGRAZ_OAUTH_EXTERNAL_ID_ATTRIBUTE = "sub"
     """
-    username_attr = current_app.config.get("CONFIG_TUGRAZ_OAUTH_USERNAME_ATTRIBUTE")
-    if not username_attr:
-        return info_serializer_handler(remote, resp, token_user_info, user_info)
-
     user_info_tugraz = info_serializer_handler(remote, resp, token_user_info, user_info)
-    token_value_username = token_user_info.get(username_attr)
+    oauth_info_updaters = {
+        _update_oauth_info_username,
+        _update_oauth_info_external_id,
+    }
+    for func in oauth_info_updaters:
+        func(user_info_tugraz, token_user_info)
 
-    if not token_value_username:
-        msg = f"{username_attr} not present in Keycloak token"
-        raise ValueError(msg)
-
-    username_prefix = current_app.config.get("CONFIG_TUGRAZ_OAUTH_USERNAME_PREFIX")
-    user_info_tugraz["user"]["profile"]["username"] = (
-        f"{username_prefix}-{token_value_username}"
-        if username_prefix
-        else token_value_username
-    )
-
-    external_id_attr = current_app.config.get(
-        "CONFIG_TUGRAZ_OAUTH_EXTERNAL_ID_ATTRIBUTE",
-    )
-    if not external_id_attr:
-        return user_info_tugraz
-
-    token_value_externalid = token_user_info.get(external_id_attr)
-    if not token_value_externalid:
-        msg = f"{external_id_attr} not present in Keycloak token"
-        raise ValueError(msg)
-
-    user_info_tugraz["external_id"] = token_value_externalid
     return user_info_tugraz
