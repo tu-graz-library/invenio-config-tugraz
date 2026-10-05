@@ -395,6 +395,12 @@ STATS_QUERIES.update(MARC21_STATS_QUERIES)
 CONFIG_TUGRAZ_OAUTH_USERNAME_ATTRIBUTE = ""
 """Set this config to choose a custom attribute from the OAuth provider token for the username."""
 
+CONFIG_TUGRAZ_OAUTH_FULLNAME_ATTRIBUTE = None
+"""Set this config to choose custom attribute(s) from the OAuth provider token for the full name.
+
+Can be a list of attributes (strings) or a single string.
+"""
+
 CONFIG_TUGRAZ_OAUTH_EXTERNAL_ID_ATTRIBUTE = ""
 """Set this config to choose a custom attribute from the OAuth provider token for the external id."""
 
