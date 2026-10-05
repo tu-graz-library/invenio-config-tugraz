@@ -130,6 +130,33 @@ def _update_oauth_info_username(user_info_tugraz: dict, token_user_info: dict) -
     )
 
 
+def _update_oauth_info_fullname(user_info_tugraz: dict, token_user_info: dict) -> None:
+    """Update user full name based on the token attributes.
+
+    Combine the fullname based on separate existing attributes or directly
+    set the name based on one attribute.
+    """
+    fullname_attribute = current_app.config.get(
+        "CONFIG_TUGRAZ_OAUTH_FULLNAME_ATTRIBUTE",
+    )
+    if not fullname_attribute:
+        return
+
+    token_value_fullname = ""
+    if isinstance(fullname_attribute, list):
+        token_value_fullname = " ".join(
+            [token_user_info.get(attr, "") for attr in fullname_attribute],
+        )
+    elif isinstance(fullname_attribute, str):
+        token_value_fullname = token_user_info.get(fullname_attribute)
+
+    if not token_value_fullname.strip():
+        msg = f"{fullname_attribute} attribute not present in Keycloak token"
+        raise ValueError(msg)
+
+    user_info_tugraz["user"]["profile"]["full_name"] = token_value_fullname
+
+
 def _update_oauth_info_external_id(
     user_info_tugraz: dict,
     token_user_info: dict,
@@ -178,6 +205,7 @@ def tugraz_info_serializer(
     user_info_tugraz = info_serializer_handler(remote, resp, token_user_info, user_info)
     oauth_info_updaters = {
         _update_oauth_info_username,
+        _update_oauth_info_fullname,
         _update_oauth_info_external_id,
     }
     for func in oauth_info_updaters:
