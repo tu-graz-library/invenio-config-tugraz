@@ -9,6 +9,11 @@
 Changes
 =======
 
+Version v0.14.10 (released 2026-10-06)
+
+- feat(oauth): custom fullname info handler
+- refactor(oauth): extract user_info modifying methods
+
 Version v0.14.9 (released 2026-09-28)
 
 - fix(contact): close the help modal when opening the form
