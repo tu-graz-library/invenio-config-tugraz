@@ -9,15 +9,19 @@
 """Utils file."""
 
 import warnings
+from typing import Any
 
 from flask import current_app
 from flask_principal import Identity
 from invenio_access import any_user
 from invenio_access.utils import get_identity
 from invenio_accounts import current_accounts
+from invenio_files_rest.storage import pyfs_storage_factory, PyFSFileStorage
 from invenio_oauthclient.contrib.keycloak import setup_handler
 from invenio_oauthclient.contrib.keycloak.handlers import info_serializer_handler
 from invenio_oauthclient.contrib.keycloak.helpers import get_user_info
+
+from invenio_config_tugraz.storage import TUGrazStorage
 
 
 def get_identity_from_user_by_email(email: str | None = None) -> Identity:
@@ -212,3 +216,8 @@ def tugraz_info_serializer(
         func(user_info_tugraz, token_user_info)
 
     return user_info_tugraz
+
+
+def storage_factory(**kwargs: Any) -> PyFSFileStorage:  # noqa: ANN401
+    """Return the needed storage factory."""
+    return pyfs_storage_factory(filestorage_class=TUGrazStorage, **kwargs)

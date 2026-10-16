@@ -41,6 +41,7 @@ from .permissions import (
 )
 from .requests import TUGRAZ_REQUESTS_REGISTERED_EVENT_TYPES
 from .requests.events import TUGRAZ_REQUESTS_EVENTS_SERVICE_COMPONENTS
+from .utils import storage_factory
 
 # Config-Tugraz
 # =============
@@ -539,3 +540,13 @@ CONFIG_TUGRAZ_NOTICES = [
 
 CONFIG_TUGRAZ_NOTICES_ACK_LABEL = _("Acknowledged")
 """Label for the notice dismiss button."""
+
+FILES_REST_XSENDFILE_ENABLED = True
+"""Files download method toggle.
+
+Turn on to have the record files be directly served by the nginx. Off means
+the downloads will be processed by flask first.
+"""
+
+FILES_REST_STORAGE_FACTORY = storage_factory
+"""Set the storage factory implementation."""
