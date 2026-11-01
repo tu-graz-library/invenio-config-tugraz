@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2024 Graz University of Technology.
+# Copyright (C) 2024-2026 Graz University of Technology.
 #
 # invenio-config-tugraz is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
@@ -8,144 +8,177 @@
 
 """Tests for permissions-policy."""
 
-from collections.abc import Iterable
+from types import SimpleNamespace
+from unittest.mock import MagicMock
 
-from invenio_communities.permissions import CommunityPermissionPolicy
-from invenio_rdm_records.services.permissions import RDMRecordPermissionPolicy
-from invenio_records_permissions.policies import BasePermissionPolicy
+import pytest
+from flask import Flask
+from flask_principal import AnonymousIdentity, Identity
+from invenio_curations.services.generators import (
+    CurationModerators,
+    IfCurationRecordBasedExists,
+)
+from invenio_pidstore.models import PersistentIdentifier
 
+import invenio_config_tugraz.permissions.generators as generators_mod
 from invenio_config_tugraz.permissions.policies import (
     TUGrazCommunityPermissionPolicy,
     TUGrazRDMRecordPermissionPolicy,
 )
 
-ALLOWED_DIFFERENCES_COMMUNITY = {
-    "can_create",
-    "can_request_membership",
-    "can_submit_record",
-}
 
-ALLOWED_DIFFERENCES_RDM = {
-    "can_authenticated",
-    "can_create",
-    "can_search",
-    "can_preview",
-    "can_view",
-    "can_all",
-    "can_read_draft",
-    "can_draft_read_files",
-    "can_search_drafts",
-    "can_tugraz_authenticated",
-}
+class MockRecord(dict):
+    """Mock record behaving as a dict while providing Invenio attribute access."""
 
+    def __init__(self, custom_fields: dict | None = None) -> None:
+        """Construct."""
+        super().__init__(custom_fields=custom_fields or {})
+        self.parent = MagicMock()
+        self.parent.access.owner.owner_id = 10000
+        self.pid = PersistentIdentifier(
+            pid_type="recid",
+            pid_value="12345",
+        )
+        self.parent.access.grants.needs.return_value = []
+        self.parent.access.links.needs.return_value = []
+        self.parent.communities.ids = []
+        self.access = MagicMock()
 
-def ensure_need_labels_synced(
-    tugraz_policy: type[BasePermissionPolicy],
-    invenio_policy: type[BasePermissionPolicy],
-    allowed_differences: Iterable,
-) -> None:
-    """Ensure given policies' "NEED_LABEL_TO_ACTION" attribute matches."""
-    tugraz_has_need_label = hasattr(tugraz_policy, "NEED_LABEL_TO_ACTION")
-    invenio_has_need_label = hasattr(invenio_policy, "NEED_LABEL_TO_ACTION")
-    if not tugraz_has_need_label and not invenio_has_need_label:
-        # policies are allowed to not have .NEED_LABEL_TO_ACTION
-        # if neither policy has it, the policies are considered synced in that regard
+    def get_review(self) -> None:
+        """Get review."""
         return
 
-    if not tugraz_has_need_label:
-        msg = f"{invenio_policy} has `NEED_LABEL_TO_ACTION`, but {tugraz_policy} hasn't"
-        raise AttributeError(msg)
-    if not invenio_has_need_label:
-        msg = f"{tugraz_policy} has `NEED_LABEL_TO_ACTION`, but {invenio_policy} hasn't"
-        raise AttributeError(msg)
 
-    tugraz_label_to_action = tugraz_policy.NEED_LABEL_TO_ACTION
-    invenio_label_to_action = invenio_policy.NEED_LABEL_TO_ACTION
-
-    for label in tugraz_label_to_action.keys() & invenio_label_to_action.keys():
-        if label in allowed_differences:
-            continue
-
-        if tugraz_label_to_action.get(label) != invenio_label_to_action.get(label):
-            msg = f"""
-            invenio's NEED_LABEL_TO_ACTION differs from TU Graz's in {label}
-            if this is intentional, add to corresponding ALLOWED_DIFFERENCES_... in test-file
-            otherwise fix .NEED_LABEL_TO_ACTION of {tugraz_policy}
-            """
-            raise ValueError(msg)
-
-
-def ensure_policies_synced(
-    tugraz_policy: type[BasePermissionPolicy],
-    invenio_policy: type[BasePermissionPolicy],
-    allowed_differences: Iterable,
+@pytest.mark.parametrize("action", ["create", "search_drafts", "authenticated"])
+def test_tugraz_authentication_actions(  # noqa: PLR0913, PLR0917
+    base_app: Flask,
+    action: str,
+    identity_anon: AnonymousIdentity,
+    identity_generic_authenticated: Identity,
+    identity_tugraz_authenticated: Identity,
+    identity_system: Identity,
 ) -> None:
-    """Ensure given policies match, except for given allowed differences."""
-    allowed_differences = set(allowed_differences)
-
-    tugraz_cans = {
-        name: getattr(tugraz_policy, name)
-        for name in dir(tugraz_policy)
-        if name.startswith("can_")
-    }
-    invenio_cans = {
-        name: getattr(invenio_policy, name)
-        for name in dir(invenio_policy)
-        if name.startswith("can_")
-    }
-
-    # check whether same set of `can_<action>`s are covered by the two policies
-    if extras := set(tugraz_cans) - set(invenio_cans) - allowed_differences:
-        msg = f"""
-        TU Graz's permission-policy has additional fields over invenio's: {sorted(extras)}
-        if this is intentional, add to corresponding ALLOWED_DIFFERENCES_... in test-file
-        otherwise remove extraneous fields from {tugraz_policy}
-        """
-        raise KeyError(msg)
-
-    if missing := set(invenio_cans) - set(tugraz_cans):
-        msg = f"""
-        invenio-rdm's permission-policy has fields unhandled by TU Graz's: {missing}
-        if this is intentional, add to corresponding ALLOWED_DIFFERENCES_... in test-file
-        otherwise set the corresponding fields in {tugraz_policy}
-        """
-        raise KeyError(msg)
-
-    # check whether same permission-generators used for same `can_<action>`
-    for can_name in invenio_cans.keys() & tugraz_cans.keys():
-        if can_name in allowed_differences:
-            continue
-
-        tugraz_can = tugraz_cans[can_name]
-        invenio_can = invenio_cans[can_name]
-
-        # permission-Generators don't implement equality checks for their instances
-        # we can however compare which types (classes) of Generators are used...
-        if {type(gen) for gen in tugraz_can} != {type(gen) for gen in invenio_can}:
-            msg = f"""
-            permission-policy for `{can_name}` differs between TU-Graz and invenio
-            if this is intentional, add to corresponding ALLOWED_DIFFERENCES_... in test-file
-            otherwise fix {tugraz_policy}
-            """
-            raise ValueError(msg)
-
-    # check whether same `NEED_LABEL_TO_ACTION`
-    ensure_need_labels_synced(tugraz_policy, invenio_policy, allowed_differences)
+    """Test tugraz_authenticated policies."""
+    with base_app.app_context():
+        policy = TUGrazRDMRecordPermissionPolicy(action)
+        assert not policy.allows(identity_anon)
+        assert not policy.allows(identity_generic_authenticated)
+        assert policy.allows(identity_tugraz_authenticated)
+        assert policy.allows(identity_system)
 
 
-def test_community_policies_synced() -> None:
-    """Make sure our community permission-policy stays synced with invenio's."""
-    ensure_policies_synced(
-        TUGrazCommunityPermissionPolicy,
-        CommunityPermissionPolicy,
-        ALLOWED_DIFFERENCES_COMMUNITY,
+@pytest.mark.parametrize(
+    ("single_ip", "result"),
+    [("192.168.1.100", False), ("192.168.1.50", True)],
+)
+def test_can_view_and_can_all_ip_restrictions(
+    base_app: Flask,
+    identity_anon: AnonymousIdentity,
+    single_ip: str,
+    result: bool,  # noqa: FBT001
+) -> None:
+    """Test custom network policies."""
+    record_with_single_ip = MockRecord({"single_ip": True})
+    record_with_network_ip = MockRecord({"ip_network": True})
+    record_regular = MockRecord()
+
+    with base_app.test_request_context(environ_base={"REMOTE_ADDR": "192.168.1.50"}):
+        # Configure allowed IPs
+        base_app.config["CONFIG_TUGRAZ_SINGLE_IPS"] = [single_ip]
+        base_app.config["CONFIG_TUGRAZ_IP_NETWORK"] = "10.0.0.0/8"
+        policy_view = TUGrazRDMRecordPermissionPolicy(
+            "view",
+            record=record_with_single_ip,
+        )
+        assert policy_view.allows(identity_anon) is result
+        policy_all = TUGrazRDMRecordPermissionPolicy(
+            "all",
+            record=record_with_network_ip,
+        )
+        assert not policy_all.allows(identity_anon)
+
+        # Regular record without IP custom field is accessible via can_all
+        policy_regular = TUGrazRDMRecordPermissionPolicy(
+            "all",
+            record=record_regular,
+        )
+        assert policy_regular.allows(identity_anon)
+
+
+def test_can_preview_curation_moderator(
+    base_app: Flask,
+    monkeypatch: pytest.MonkeyPatch,
+    identity_anon: AnonymousIdentity,
+    identity_curation_moderator: Identity,
+) -> None:
+    """Test custom curations policies."""
+    role_name = "administration-rdm-records-curation"
+
+    mock_curations_service = MagicMock(
+        moderation_role_name=role_name,
+        get_review=lambda self, identity, topic, **kwargs: None,  # noqa: ARG005
     )
-
-
-def test_rdm_policies_synced() -> None:
-    """Make sure our RDM permission-policy stays synced with invenio's."""
-    ensure_policies_synced(
-        TUGrazRDMRecordPermissionPolicy,
-        RDMRecordPermissionPolicy,
-        ALLOWED_DIFFERENCES_RDM,
+    monkeypatch.setattr(
+        CurationModerators,
+        "_curations_service",
+        mock_curations_service,
     )
+    with base_app.app_context():
+        # Case 1: Curation request exists
+        monkeypatch.setattr(
+            IfCurationRecordBasedExists,
+            "_condition",
+            lambda self, record=None, **kwargs: True,  # noqa: ARG005
+        )
+        policy = TUGrazRDMRecordPermissionPolicy("preview", record=MockRecord())
+        assert policy.allows(identity_curation_moderator)
+        assert not policy.allows(identity_anon)
+
+        # Case 2: No curation request exists
+        monkeypatch.setattr(
+            IfCurationRecordBasedExists,
+            "_condition",
+            lambda self, record=None, **kwargs: False,  # noqa: ARG005
+        )
+        policy_no_curation = TUGrazRDMRecordPermissionPolicy(
+            "preview",
+            record=MockRecord(),
+        )
+        assert not policy_no_curation.allows(identity_curation_moderator)
+        assert not policy_no_curation.allows(identity_anon)
+
+
+@pytest.mark.parametrize(
+    ("action", "requires_community"),
+    [
+        ("create", False),
+        ("submit_record", True),
+        ("request_membership", True),
+    ],
+)
+def test_community_tugraz_authentication_actions(  # noqa: PLR0913, PLR0917
+    base_app: Flask,
+    action: str,
+    requires_community: bool,  # noqa: FBT001
+    mock_community_open: SimpleNamespace,
+    identity_anon: AnonymousIdentity,
+    identity_generic_authenticated: Identity,
+    identity_tugraz_authenticated: Identity,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Test custom community policies."""
+    monkeypatch.setattr(
+        generators_mod,
+        "current_roles",
+        [SimpleNamespace(name="member"), SimpleNamespace(name="owner")],
+    )
+    with base_app.app_context():
+        base_app.config["COMMUNITIES_ALLOW_MEMBERSHIP_REQUESTS"] = True
+        kwargs = {"record": mock_community_open} if requires_community else {}
+        policy = TUGrazCommunityPermissionPolicy(action, **kwargs)
+        # Anonymous -> denied
+        assert not policy.allows(identity_anon)
+        # Generic authenticated user (non-TU Graz) -> denied
+        assert not policy.allows(identity_generic_authenticated)
+        # TU Graz-authenticated user -> granted
+        assert policy.allows(identity_tugraz_authenticated)
