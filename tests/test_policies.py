@@ -12,6 +12,7 @@ from collections.abc import Iterable
 
 from invenio_communities.permissions import CommunityPermissionPolicy
 from invenio_rdm_records.services.permissions import RDMRecordPermissionPolicy
+from invenio_records_permissions.generators import SameAs
 from invenio_records_permissions.policies import BasePermissionPolicy
 
 from invenio_config_tugraz.permissions.policies import (
@@ -75,6 +76,32 @@ def ensure_need_labels_synced(
             raise ValueError(msg)
 
 
+def _get_base_generators_from_same_as(
+    generators: list,
+    policy: type[BasePermissionPolicy],
+) -> set:
+    to_remove = []
+    repeat = False
+    for gen in generators:
+        if isinstance(gen, SameAs):
+            for same_as_gen in gen._generators(  # noqa: SLF001
+                permission_policy=policy,
+            ):
+                generators.append(same_as_gen)
+                if isinstance(same_as_gen, SameAs):
+                    repeat = True
+            to_remove.append(gen)
+
+    if to_remove:
+        for gen in to_remove:
+            generators.remove(gen)
+
+    if repeat:
+        return _get_base_generators_from_same_as(generators, policy)
+
+    return {type(gen) for gen in generators}
+
+
 def ensure_policies_synced(
     tugraz_policy: type[BasePermissionPolicy],
     invenio_policy: type[BasePermissionPolicy],
@@ -121,7 +148,19 @@ def ensure_policies_synced(
 
         # permission-Generators don't implement equality checks for their instances
         # we can however compare which types (classes) of Generators are used...
-        if {type(gen) for gen in tugraz_can} != {type(gen) for gen in invenio_can}:
+        tugraz_generators = set()
+        invenio_generators = set()
+        for gen in tugraz_can:
+            tugraz_generators.update(
+                _get_base_generators_from_same_as([gen], tugraz_policy),
+            )
+
+        for gen in invenio_can:
+            invenio_generators.update(
+                _get_base_generators_from_same_as([gen], invenio_policy),
+            )
+
+        if tugraz_generators != invenio_generators:
             msg = f"""
             permission-policy for `{can_name}` differs between TU-Graz and invenio
             if this is intentional, add to corresponding ALLOWED_DIFFERENCES_... in test-file
