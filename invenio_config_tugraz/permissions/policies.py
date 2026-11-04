@@ -40,6 +40,7 @@ from invenio_communities.generators import (
     CommunitySelfMember,
     IfCommunityDeleted,
     IfRecordSubmissionPolicyClosed,
+    IfCommunityAllowsMembershipRequests,
 )
 from invenio_communities.generators import IfRestricted as IfRestrictedCommunity
 from invenio_communities.generators import (
@@ -82,6 +83,7 @@ from invenio_records_permissions.generators import (
     Disable,
     IfConfig,
     SystemProcess,
+    SameAs,
 )
 from invenio_records_permissions.policies.records import RecordPermissionPolicy
 from invenio_records_resources.services.files.generators import IfTransferType
@@ -125,9 +127,9 @@ class TUGrazRDMRecordPermissionPolicy(RecordPermissionPolicy):
         AccessGrant("manage"),
         SystemProcess(),
     ]
-    can_curate = can_manage + [AccessGrant("edit"), SecretLinks("edit")]
-    can_review = can_curate + [SubmissionReviewer()]
-    can_preview = can_curate + [
+    can_curate = SameAs("can_manage") + [AccessGrant("edit"), SecretLinks("edit")]
+    can_review = SameAs("can_curate") + [SubmissionReviewer()]
+    can_preview = SameAs("can_curate") + [
         AccessGrant("preview"),
         RequestReviewers(),
         SecretLinks("preview"),
@@ -135,7 +137,7 @@ class TUGrazRDMRecordPermissionPolicy(RecordPermissionPolicy):
         UserManager,
         IfCurationRecordBasedExists(then_=[CurationModerators()], else_=[]),
     ]
-    can_view = can_preview + [
+    can_view = SameAs("can_preview") + [
         AccessGrant("view"),
         SecretLinks("view"),
         SubmissionReviewer(),
@@ -146,7 +148,7 @@ class TUGrazRDMRecordPermissionPolicy(RecordPermissionPolicy):
     ]
 
     can_tugraz_authenticated = [TUGrazAuthenticatedUser(), SystemProcess()]
-    can_authenticated = can_tugraz_authenticated
+    can_authenticated = SameAs("can_tugraz_authenticated")
     can_all = [
         AnyUser(),
         SystemProcess(),
@@ -165,54 +167,56 @@ class TUGrazRDMRecordPermissionPolicy(RecordPermissionPolicy):
     #
     # Records - reading and creating
     #
-    can_search = can_all
-    can_read = [IfRestricted("record", then_=can_view, else_=can_all)]
+    can_search = SameAs("can_all")
+    can_read = [
+        IfRestricted("record", then_=SameAs("can_view"), else_=SameAs("can_all")),
+    ]
 
     can_read_deleted = [
-        IfRecordDeleted(then_=[UserManager, SystemProcess()], else_=can_read),
+        IfRecordDeleted(then_=[UserManager, SystemProcess()], else_=SameAs("can_read")),
     ]
-    can_read_deleted_files = can_read_deleted
-    can_media_read_deleted_files = can_read_deleted_files
+    can_read_deleted_files = SameAs("can_read_deleted")
+    can_media_read_deleted_files = SameAs("can_read_deleted_files")
     can_read_files = [
-        IfRestricted("files", then_=can_view, else_=can_all),
+        IfRestricted("files", then_=SameAs("can_view"), else_=SameAs("can_all")),
         ResourceAccessToken("read"),
     ]
     can_get_content_files = [
-        IfTransferType(LOCAL_TRANSFER_TYPE, can_read_files),
+        IfTransferType(LOCAL_TRANSFER_TYPE, SameAs("can_read_files")),
         SystemProcess(),
     ]
-    can_create = can_tugraz_authenticated
+    can_create = SameAs("can_tugraz_authenticated")
 
     can_search_revisions = [Administration()]
 
     #
     # Drafts
     #
-    can_search_drafts = can_tugraz_authenticated
-    can_read_draft = can_preview
-    can_draft_read_files = can_preview + [ResourceAccessToken("read")]
-    can_update_draft = can_review
+    can_search_drafts = SameAs("can_tugraz_authenticated")
+    can_read_draft = SameAs("can_preview")
+    can_draft_read_files = SameAs("can_preview") + [ResourceAccessToken("read")]
+    can_update_draft = SameAs("can_review")
     can_draft_create_files = [
-        IfTransferType(LOCAL_TRANSFER_TYPE, can_review),
-        IfTransferType(MULTIPART_TRANSFER_TYPE, can_review),
+        IfTransferType(LOCAL_TRANSFER_TYPE, SameAs("can_review")),
+        IfTransferType(MULTIPART_TRANSFER_TYPE, SameAs("can_review")),
         SystemProcess(),
     ]
     can_draft_set_content_files = [
-        IfTransferType(LOCAL_TRANSFER_TYPE, can_review),
-        IfTransferType(MULTIPART_TRANSFER_TYPE, can_review),
+        IfTransferType(LOCAL_TRANSFER_TYPE, SameAs("can_review")),
+        IfTransferType(MULTIPART_TRANSFER_TYPE, SameAs("can_review")),
         SystemProcess(),
     ]
     can_draft_get_content_files = [
-        IfTransferType(LOCAL_TRANSFER_TYPE, can_draft_read_files),
+        IfTransferType(LOCAL_TRANSFER_TYPE, SameAs("can_draft_read_files")),
         SystemProcess(),
     ]
     can_draft_commit_files = [
-        IfTransferType(LOCAL_TRANSFER_TYPE, can_review),
-        IfTransferType(MULTIPART_TRANSFER_TYPE, can_review),
+        IfTransferType(LOCAL_TRANSFER_TYPE, SameAs("can_review")),
+        IfTransferType(MULTIPART_TRANSFER_TYPE, SameAs("can_review")),
         SystemProcess(),
     ]
-    can_draft_update_files = can_review
-    can_draft_delete_files = can_review
+    can_draft_update_files = SameAs("can_review")
+    can_draft_delete_files = SameAs("can_review")
 
     can_draft_get_file_transfer_metadata = [SystemProcess()]
     can_draft_update_file_transfer_metadata = [SystemProcess()]
@@ -220,14 +224,24 @@ class TUGrazRDMRecordPermissionPolicy(RecordPermissionPolicy):
     can_manage_files = [
         IfConfig(
             "RDM_ALLOW_METADATA_ONLY_RECORDS",
-            then_=[IfNewRecord(then_=can_tugraz_authenticated, else_=can_review)],
+            then_=[
+                IfNewRecord(
+                    then_=SameAs("can_tugraz_authenticated"),
+                    else_=SameAs("can_review"),
+                ),
+            ],
             else_=[],
         ),
     ]
     can_manage_record_access = [
         IfConfig(
             "RDM_ALLOW_RESTRICTED_RECORDS",
-            then_=[IfNewRecord(then_=can_tugraz_authenticated, else_=can_review)],
+            then_=[
+                IfNewRecord(
+                    then_=SameAs("can_tugraz_authenticated"),
+                    else_=SameAs("can_review"),
+                ),
+            ],
             else_=[],
         ),
     ]
@@ -235,23 +249,23 @@ class TUGrazRDMRecordPermissionPolicy(RecordPermissionPolicy):
     #
     # PIDs
     #
-    can_pid_create = can_review
-    can_pid_register = can_review
-    can_pid_update = can_review
-    can_pid_discard = can_review
-    can_pid_delete = can_review
+    can_pid_create = SameAs("can_review")
+    can_pid_register = SameAs("can_pid_create")
+    can_pid_update = SameAs("can_pid_create")
+    can_pid_discard = SameAs("can_pid_create")
+    can_pid_delete = SameAs("can_pid_create")
     can_pid_manage = [SystemProcess()]
 
     #
     # Actions
     #
-    can_edit = [IfDeleted(then_=[Disable()], else_=can_curate)]
-    can_delete_draft = can_curate
+    can_edit = [IfDeleted(then_=[Disable()], else_=SameAs("can_curate"))]
+    can_delete_draft = SameAs("can_curate")
     can_new_version = [
         IfConfig(
             "RDM_ALLOW_EXTERNAL_DOI_VERSIONING",
-            then_=can_curate,
-            else_=[IfExternalDOIRecord(then_=[Disable()], else_=can_curate)],
+            then_=SameAs("can_curate"),
+            else_=[IfExternalDOIRecord(then_=[Disable()], else_=SameAs("can_curate"))],
         ),
     ]
     can_publish = [
@@ -259,34 +273,36 @@ class TUGrazRDMRecordPermissionPolicy(RecordPermissionPolicy):
             "RDM_COMMUNITY_REQUIRED_TO_PUBLISH",
             then_=[
                 IfAtLeastOneCommunity(
-                    then_=can_review,
+                    then_=SameAs("can_review"),
                     else_=[Administration(), SystemProcess()],
                 ),
             ],
-            else_=can_review,
+            else_=SameAs("can_review"),
         ),
     ]
-    can_lift_embargo = can_manage
+    can_lift_embargo = SameAs("can_manage")
 
     #
     # Record communities
     #
-    can_add_community = can_manage
-    can_remove_community_ = [
-        RecordOwners(),
-        CommunityCurators(),
-        SystemProcess(),
+    can_add_community = SameAs("can_manage")
+    can_remove_community_from_record_ = [
+        IfConfig(
+            "RDM_ALLOW_OWNERS_REMOVE_COMMUNITY_FROM_RECORD",
+            then_=[RecordOwners(), CommunityCurators(), SystemProcess()],
+            else_=[CommunityCurators(), SystemProcess()],
+        ),
     ]
-    can_remove_community = [
+    can_remove_community_from_record = [
         IfConfig(
             "RDM_COMMUNITY_REQUIRED_TO_PUBLISH",
             then_=[
                 IfOneCommunity(
                     then_=[Administration(), SystemProcess()],
-                    else_=can_remove_community_,
+                    else_=SameAs("can_remove_community_from_record_"),
                 ),
             ],
-            else_=can_remove_community_,
+            else_=SameAs("can_remove_community_from_record_"),
         ),
     ]
     can_remove_record = [CommunityCurators(), Administration(), SystemProcess()]
@@ -295,32 +311,32 @@ class TUGrazRDMRecordPermissionPolicy(RecordPermissionPolicy):
     #
     # Media files - draft
     #
-    can_draft_media_create_files = can_review
-    can_draft_media_read_files = can_review
+    can_draft_media_create_files = SameAs("can_review")
+    can_draft_media_read_files = SameAs("can_review")
     can_draft_media_set_content_files = [
-        IfTransferType(LOCAL_TRANSFER_TYPE, can_review),
+        IfTransferType(LOCAL_TRANSFER_TYPE, SameAs("can_review")),
         SystemProcess(),
     ]
     can_draft_media_get_content_files = [
-        IfTransferType(LOCAL_TRANSFER_TYPE, can_preview),
+        IfTransferType(LOCAL_TRANSFER_TYPE, SameAs("can_preview")),
         SystemProcess(),
     ]
     can_draft_media_commit_files = [
-        IfTransferType(LOCAL_TRANSFER_TYPE, can_review),
+        IfTransferType(LOCAL_TRANSFER_TYPE, SameAs("can_review")),
         SystemProcess(),
     ]
-    can_draft_media_delete_files = can_review
-    can_draft_media_update_files = can_review
+    can_draft_media_delete_files = SameAs("can_review")
+    can_draft_media_update_files = SameAs("can_review")
 
     #
     # Media files - record
     #
     can_media_read_files = [
-        IfRestricted("record", then_=can_view, else_=can_all),
+        IfRestricted("record", then_=SameAs("can_view"), else_=SameAs("can_all")),
         ResourceAccessToken("read"),
     ]
     can_media_get_content_files = [
-        IfTransferType(LOCAL_TRANSFER_TYPE, can_read),
+        IfTransferType(LOCAL_TRANSFER_TYPE, SameAs("can_read")),
         SystemProcess(),
     ]
     can_media_create_files = [Disable()]
@@ -381,21 +397,24 @@ class TUGrazCommunityPermissionPolicy(BasePermissionPolicy):
     # cannot be implemented inside can_read - otherwise permission will
     # kick in before tombstone renders
     can_read_deleted = [
-        IfCommunityDeleted(then_=[UserManager, SystemProcess()], else_=can_read),
+        IfCommunityDeleted(
+            then_=[UserManager, SystemProcess()],
+            else_=SameAs("can_read"),
+        ),
     ]
 
     can_update = [CommunityOwners(), SystemProcess()]
 
-    can_delete = [CommunityOwners(), SystemProcess()]
+    can_delete = SameAs("can_update")
 
-    can_purge = [CommunityOwners(), SystemProcess()]
+    can_purge = SameAs("can_update")
 
     can_manage_access = [
-        IfConfig("COMMUNITIES_ALLOW_RESTRICTED", then_=can_update, else_=[]),
+        IfConfig("COMMUNITIES_ALLOW_RESTRICTED", then_=SameAs("can_update"), else_=[]),
     ]
 
     can_create_restricted = [
-        IfConfig("COMMUNITIES_ALLOW_RESTRICTED", then_=can_create, else_=[]),
+        IfConfig("COMMUNITIES_ALLOW_RESTRICTED", then_=SameAs("can_create"), else_=[]),
     ]
 
     can_search = [AnyUser(), SystemProcess()]
@@ -409,7 +428,7 @@ class TUGrazCommunityPermissionPolicy(BasePermissionPolicy):
 
     can_search_requests = [CommunityManagers(), CommunityCurators(), SystemProcess()]
 
-    can_rename = [CommunityOwners(), SystemProcess()]
+    can_rename = SameAs("can_update")
 
     can_submit_record = [
         IfRecordSubmissionPolicyClosed(
@@ -479,7 +498,7 @@ class TUGrazCommunityPermissionPolicy(BasePermissionPolicy):
         SystemProcess(),
     ]
 
-    can_members_bulk_delete = can_members_bulk_update
+    can_members_bulk_delete = SameAs("can_members_bulk_update")
 
     # Ability to update a single membership
     can_members_update = [
@@ -489,16 +508,19 @@ class TUGrazCommunityPermissionPolicy(BasePermissionPolicy):
     ]
 
     # Ability to delete a single membership
-    can_members_delete = can_members_update
+    can_members_delete = SameAs("can_members_update")
 
     can_invite_owners = [CommunityOwners(), SystemProcess()]
 
     # Abilities for featured communities
     can_featured_search = [AnyUser(), SystemProcess()]
-    can_featured_list = [Administration(), SystemProcess()]
-    can_featured_create = [Administration(), SystemProcess()]
-    can_featured_update = [Administration(), SystemProcess()]
-    can_featured_delete = [Administration(), SystemProcess()]
+
+    featured_managers = [Administration(), SystemProcess()]
+
+    can_featured_list = SameAs("featured_managers")
+    can_featured_create = SameAs("featured_managers")
+    can_featured_update = SameAs("featured_managers")
+    can_featured_delete = SameAs("featured_managers")
 
     # Used to hide at the moment the `is_verified` field. It should be set to
     # correct permissions based on which the field will be exposed only to moderators
@@ -506,7 +528,7 @@ class TUGrazCommunityPermissionPolicy(BasePermissionPolicy):
 
     # Permissions to crud community theming
     can_set_theme = [SystemProcess()]
-    can_delete_theme = can_set_theme
+    can_delete_theme = SameAs("can_set_theme")
 
     # Permissions to set if communities can have children
     can_manage_children = [SystemProcess()]
@@ -527,6 +549,21 @@ class TUGrazCommunityPermissionPolicy(BasePermissionPolicy):
                 ),
             ],
             else_=[SystemProcess()],
+        ),
+    ]
+
+    can_search_membership_requests = [
+        IfCommunityAllowsMembershipRequests(
+            then_=[CommunityManagers(), SystemProcess()],
+            else_=[Disable()],
+        ),
+    ]
+
+    can_manage_collections = [
+        IfConfig(
+            "COMMUNITIES_COLLECTIONS_ENABLED",
+            then_=SameAs("can_update") + [CommunityManagers()],
+            else_=[Disable()],
         ),
     ]
 
@@ -579,8 +616,8 @@ class TUGrazRDMRequestsPermissionPolicy(RDMRequestsPermissionPolicy):
             else_=RDMRequestsPermissionPolicy.can_read,
         ),
     ]
-    can_create_comment = can_read
-    can_reply_comment = can_create_comment
+    can_create_comment = SameAs("can_read")
+    can_reply_comment = SameAs("can_create_comment")
 
     # Update submit to also allow record reviewers/managers for curation requests
     can_action_submit = RDMRequestsPermissionPolicy.can_action_submit + [
@@ -590,5 +627,5 @@ class TUGrazRDMRequestsPermissionPolicy(RDMRequestsPermissionPolicy):
     # Add new actions
     can_action_review = RDMRequestsPermissionPolicy.can_action_accept
     can_action_critique = RDMRequestsPermissionPolicy.can_action_accept
-    can_action_resubmit = can_action_submit
-    can_action_pending_resubmission = can_action_resubmit
+    can_action_resubmit = SameAs("can_action_submit")
+    can_action_pending_resubmission = SameAs("can_action_resubmit")
