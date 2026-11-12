@@ -1,0 +1,70 @@
+{#
+  SPDX-FileCopyrightText: 2020-2026 Graz University of Technology.
+  SPDX-License-Identifier: MIT
+
+  Extends the marc21 publication uploads dashboard and fills the
+  `dashboard_actions` block with the "New upload" circle button
+  which is wired in via the MARC21_UPLOADS_TEMPLATE config.
+#}
+
+{%- extends "invenio_records_marc21/user_dashboard/uploads.html" %}
+{%- set title = _("Publication Uploads") %}
+{%- set page_description = _("Manage and publish your scientific publications.") %}
+{%- block dashboard_actions %}
+  <div class="dashboard-mobile-action-bar">
+    <a href="/publications/uploads/new" class="upload-new-circle">
+      <i class="upload icon"></i>
+    </a>
+    <div class="upload-new-label-wrap">
+      <span class="upload-new-title">{{ _("New upload") }}</span>
+    </div>
+  </div>
+  <div id="upload-new-circle-marc21"
+       class="upload-new-wrap"
+       style="display: inline-flex">
+    <a href="/publications/uploads/new" class="upload-new-circle">
+      <i class="upload icon"></i>
+    </a>
+    <div class="upload-new-label-wrap">
+      <span class="upload-new-title">{{ _("New upload") }}</span>
+    </div>
+  </div>
+  <div id="upload-new-circle-marc21-catalogue"
+       class="upload-new-wrap"
+       style="display:none">
+    <a href="/catalogue/uploads/new" class="upload-new-circle">
+      <i class="upload icon"></i>
+    </a>
+    <div class="upload-new-label-wrap">
+      <span class="upload-new-title">{{ _("New tree based upload") }}</span>
+    </div>
+  </div>
+
+  <script>
+  (function () {
+    function injectUploadCircle(id) {
+      var circle = document.getElementById(id);
+      if (!circle) return;
+      var filterRow = document.querySelector('#invenio-search-marc21-config .ui.grid > .row.computer.only');
+      if (!filterRow) return;
+      var firstCol = filterRow.querySelector('.column:first-child');
+      if (!firstCol) return;
+      circle.style.display = 'inline-flex';
+      firstCol.appendChild(circle);
+    }
+
+    var attempts = 0;
+    var interval = setInterval(function () {
+      attempts++;
+      var row = document.querySelector('#invenio-search-marc21-config .ui.grid > .row.computer.only');
+      if (row) {
+        clearInterval(interval);
+        injectUploadCircle('upload-new-circle-marc21');
+        injectUploadCircle('upload-new-circle-marc21-catalogue');
+      } else if (attempts > 40) {
+        clearInterval(interval);
+      }
+    }, 100);
+  })();
+  </script>
+{%- endblock dashboard_actions %}
