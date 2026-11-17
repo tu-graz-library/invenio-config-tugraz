@@ -15,6 +15,7 @@ from invenio_app_rdm.config import (
     STATS_EVENTS,
     STATS_QUERIES,
 )
+from invenio_curations.services.permissions import CurationRDMRequestsPermissionPolicy
 from invenio_global_search.oai import OAIGlobalSearch
 from invenio_i18n import gettext
 from invenio_i18n import lazy_gettext as _
@@ -37,7 +38,6 @@ from .facets import TUGRAZ_REQUESTS_FACETS
 from .notifications import TUGRAZ_NOTIFICATIONS_BUILDERS
 from .permissions import (
     TUGrazRDMRecordPermissionPolicy,
-    TUGrazRDMRequestsPermissionPolicy,
 )
 from .requests import TUGRAZ_REQUESTS_REGISTERED_EVENT_TYPES
 from .requests.events import TUGRAZ_REQUESTS_EVENTS_SERVICE_COMPONENTS
@@ -374,7 +374,7 @@ NOTIFICATIONS_BUILDERS = TUGRAZ_NOTIFICATIONS_BUILDERS
 RDM_PERMISSION_POLICY = TUGrazRDMRecordPermissionPolicy
 REQUESTS_EVENTS_SERVICE_COMPONENTS = TUGRAZ_REQUESTS_EVENTS_SERVICE_COMPONENTS
 REQUESTS_FACETS = TUGRAZ_REQUESTS_FACETS
-REQUESTS_PERMISSION_POLICY = TUGrazRDMRequestsPermissionPolicy
+REQUESTS_PERMISSION_POLICY = CurationRDMRequestsPermissionPolicy
 REQUESTS_REGISTERED_EVENT_TYPES = TUGRAZ_REQUESTS_REGISTERED_EVENT_TYPES
 
 # Stats — LOM and Marc21
