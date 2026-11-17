@@ -1,37 +1,33 @@
-..
-    Copyright (C) 2020 - 2022 Graz University of Technology.
-    Copyright (C) 2025-2026 Graz University of Technology.
+<!--
+SPDX-FileCopyrightText: 2020-2026 Graz University of Technology.
+SPDX-License-Identifier: MIT
+-->
 
-    invenio-config-tugraz is free software; you can redistribute it and/or
-    modify it under the terms of the MIT License; see LICENSE file for more
-    details.
+# Changes
 
-Changes
-=======
-
-Version v0.14.10 (released 2026-10-06)
+## Version v0.14.10 (released 2026-10-06)
 
 - feat(oauth): custom fullname info handler
 - refactor(oauth): extract user_info modifying methods
 
-Version v0.14.9 (released 2026-09-28)
+## Version v0.14.9 (released 2026-09-28)
 
 - fix(contact): close the help modal when opening the form
 
-Version v0.14.8 (released 2026-09-24)
+## Version v0.14.8 (released 2026-09-24)
 
 - fix(config): German admin label, Zammad-only contact
 
-Version v0.14.7 (released 2026-09-24)
+## Version v0.14.7 (released 2026-09-24)
 
 - fix(notices): make the notice card responsive
 - fix(config): add space to frontpage title
 
-Version v0.14.6 (released 2026-09-22)
+## Version v0.14.6 (released 2026-09-22)
 
 - fix(CHANGES): syntax problem with _
 
-Version v0.14.5 (released 2026-09-22)
+## Version v0.14.5 (released 2026-09-22)
 
 - fix(translation): mark strings as translatable
 - feat(setup): keep configuration of override here
@@ -58,17 +54,17 @@ Version v0.14.5 (released 2026-09-22)
 - feat: add administration, curations and search config defaults
 - feat: add OVERRIDE theme config defaults
 
-Version v0.14.4 (released 2026-06-12)
+## Version v0.14.4 (released 2026-06-12)
 
 - fix(compat): add generator
 
-Version v0.14.3 (released 2026-05-19)
+## Version v0.14.3 (released 2026-05-19)
 
 - feat: add OAISERVER configs
 - feat(auth): Keycloak custom user info serializer
 - feat(auth): Keycloak custom setup handler
 
-Version v0.14.2 (released 2026-04-27)
+## Version v0.14.2 (released 2026-04-27)
 
 - fix(types): python3.12 failes on dsl.Query
 - feat(setup): relax supported python version
@@ -76,32 +72,32 @@ Version v0.14.2 (released 2026-04-27)
 - fix(setup): pin invenio-app-rdm
 - fix: events cfg comment
 
-Version v0.14.1 (released 2026-03-13)
+## Version v0.14.1 (released 2026-03-13)
 
 - chore(setup): ignore ruff rule
 - feat(permission): new feature reply comment needs permission
 - feat(events): add TUG specific request events component
 - chore: update views
 
-Version v0.14.0 (released 2026-02-10)
+## Version v0.14.0 (released 2026-02-10)
 
 - setup: increase python version
 - fix: sync policies' can_preview
 - chore(setup): bump dependencies
 - fix: update TUG repository guide
 
-Version v0.13.3 (released 2026-02-04)
+## Version v0.13.3 (released 2026-02-04)
 
 - fix: black formatting
 - fix: update curations policy * update TUGraz Request policy to handle the case where curation requests don't exist because a privileged user created the draft
 - config: enable curation comments
 - policy: update curation policy for new state
 
-Version v0.13.2 (released 2025-10-22)
+## Version v0.13.2 (released 2025-10-22)
 
 - curations: add needed configs for curations feature
 
-Version v0.13.1 (released 2025-10-21)
+## Version v0.13.1 (released 2025-10-21)
 
 - fix(setup): pin for v13 dependencies
 - Revert "fix: sync policies' can_preview"
@@ -111,7 +107,7 @@ Version v0.13.1 (released 2025-10-21)
 - permission: add permissions for communities
 - fix: ruff PLC0415
 
-Version v0.13.0 (release 2025-06-16)
+## Version v0.13.0 (release 2025-06-16)
 
 - fix: changed permissions
 - global: upgrade rdm-records dep
@@ -119,18 +115,15 @@ Version v0.13.0 (release 2025-06-16)
 - permission: add missing can_*
 - setup: relax upper pins
 
-
-Version v0.12.5 (release 2024-07-29)
+## Version v0.12.5 (release 2024-07-29)
 
 - fix: permission for ip
 
-
-Version v0.12.3 (release 2024-07-25)
+## Version v0.12.3 (release 2024-07-25)
 
 - fix(tugraz_authenticated): missmatch of role name
 
-
-Version v0.12.2 (release 2024-07-19)
+## Version v0.12.2 (release 2024-07-19)
 
 - setup: introduce ruff
 - perm: implement single-ip and ip-network
@@ -139,47 +132,39 @@ Version v0.12.2 (release 2024-07-19)
 - fix deprecated `before_app_first_request`
 - setup: add support for python3.11 and 3.12
 
-
-Version v0.12.1 (release 2024-03-08)
+## Version v0.12.1 (release 2024-03-08)
 
 - setup: remove upper limit of rdm-records
 
-
-Version v0.12.0 (release 2023-11-10)
+## Version v0.12.0 (release 2023-11-10)
 
 - setup: remove python3.8 support
 - global: make it compatible with v12
 
-
-Version v0.11.0 (release 2023-04-20)
+## Version v0.11.0 (release 2023-04-20)
 
 - global: make package compatible with v11
 
+## Version v0.10.4 (release 2023-02-10)
 
-Version v0.10.4 (release 2023-02-10)
-
-
-
-
-Version v0.10.2 (release 2023-02-02)
+## Version v0.10.2 (release 2023-02-02)
 
 - change version name
 - footer: update guid
 
-
-Version v0.10.1 (release 2022-11-17)
+## Version v0.10.1 (release 2022-11-17)
 
 - global: add function
 
-Version 0.10.0 (released 2022-10-13)
+## Version 0.10.0 (released 2022-10-13)
 
 - global: migrate to v10 (#101)
 
-Version 0.9.1 (released 2022-05-30)
+## Version 0.9.1 (released 2022-05-30)
 
 - ci(publish): ping babel version (#99)
 
-Version 0.9.0 (released 2022-05-30)
+## Version 0.9.0 (released 2022-05-30)
 
 - config: adds new introduced configs v9
 - dep: compatible to v9 rdm
@@ -187,36 +172,36 @@ Version 0.9.0 (released 2022-05-30)
 - migrate setup py to cfg (#94)
 - fix: update email welcome template with SITE_UI_URL (#93)
 
-Version 0.8.4 (released 2022-03-11)
+## Version 0.8.4 (released 2022-03-11)
 
 - config: use gettext
 
-Version 0.8.3 (released 2022-03-10)
+## Version 0.8.3 (released 2022-03-10)
 
 - config: fix comment & import
 
-Version 0.8.2 (released 2022-03-03)
+## Version 0.8.2 (released 2022-03-03)
 
 - config: new introduced to v8 of invenioRDM
 
-Version 0.8.1 (released 2022-02-28)
+## Version 0.8.1 (released 2022-02-28)
 
 - config: set samesite cookie to strict
 - dep: bump in base dependencies
 
-Version 0.8.0 (released 2022-02-09)
+## Version 0.8.0 (released 2022-02-09)
 
 - dep: bump rdm-records version
 
-Version 0.7.1 (released 2021-12-07)
+## Version 0.7.1 (released 2021-12-07)
 
 - configs: adds new & changed configs for v7 #76
 
-Version 0.7.0 (released 2021-12-06)
+## Version 0.7.0 (released 2021-12-06)
 
 - fix: update blueprint reorder #74
 - dep: upgrade rdm-records version & OAI #72
 
-Version 0.1.0 (released TBD)
+## Version 0.1.0 (released TBD)
 
 - Initial public release.

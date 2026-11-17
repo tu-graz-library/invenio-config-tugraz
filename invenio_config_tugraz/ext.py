@@ -1,10 +1,5 @@
-# -*- coding: utf-8 -*-
-#
-# Copyright (C) 2020-2024 Graz University of Technology.
-#
-# invenio-config-tugraz is free software; you can redistribute it and/or
-# modify it under the terms of the MIT License; see LICENSE file for more
-# details.
+# SPDX-FileCopyrightText: 2020-2026 Graz University of Technology.
+# SPDX-License-Identifier: MIT
 
 """invenio module that adds tugraz configs."""
 
@@ -23,7 +18,7 @@ from .views import (
 class InvenioConfigTugraz:
     """invenio-config-tugraz extension."""
 
-    def __init__(self, app: Flask = None) -> None:
+    def __init__(self, app: Flask | None = None) -> None:
         """Extension initialization."""
         if app:
             self.init_app(app)
