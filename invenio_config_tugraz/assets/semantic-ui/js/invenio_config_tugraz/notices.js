@@ -1,9 +1,5 @@
-// This file is part of invenio-config-tugraz.
-// Copyright (C) 2026 Graz University of Technology.
-//
-// invenio-config-tugraz is free software; you can redistribute it and/or
-// modify it under the terms of the MIT License; see LICENSE file for more
-// details.
+// SPDX-FileCopyrightText: 2026 Graz University of Technology.
+// SPDX-License-Identifier: MIT
 
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
@@ -71,7 +67,9 @@ function Notices({ notices, ackLabel, onAcknowledge }) {
 
 function App({ initial, ackLabel, authenticated }) {
   const seen = authenticated ? [] : acknowledgedLocally();
-  const [notices, setNotices] = useState(initial.filter((n) => !seen.includes(n.key)));
+  const [notices, setNotices] = useState(
+    initial.filter((n) => !seen.includes(n.key)),
+  );
 
   const onAcknowledge = (key) => {
     setNotices((current) => current.filter((n) => n.key !== key));
@@ -82,7 +80,13 @@ function App({ initial, ackLabel, authenticated }) {
     }
   };
 
-  return <Notices notices={notices} ackLabel={ackLabel} onAcknowledge={onAcknowledge} />;
+  return (
+    <Notices
+      notices={notices}
+      ackLabel={ackLabel}
+      onAcknowledge={onAcknowledge}
+    />
+  );
 }
 
 const el = document.getElementById("notices");
@@ -93,6 +97,6 @@ if (el) {
       ackLabel={el.dataset.ackLabel}
       authenticated={el.dataset.authenticated === "true"}
     />,
-    el
+    el,
   );
 }
