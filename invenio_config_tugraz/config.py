@@ -1,10 +1,5 @@
-# -*- coding: utf-8 -*-
-#
-# Copyright (C) 2020-2026 Graz University of Technology.
-#
-# invenio-config-tugraz is free software; you can redistribute it and/or
-# modify it under the terms of the MIT License; see LICENSE file for more
-# details.
+# SPDX-FileCopyrightText: 2020-2026 Graz University of Technology.
+# SPDX-License-Identifier: MIT
 
 """invenio module that adds tugraz configs."""
 
@@ -48,7 +43,7 @@ from .requests.events import TUGRAZ_REQUESTS_EVENTS_SERVICE_COMPONENTS
 CONFIG_TUGRAZ_IP_NETWORK = ""
 """Allows access to users who are in the IP network."""
 
-CONFIG_TUGRAZ_IP_RANGES = []
+CONFIG_TUGRAZ_IP_RANGES: list[str] = []
 """Allows access to users whose range of IP address is listed.
 
 INVENIO_CONFIG_TUGRAZ_IP_RANGES =
@@ -68,7 +63,7 @@ CONFIG_TUGRAZ_ROUTES = {
 CONFIG_TUGRAZ_SHIBBOLETH = False
 """Set True if SAML is configured"""
 
-CONFIG_TUGRAZ_SINGLE_IPS = []
+CONFIG_TUGRAZ_SINGLE_IPS: list[str] = []
 """Allows access to users whose IP address is listed.
 
 INVENIO_CONFIG_TUGRAZ_SINGLE_IPS =
