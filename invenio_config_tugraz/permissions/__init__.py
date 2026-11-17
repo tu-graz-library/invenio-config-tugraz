@@ -11,11 +11,9 @@
 from .policies import (
     TUGrazCommunityPermissionPolicy,
     TUGrazRDMRecordPermissionPolicy,
-    TUGrazRDMRequestsPermissionPolicy,
 )
 
 __all__ = (
     "TUGrazCommunityPermissionPolicy",
     "TUGrazRDMRecordPermissionPolicy",
-    "TUGrazRDMRequestsPermissionPolicy",
 )
