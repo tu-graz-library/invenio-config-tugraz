@@ -6,7 +6,7 @@
 from .ext import InvenioConfigTugraz
 from .utils import get_identity_from_user_by_email
 
-__version__ = "0.14.10"
+__version__ = "0.14.11"
 
 __all__ = (
     "InvenioConfigTugraz",
