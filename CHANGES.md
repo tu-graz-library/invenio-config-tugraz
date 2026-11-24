@@ -5,6 +5,15 @@ SPDX-License-Identifier: MIT
 
 # Changes
 
+## Version v0.14.11 (released 2026-11-24)
+
+- chore: refactor
+- feat(ui): add new catalogue entry button
+- fix(setup): pin app-rdm <15.0.0
+- chore: replace copy-pasted requests policy
+- refactor: permissions derived from core classes
+- chore(setup): update app-rdm dependencies
+
 ## Version v0.14.10 (released 2026-10-06)
 
 - feat(oauth): custom fullname info handler
