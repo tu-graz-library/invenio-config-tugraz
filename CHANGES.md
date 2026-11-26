@@ -5,6 +5,11 @@ SPDX-License-Identifier: MIT
 
 # Changes
 
+## Version v0.14.12 (released 2026-11-26)
+
+- chore: move from invenio.cfg to config package
+- feat: custom storage implementation
+
 ## Version v0.14.11 (released 2026-11-24)
 
 - chore: refactor
