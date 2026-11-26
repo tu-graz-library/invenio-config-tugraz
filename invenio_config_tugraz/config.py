@@ -212,6 +212,7 @@ OAISERVER_ID_PREFIX = "repository.tugraz.at"
 
 CURATIONS_ENABLE_REQUEST_COMMENTS = True
 CURATIONS_PRIVILEGED_ROLES = ["administration", "bypass-curation"]
+CURATIONS_ALLOW_CHANGES_AFTER_ACCEPT = False
 
 # Invenio-Override
 # ================
