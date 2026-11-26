@@ -10,7 +10,13 @@ from invenio_app_rdm.config import (
     STATS_EVENTS,
     STATS_QUERIES,
 )
+from invenio_catalogue_marc21.services.links import DefaultServiceLinks
 from invenio_curations.services.permissions import CurationRDMRequestsPermissionPolicy
+from invenio_global_search.components import (
+    LOMToGlobalSearchComponent,
+    Marc21ToGlobalSearchComponent,
+    RDMToGlobalSearchComponent,
+)
 from invenio_global_search.oai import OAIGlobalSearch
 from invenio_i18n import gettext
 from invenio_i18n import lazy_gettext as _
@@ -21,6 +27,9 @@ from invenio_records_lom.config import (
     LOM_STATS_QUERIES,
 )
 from invenio_records_lom.proxies import current_records_lom
+from invenio_records_lom.services.components import (
+    DefaultRecordsComponents as LOMDefaultRecordsComponents,
+)
 from invenio_records_marc21.config import (
     MARC21_STATS_AGGREGATIONS,
     MARC21_STATS_CELERY_TASKS,
@@ -28,7 +37,11 @@ from invenio_records_marc21.config import (
     MARC21_STATS_QUERIES,
 )
 from invenio_records_marc21.proxies import current_records_marc21
+from invenio_records_marc21.services.components import (
+    DefaultRecordsComponents as Marc21DefaultRecordsComponents,
+)
 
+from .components import TUGRAZ_RDM_RECORDS_SERVICE_COMPONENTS
 from .facets import TUGRAZ_REQUESTS_FACETS
 from .notifications import TUGRAZ_NOTIFICATIONS_BUILDERS
 from .permissions import (
@@ -347,6 +360,17 @@ GLOBAL_SEARCH_SCHEMAS = {
         "name_l10n": "OER",
     },
 }
+RDM_RECORDS_SERVICE_COMPONENTS = TUGRAZ_RDM_RECORDS_SERVICE_COMPONENTS + [
+    RDMToGlobalSearchComponent,
+]
+LOM_RECORDS_SERVICE_COMPONENTS = LOMDefaultRecordsComponents + [
+    LOMToGlobalSearchComponent,
+]
+MARC21_RECORDS_SERVICE_COMPONENTS = Marc21DefaultRecordsComponents + [
+    Marc21ToGlobalSearchComponent,
+]
+
+SEARCH_UI_SEARCH_TEMPLATE = "invenio_records_global_search/search/search.html"
 
 # Invenio-Records-Marc21
 # ======================
@@ -361,6 +385,12 @@ LOM_SEARCH_NAV_TEMPLATE = "invenio_override/search_nav.html"
 GLOBAL_SEARCH_NAV_TEMPLATE = "invenio_override/search_nav.html"
 MARC21_UPLOADS_TEMPLATE = "invenio_records_marc21/uploads.html"
 LOM_UPLOADS_TEMPLATE = "invenio_override/datamodels/lom_uploads.html"
+
+# Invenio-Catalogue-Marc21
+# ======================
+# See https://github.com/tu-graz-library/invenio-catalogue-marc21
+MARC21_RECORDS_SERVICE_LINKS = DefaultServiceLinks
+
 
 # Invenio-Curations — permissions and requests
 # =============================================
@@ -545,3 +575,11 @@ the downloads will be processed by flask first.
 
 FILES_REST_STORAGE_FACTORY = storage_factory
 """Set the storage factory implementation."""
+
+# V14 Features not enabled yet
+# ============================
+
+REQUESTS_REVIEWERS_ENABLED = False
+RDM_RECORDS_REQUIRE_SECRET_LINKS_EXPIRATION = False
+RDM_REQUEST_RECORD_DELETION_ENABLED = False
+RDM_IMMEDIATE_RECORD_DELETION_ENABLED = False
